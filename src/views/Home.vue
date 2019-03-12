@@ -1,18 +1,42 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="Home">
+    <Navbar @nav="scroll($event)"/>
+    <Banner/>
+    <About id="about" />
+    <Vision id="vision" />
+    <Mission id="mission" />
+    <App id="app" />
+    <Footer id="contact" />
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import Navbar from '../components/Home/Navbar.vue'
+import Banner from '../components/Home/Banner.vue'
+import About from '../components/Home/About.vue'
+import Vision from '../components/Home/Vision.vue'
+import Footer from '../components/Home/Footer.vue'
+import Mission from '../components/Home/Mission.vue'
+import App from '../components/Home/AppDownload.vue'
 
 export default {
-  name: 'home',
+  name: 'Home',
   components: {
-    HelloWorld
+    Navbar,
+    Banner,
+    About,
+    Vision,
+    Footer,
+    Mission,
+    App
+  },
+  methods: {
+    scroll (el) {
+      console.log(el)
+      const VueScrollTo = require('vue-scrollto')
+
+      VueScrollTo.scrollTo(document.querySelector('#' + el), 800)
+    }
   }
 }
 </script>
