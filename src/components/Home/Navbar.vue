@@ -22,7 +22,7 @@
             <button @click="$emit('nav', 'contact')">Contract</button>
           </li>
           <li class="logIn">
-            <button>Login</button>
+            <button @click="sayhello">Login</button>
           </li>
           <li class="join">
             <button @click="sayhello">Join</button>
@@ -52,10 +52,10 @@ export default {
   },
   methods: {
     sayhello () {
-      alert('hello')
+      // this should route to log in page
+      this.$router.push('/dashboard')
     },
     burger () {
-      console.log('hello')
       if (document.querySelector('.nav-items > ul').className !== 'collapse') {
         document.querySelector('#burger').className = 'burgerbutton'
         this.toggle.collapse = true
@@ -112,8 +112,7 @@ li:first-child button {
 }
 
 .join button {
-  background: #1f95ba;
-  padding: 10px 40px 10px 40px;
+  background: linear-gradient(180deg, rgba(33,149,186,1) 0%, rgba(27,127,158,1) 100%);  padding: 10px 40px 10px 40px;
   border-radius: 20px;
   color: #fff;
 }
