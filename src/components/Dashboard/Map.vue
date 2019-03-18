@@ -96,7 +96,7 @@ export default {
       for (let i of Object.keys(this.buses)) {
         let position = this.buses[i].position
         let temp = new Pop(
-          new google.maps.LatLng(position.lat - 0.0006, position.lng),
+          new google.maps.LatLng(position.lat, position.lng),
           document.getElementById(i),
           'popup-' + i
         )
@@ -148,7 +148,7 @@ export default {
   z-index: 3;
   content: "";
   position: absolute;
-  top: -7px;
+  top: 3px;
   left: 0;
   /* Center the tip horizontally. */
   transform: translate(-50%, 0);
@@ -164,7 +164,7 @@ export default {
 .popup-bubble {
   /* Position the bubble centred-above its parent. */
   position: absolute;
-  top: 0;
+  top: 10px;
   left: 0;
   transform: translate(-50%, 0%);
   overflow-y: auto;
