@@ -22,10 +22,10 @@
             <button @click="$emit('nav', 'contact')">Contract</button>
           </li>
           <li class="logIn">
-            <button @click="sayhello">Login</button>
+            <button @click="login">Login</button>
           </li>
           <li class="join">
-            <button @click="sayhello">Join</button>
+            <button @click="login">Join</button>
           </li>
         </ul>
       </vs-col>
@@ -51,9 +51,9 @@ export default {
     }
   },
   methods: {
-    sayhello () {
+    login () {
       // this should route to log in page
-      this.$router.push('/dashboard')
+      this.$router.push('/login')
     },
     burger () {
       if (document.querySelector('.nav-items > ul').className !== 'collapse') {

@@ -14,7 +14,6 @@
 import Navbar from '../components/Home/Navbar.vue'
 import Banner from '../components/Home/Banner.vue'
 import About from '../components/Home/About.vue'
-import Vision from '../components/Home/Vision.vue'
 import Footer from '../components/Home/Footer.vue'
 import Mission from '../components/Home/Mission.vue'
 import App from '../components/Home/AppDownload.vue'
@@ -25,7 +24,6 @@ export default {
     Navbar,
     Banner,
     About,
-    Vision,
     Footer,
     Mission,
     App

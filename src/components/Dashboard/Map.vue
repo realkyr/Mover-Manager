@@ -39,7 +39,7 @@ export default {
     )
     // example of editing data in popup
     setInterval(() => {
-      this.buses['A1'].remainingStudent += 1
+      this.buses['A1'].position.lat += 5
     }, 1000)
   },
   data () {

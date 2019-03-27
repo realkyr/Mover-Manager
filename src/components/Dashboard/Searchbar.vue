@@ -20,10 +20,21 @@
 </template>
 
 <script>
+import firebase from 'firebase'
+import 'firebase/auth'
+import { mapGetters, mapActions } from 'vuex'
 export default {
   data () {
     return {
-      displayName: 'Phuree K'
+      displayName: this.getDisplayName()
+    }
+  },
+  methods: {
+    ...mapGetters([
+      'getUser'
+    ]),
+    getDisplayName () {
+      return `${this.getUser().information.fname} ${this.getUser().information.lname}`
     }
   }
 }
