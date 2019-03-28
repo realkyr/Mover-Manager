@@ -20,8 +20,9 @@
 </template>
 
 <script>
-import firebase from 'firebase'
+// import firebase from 'firebase'
 import 'firebase/auth'
+// eslint-disable-next-line no-unused-vars
 import { mapGetters, mapActions } from 'vuex'
 export default {
   data () {

@@ -7,7 +7,7 @@ import ManageBus from '@/views/ManageBus'
 import ManageStudent from '@/views/ManageStudent'
 import ManageFamily from '@/views/ManageFamily'
 
-import firebase from 'firebase'
+// import firebase from 'firebase'
 import 'firebase/auth'
 
 Vue.use(Router)
