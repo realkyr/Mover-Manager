@@ -25,7 +25,7 @@
             <button @click="login">Login</button>
           </li>
           <li class="join">
-            <button @click="login">Join</button>
+            <button @click="register">Join</button>
           </li>
         </ul>
       </vs-col>
@@ -54,6 +54,9 @@ export default {
     login () {
       // this should route to log in page
       this.$router.push('/login')
+    },
+    register () {
+      this.$router.push('/register')
     },
     burger () {
       if (document.querySelector('.nav-items > ul').className !== 'collapse') {

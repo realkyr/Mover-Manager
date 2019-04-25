@@ -13,6 +13,7 @@ export default {
 <style>
 @import url('https://fonts.googleapis.com/css?family=Poppins:400,600,700,900');
 @import url('https://fonts.googleapis.com/css?family=Prompt');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 
 #app {
   font-family: 'Poppins', sans-serif;

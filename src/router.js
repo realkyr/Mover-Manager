@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/views/Home'
 import Login from '@/views/Login'
+import Register from '@/views/Register'
 import Overview from '@/views/Overview'
 import ManageBus from '@/views/ManageBus'
 import ManageStudent from '@/views/ManageStudent'
@@ -25,6 +26,11 @@ let router = new Router({
       path: '/login',
       name: 'Login',
       component: Login
+    },
+    {
+      path: '/register',
+      name: 'register',
+      component: Register
     },
     {
       path: '/dashboard',
