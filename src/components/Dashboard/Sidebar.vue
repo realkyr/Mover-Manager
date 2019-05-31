@@ -1,7 +1,7 @@
 <template>
   <div class="sidebar">
     <!-- <vs-col vs-type="flex" vs-justify="center"> -->
-    <div class="d-flex justify-content-center">
+    <div class="col-2 d-flex justify-content-center align-items-center">
       <ul>
         <router-link to="/dashboard" tag="li" active-class="active" class="navbtn" exact>
           <home width="18" height="18" />
