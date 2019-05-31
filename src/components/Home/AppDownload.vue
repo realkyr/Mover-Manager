@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="content">
     <div class="row justify-content-center">
       <h2>Coming Soon!</h2><br>
     </div>
@@ -20,7 +20,11 @@
 <style scoped>
 @import url(https://use.fontawesome.com/releases/v5.7.2/css/all.css);
 
-.container {
+.content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   background: #fafafa;
   padding-top: 5em;
   padding-bottom: 5em;
