@@ -1,12 +1,12 @@
 <template>
   <!-- <div class="container-fluid"> -->
     <div class="searchbar row">
-      <div class="col-1 mt-3 d-flex justify-content-center">
+      <div class="ml-5 mt-3 d-flex justify-content-center">
         <img id="logo" src="../../assets/logo/logo.png">
       <!-- </vs-col> -->
       </div>
       <!-- <vs-col vs-w="5" vs-type="flex" vs-align="center"> -->
-      <div class="col-5 mt-2  d-flex align-items-center">
+      <div class="col-5 ml-5 mt-2  d-flex align-items-center">
         <div class="search-input">
           <input class="thai" type="text" placeholder="ค้นหารถ, นักเรียน">
           <i class="fas fa-search" aria-hidden="true"></i>
