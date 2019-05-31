@@ -1,7 +1,7 @@
 <template>
   <!-- <div class="container-fluid"> -->
     <div class="searchbar row">
-      <div class="col-2 mt-3 d-flex justify-content-center col-xs-2 col-sm-1 col-lg-1">
+      <div class="col-1 mt-3 d-flex justify-content-center">
         <img id="logo" src="../../assets/logo/logo.png">
       <!-- </vs-col> -->
       </div>
@@ -17,7 +17,7 @@
       <div class="col-2 offset-3 mt-3 d-flex justify-content-end align-items-center">
         <div class="avatar">
           <span class="dname">{{ displayName }}</span>
-          <button class="btn fa-lg" href="#">
+          <button class="btn fa-lg p-1" href="#">
             <i class="fas fa-user">
           </i></button>
         </div>
