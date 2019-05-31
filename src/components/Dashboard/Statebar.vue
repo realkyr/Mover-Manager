@@ -2,31 +2,37 @@
   <div class="thai statebar">
     <ul>
       <li>
-        <vs-row vs-type="flex" vs-justify="center" vs-align="center">
+        <!-- <vs-row vs-type="flex" vs-justify="center" vs-align="center"> -->
+        <div class="row pl-3 pr-3 d-flex justify-content-center align-items-center">
           <div id="schoolbus-icon">
             <schoolbus class="svg" width="19" height="19" />
           </div>
           <span class="label-state">รถทั้งหมด</span>
           <span id="allbus-number">{{allBus}}</span>
-        </vs-row>
+        <!-- </vs-row> -->
+        </div>
       </li>
       <li>
-        <vs-row vs-type="flex" vs-justify="center" vs-align="center">
+        <!-- <vs-row vs-type="flex" vs-justify="center" vs-align="center"> -->
+        <div class="row pl-3 pr-3 d-flex justify-content-center align-items-center">
           <div id="active-icon">
             <active class="svg" width="18" height="18" />
           </div>
           <span class="label-state">รถที่วิ่งอยู่</span>
           <span id="active-number">{{active}}</span>
-        </vs-row>
+        <!-- </vs-row> -->
+        </div>
       </li>
       <li>
-        <vs-row vs-type="flex" vs-justify="center" vs-align="center">
+        <!-- <vs-row vs-type="flex" vs-justify="center" vs-align="center"> -->
+        <div class="row pl-3 pr-3 d-flex justify-content-center align-items-center">
           <div id="road-icon">
             <road class="svg" width="18" height="18" />
           </div>
           <span class="label-state">เส้นทาง</span>
           <span id="road-number">{{road}}</span>
-        </vs-row>
+        <!-- </vs-row> -->
+        </div>
       </li>
     </ul>
   </div>
