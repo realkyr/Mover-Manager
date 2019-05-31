@@ -1,10 +1,10 @@
 <template>
   <div>
-    <vs-row vs-w="12" vs-type="flex" vs-justify="space-around" vs-align="center" class="navbar">
-      <vs-col vs-type="flex" vs-justify="center" vs-w="2">
+    <div class="navbar row d-flex justify-content-around align-items-center">
+      <div class="d-flex justify-content-center col-2">
         <img src="../../assets/logo/logo.png">
-      </vs-col>
-      <vs-col class="nav-items" vs-type="flex" vs-justify="flex-end" vs-lg="8">
+      </div>
+      <div class="nav-items d-flex justify-content-end col-1 col-md-8">
         <ul :class="toggle">
           <li>
             <button>Home</button>
@@ -28,16 +28,15 @@
             <button @click="register">Join</button>
           </li>
         </ul>
-      </vs-col>
-      <vs-col id="holder" vs-w="1">
+      </div>
+      <div id="holder" class="col-2">
         <button @click="burger" class="burgerbutton" id="burger">
           <span class="line"></span>
           <span class="line"></span>
           <span class="line"></span>
         </button>
-      </vs-col>
-      <vs-col vs-w="1" id="holder"></vs-col>
-    </vs-row>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -49,6 +48,12 @@ export default {
         collapse: true
       }
     }
+  },
+  mounted () {
+    this.toggleNav()
+    this.$nextTick(() => {
+      window.addEventListener('resize', this.toggleNav)
+    })
   },
   methods: {
     login () {
@@ -66,6 +71,12 @@ export default {
         document.querySelector('#burger').className = 'burgerbutton is-active'
         this.toggle.collapse = false
       }
+    },
+    toggleNav () {
+      if (screen.width > 768) this.toggle.collapse = false
+      else this.toggle.collapse = true
+
+      if (screen.height < 500) this.toggle.collapse = true
     }
   }
 }
@@ -81,7 +92,7 @@ img {
 }
 
 .navbar {
-  padding: 50px 1em 10px 0.7em;
+  padding: 50px 0 10px 0;
 }
 
 ul {
@@ -92,7 +103,7 @@ ul {
 @media screen and (max-width: 1024px) {
   ul {
     list-style-type: none;
-    width: 1000px;
+    padding: 0;
   }
 }
 
@@ -108,14 +119,15 @@ li:first-child button {
 .logIn {
   margin-top: 6px;
   margin-right: 0px;
-  margin-left: 50px;
+  margin-left: 40px;
   color: #000;
   border-right: 1px solid #e6e6e6;
   padding: 4px 20px 2px 0px;
 }
 
 .join button {
-  background: linear-gradient(180deg, rgba(33,149,186,1) 0%, rgba(27,127,158,1) 100%);  padding: 10px 40px 10px 40px;
+  background: linear-gradient(180deg, rgba(33,149,186,1) 0%, rgba(27,127,158,1) 100%);
+  padding: 5px 30px 5px 30px;
   border-radius: 20px;
   color: #fff;
 }
@@ -173,9 +185,19 @@ button:after {
 }
 
 @media screen and (max-width: 768px), screen and (max-height: 500px) {
+  .nav-items {
+    display: block !important;
+    flex: 0;
+  }
+
+  li.logIn {
+    padding: 0;
+  }
+
   #holder {
     display: block;
   }
+
   .nav-items li {
     display: block;
     margin: 0;
@@ -188,10 +210,11 @@ button:after {
 
   .nav-items ul {
     position: absolute;
-    left: 0;
-    top: 120px;
+    padding: 0;
+    margin-top: 2.77777px;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
     background: white;
-    width: 100%;
     text-align: center;
     transition: all 0.3s ease-in-out;
   }
