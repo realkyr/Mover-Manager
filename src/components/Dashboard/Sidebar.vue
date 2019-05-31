@@ -76,4 +76,7 @@ li {
 .active {
   border: 0.5pt solid rgb(235, 235, 235);
 }
+.navbtn.active {
+  background-color: rgba(155, 155, 155, 0.2);
+}
 </style>

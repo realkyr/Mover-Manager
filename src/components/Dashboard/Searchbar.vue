@@ -14,7 +14,7 @@
       <!-- </vs-col> -->
       </div>
       <!-- <vs-col vs-offset="3" vs-w="2" vs-type="flex" vs-justify="flex-end" vs-align="center"> -->
-      <div class="col-2 offset-3 mt-3 d-flex justify-content-end align-items-center">
+      <div class="col-2 offset-3 mt-2 d-flex justify-content-end align-items-center">
         <div class="avatar">
           <span class="dname">{{ displayName }}</span>
           <button class="btn fa-lg p-1" href="#">
