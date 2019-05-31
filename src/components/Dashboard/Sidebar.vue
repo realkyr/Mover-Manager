@@ -1,6 +1,6 @@
 <template>
   <div class="container-fluid">
-    <div class="sidebar mt-2">
+    <div class="sidebar">
       <div class="col-2 d-flex justify-content-center align-items-center">
         <ul>
           <router-link to="/dashboard" tag="li" active-class="active" class="navbtn" exact>
@@ -48,8 +48,6 @@ li {
   height: calc(100vh - 50pt);
   background: white;
   position: absolute;
-  border-top: 0.5pt solid rgb(236, 235, 243);
-  border-left: 0.5pt solid rgb(236, 235, 243);
   border-right: 0.5pt solid rgb(236, 235, 243);
 }
 

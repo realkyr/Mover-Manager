@@ -85,6 +85,7 @@ export default {
 .searchbar {
   height: 50pt;
   background: white;
+  border-bottom: 0.5pt solid rgb(236, 235, 243);
 }
 
 #logo {
