@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div>
     <Searchbar/>
     <Sidebar />
     <div style="margin-left: 50pt; padding: 20px" class="thai inside-container">
