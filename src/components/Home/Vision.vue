@@ -1,7 +1,5 @@
 <template>
-  <!-- <vs-row class="blueBar"> -->
   <div class="blueBar row">
-    <!-- <vs-col vs-offset="1" vs-xs="10" vs-sm="8" vs-lg="6"> -->
     <div class="col xs-10 sm-8 lg-6 offset-1">
       <p style="font-size: 16pt;">วิสัยทัศน์</p>
       <h2>Our Vision</h2>
@@ -10,14 +8,15 @@
         <br />
         อย่างมีคุณภาพและใช้งานได้จริงในทุกๆ ภาคส่วน
       </p>
-    <!-- </vs-col> -->
     </div>
     <img src="../../assets/pics/busScribble.png" />
-  <!-- </vs-row> -->
   </div>
 </template>
 
 <style scoped>
+.row {
+  margin-right: 0;
+}
 .blueBar {
   background: #2094b9;
   padding-top: 20px;

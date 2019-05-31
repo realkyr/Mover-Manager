@@ -2,26 +2,9 @@
   <div>
     <div class="row top">
       <div class="col-6 imgContainer">
-    <!-- <vs-row vs-w="12" class="top"> -->
-      <!-- <vs-col
-        vs-type="flex"
-        vs-justify="center"
-        vs-xs="12"
-        vs-sm="6"
-        vs-lg="6"
-        class="imgContainer"
-      > -->
         <img src="../../assets/pics/aboutus.jpg" />
-      <!-- </vs-col> -->
       </div>
       <div class="col-6 about-content">
-      <!-- <vs-col
-        vs-type="flex"
-        vs-justify="center"
-        vs-xs="12" vs-sm="6"
-        vs-lg="5"
-        class="textContainer"
-      > -->
         <p style="font-size: 18pt" class="thai">เกี่ยวกับเรา</p>
         <h2>About Mover</h2>
         <p class="content thai">
@@ -30,9 +13,7 @@
           ทั้งในภาคฝ่ายบริหารการศึกษาและฝ่ายบริการการศึกษา
         </p>
       </div>
-      <!-- </vs-col> -->
     </div>
-    <!-- </vs-row> -->
   </div>
 </template>
 
@@ -70,6 +51,9 @@ img {
 }
 
 @media screen and (max-width: 576px){
+  img {
+    max-height: 180px;
+  }
   .top {
     display: flex;
     flex-direction: column;
