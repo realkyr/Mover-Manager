@@ -1,7 +1,9 @@
 <template>
   <div>
-    <vs-row vs-type="flex" vs-justify="space-around" class="footer" vs-w="12">
-      <vs-col vs-offset="1" vs-w="4">
+    <!-- <vs-row vs-type="flex" vs-justify="space-around" class="footer" vs-w="12"> -->
+    <div class="footer row d-flex justify-content-around">
+      <!-- <vs-col vs-offset="1" vs-w="4"> -->
+      <div class="col-4 offset-1">
         <img src="../../assets/logo/logo.png"/>
         <p>
           Lorem ipsum dolor sit amet consectetur,
@@ -10,8 +12,10 @@
           delectus esse optio incidunt. Assumenda porro temporibus
           voluptate, aspernatur alias vitaes facilis?
         </p>
-      </vs-col>
-      <vs-col vs-offset="1" vs-w="5">
+      <!-- </vs-col> -->
+      </div>
+      <!-- <vs-col vs-offset="1" vs-w="5"> -->
+      <div class="col-5 offset-1">
         <h3>
           CONTACT US
         </h3>
@@ -22,19 +26,25 @@
           TEL: +66 945587588 <br />
           E-MAIL: yora46@gmail.com
         </p>
-        <vs-row class="social">
+        <!-- <vs-row class="social"> -->
+        <div class="social row ml-1">
           <a href="https://www.facebook.com/moversafety/"><i class="fab fa-facebook-f"></i></a>
           <a><i class="fab fa-twitter"></i></a>
           <a><i class="fas fa-envelope"></i></a>
-        </vs-row>
-      </vs-col>
-      <vs-col vs-w="1"></vs-col>
-    </vs-row>
-    <vs-row class="footer-tag" vs-w="12" vs-type="flex" vs-align="center">
+        <!-- </vs-row> -->
+        </div>
+      <!-- </vs-col> -->
+      </div>
+      <!-- <vs-col vs-w="1"></vs-col> -->
+      <div class="col-1"></div>
+    <!-- </vs-row> -->
+    </div>
+    <!-- <vs-row class="footer-tag" vs-w="12" vs-type="flex" vs-align="center"> -->
+    <div class="footer-tag row d-flex align-items-center"></div>
       <vs-col class="copyright" vs-offset="1" vs-w="12">
         Copyright © 2019 Mover. All Rights Reserved
       </vs-col>
-    </vs-row>
+    <!-- </vs-row> -->
   </div>
 </template>
 

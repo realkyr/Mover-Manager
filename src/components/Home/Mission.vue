@@ -1,22 +1,15 @@
 <template>
   <div>
     <div class="container">
-      <vs-row vs-w="12" vs-type="flex" vs-justify="center">
+      <!-- <vs-row vs-w="12" vs-type="flex" vs-justify="center"> -->
+      <div class="row-12 d-flex justify-content-center">
         <h2 id="title">Mover Features</h2>
-      </vs-row>
-      <vs-row vs-w="12">
-        <vs-col vs-type="flex" class="cardRight" vs-sm="12" vs-lg="6">
-          <div class="card">
-            <img src="../../assets/pics/forschool.jpg">
-            <h3>For School</h3>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Eligendi rem eaque reprehenderit veritatis perspiciatis,
-              repellat consectetur iste accusantium sit ab
-            </p>
-          </div>
-        </vs-col>
-        <vs-col vs-type="flex" class="cardLeft" vs-sm="12" vs-lg="6">
+      <!-- </vs-row> -->
+      </div>
+      <!-- <vs-row vs-w="12"> -->
+      <div class="row" style="margin-left: 12%;">
+        <!-- <vs-col vs-type="flex" class="cardRight" vs-sm="12" vs-lg="6"> -->
+        <div class="col-5 sm-12 lg-6 d-flex justify-content-start">
           <div class="card">
             <img src="../../assets/pics/forparent.jpg">
             <h3>For Parent</h3>
@@ -26,10 +19,26 @@
               repellat consectetur iste accusantium sit ab
             </p>
           </div>
-        </vs-col>
-      </vs-row>
-      <vs-row vs-w="12" class="top">
-        <vs-col
+        <!-- </vs-col> -->
+        </div>
+        <!-- <vs-col vs-type="flex" class="cardLeft" vs-sm="12" vs-lg="6"> -->
+        <div class="col-5 sm-12 lg-6 d-flex justify-content-end">
+          <div class="card">
+            <img src="../../assets/pics/forschool.jpg">
+            <h3>For School</h3>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              Eligendi rem eaque reprehenderit veritatis perspiciatis,
+              repellat consectetur iste accusantium sit ab
+            </p>
+          </div>
+        <!-- </vs-col> -->
+        </div>
+      <!-- </vs-row> -->
+      </div>
+      <!-- <vs-row vs-w="12" class="top"> -->
+      <div class="row top">
+        <!-- <vs-col
           vs-type="flex"
           vs-justify="center"
           vs-offset="1"
@@ -37,18 +46,20 @@
           vs-sm="5"
           vs-lg="5"
           class="textContainer"
-        >
-          <h2>Mission&Believe</h2>
+        > -->
+        <div class="textContainer col d-flex justify-content-center xs-12 sm-5 lg-5 offset-1">
+          <h2>Mission & Believe</h2>
           <p class="content thai">
             <ul>
               <li>เพื่อขับเคลื่อนการบริการทางด้านการศึกษาให้มีประสิทธิภาพ เหมาะกับการเป็นสถานศึกษาสมัยใหม่ 4.0</li>
               <li><p>เพิ่มความปลอดภัยให้กับลูกหลานของผู้ปกครอง <br/>ที่ใช้บริการของสถานศึกษา</p></li>
-              <li>ปรับเปลี่ยนโรงเรียนหรือสถานศึกษา(Digital Transformation)จากระบบการจัดการแบบเก่า ไปสู่ระบบการจัดการที่ทันสมัย</li>
+              <li>ปรับเปลี่ยนโรงเรียนหรือสถานศึกษา (Digital Transformation) จากระบบการจัดการแบบเก่า ไปสู่ระบบการจัดการที่ทันสมัย</li>
               <li>เป็นตัวช่วยพัฒนาคุณภาพของสถานศึกษา โดยการจัดหาเทคโนโลยีที่เหมาะสมกับปัญหานั้นๆ</li>
             </ul>
           </p>
-        </vs-col>
-        <vs-col
+        <!-- </vs-col> -->
+        </div>
+        <!-- <vs-col
           vs-type="flex"
           vs-justify="center"
           vs-align="center"
@@ -56,10 +67,13 @@
           vs-sm="6"
           vs-lg="6"
           class="imgContainer"
-        >
+        > -->
+        <div class="imgContainer col d-flex justify-content-center xs-12 sm-6 lg-6 align-items-center">
           <img style="z-index: -1" src="../../assets/pics/imgmission.jpg">
-        </vs-col>
-      </vs-row>
+        <!-- </vs-col> -->
+        </div>
+      <!-- </vs-row> -->
+      </div>
     </div>
     <div class="mapbanContain">
       <img id="mapbanner" src="../../assets/pics/mapbanner.jpg">
@@ -136,13 +150,13 @@ h3 {
   padding: 5em;
 }
 
-.cardRight {
+/* .cardRight {
   justify-content: flex-end;
 }
 
 .cardLeft {
   justify-content: flex-start;
-}
+} */
 
 .card {
   background: white;

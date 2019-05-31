@@ -1,15 +1,20 @@
 <template>
-  <vs-row class="blueBar">
-    <vs-col vs-offset="1" vs-xs="10" vs-sm="8" vs-lg="6">
-      <p style="font-size: 16pt;">วิศัยทัศน์</p>
+  <!-- <vs-row class="blueBar"> -->
+  <div class="blueBar row">
+    <!-- <vs-col vs-offset="1" vs-xs="10" vs-sm="8" vs-lg="6"> -->
+    <div class="col xs-10 sm-8 lg-6 offset-1">
+      <p style="font-size: 16pt;">วิสัยทัศน์</p>
       <h2>Our Vision</h2>
       <p class="content">
         มุ่งสู่การเป็นผู้ให้บริการเทคโนโลยีสมัยใหม่แก่ตลาดการศึกษา (Educational Industry)
-        อย่างมีคุณภาพและใช้งานได้จริงในทุกๆภาคส่วน
+        <br />
+        อย่างมีคุณภาพและใช้งานได้จริงในทุกๆ ภาคส่วน
       </p>
-    </vs-col>
+    <!-- </vs-col> -->
+    </div>
     <img src="../../assets/pics/busScribble.png" />
-  </vs-row>
+  <!-- </vs-row> -->
+  </div>
 </template>
 
 <style scoped>
