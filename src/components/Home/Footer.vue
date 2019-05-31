@@ -40,11 +40,14 @@
     <!-- </vs-row> -->
     </div>
     <!-- <vs-row class="footer-tag" vs-w="12" vs-type="flex" vs-align="center"> -->
-    <div class="footer-tag row d-flex align-items-center"></div>
-      <vs-col class="copyright" vs-offset="1" vs-w="12">
+    <div class="footer-tag row d-flex align-items-center">
+      <!-- <vs-col class="copyright" vs-offset="1" vs-w="12"> -->
+      <div class="copyright col offset-1">
         Copyright © 2019 Mover. All Rights Reserved
-      </vs-col>
+      <!-- </vs-col> -->
+      </div>
     <!-- </vs-row> -->
+    </div>
   </div>
 </template>
 
