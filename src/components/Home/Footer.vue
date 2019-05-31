@@ -1,46 +1,38 @@
 <template>
   <div>
-    <!-- <vs-row vs-type="flex" vs-justify="space-around" class="footer" vs-w="12"> -->
-    <div class="footer row d-flex justify-content-around">
-      <!-- <vs-col vs-offset="1" vs-w="4"> -->
-      <div class="col-4 offset-1">
-        <img src="../../assets/logo/logo.png"/>
-        <p>
-          Lorem ipsum dolor sit amet consectetur,
-          adipisicing elit. Quaerat nostrum suscipit
-          sit minus, quod eaque voluptates perferendis quia,
-          delectus esse optio incidunt. Assumenda porro temporibus
-          voluptate, aspernatur alias vitaes facilis?
-        </p>
-      <!-- </vs-col> -->
-      </div>
-      <!-- <vs-col vs-offset="1" vs-w="5"> -->
-      <div class="col-5 offset-1">
-        <h3>
-          CONTACT US
-        </h3>
-        <p class="address">
-          32/98 Grandvile Onnut 80 Lane 5 Sukhumvit 77 Rd.,<br/> Prawet BKK. 10250
-        </p>
-        <p class="tel">
-          TEL: +66 945587588 <br />
-          E-MAIL: yora46@gmail.com
-        </p>
-        <!-- <vs-row class="social"> -->
-        <div class="social row ml-1">
-          <a href="https://www.facebook.com/moversafety/"><i class="fab fa-facebook-f"></i></a>
-          <a><i class="fab fa-twitter"></i></a>
-          <a><i class="fas fa-envelope"></i></a>
-        <!-- </vs-row> -->
+    <div class="container-fluid">
+      <div class="footer row d-flex justify-content-around">
+        <div class="col-4 offset-1">
+          <img src="../../assets/logo/logo.png"/>
+          <p>
+            Lorem ipsum dolor sit amet consectetur,
+            adipisicing elit. Quaerat nostrum suscipit
+            sit minus, quod eaque voluptates perferendis quia,
+            delectus esse optio incidunt. Assumenda porro temporibus
+            voluptate, aspernatur alias vitaes facilis?
+          </p>
         </div>
-      <!-- </vs-col> -->
+        <div class="col-5 offset-1">
+          <h3>
+            CONTACT US
+          </h3>
+          <p class="address">
+            32/98 Grandvile Onnut 80 Lane 5 Sukhumvit 77 Rd.,<br/> Prawet BKK. 10250
+          </p>
+          <p class="tel">
+            TEL: +66 945587588 <br />
+            E-MAIL: yora46@gmail.com
+          </p>
+          <div class="social row ml-1">
+            <a href="https://www.facebook.com/moversafety/"><i class="fab fa-facebook-f"></i></a>
+            <a><i class="fab fa-twitter"></i></a>
+            <a><i class="fas fa-envelope"></i></a>
+          </div>
+        </div>
+        <div class="col-1"></div>
       </div>
-      <!-- <vs-col vs-w="1"></vs-col> -->
-      <div class="col-1"></div>
-    <!-- </vs-row> -->
     </div>
-    <!-- <vs-row class="footer-tag" vs-w="12" vs-type="flex" vs-align="center"> -->
-    <div class="footer-tag row d-flex align-items-center">
+    <div class="footer-tag container-fluid d-flex align-items-center">
       <!-- <vs-col class="copyright" vs-offset="1" vs-w="12"> -->
       <div class="copyright col offset-1">
         Copyright © 2019 Mover. All Rights Reserved
@@ -76,6 +68,7 @@ p {
   height: 80px;
   color: #C6C6C6;
   padding: 16px 0 16px 0;
+  width: 100%
 }
 
 .copyright {

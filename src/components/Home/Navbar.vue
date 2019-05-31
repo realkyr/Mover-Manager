@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container-fluid">
     <div class="navbar row d-flex justify-content-around align-items-center">
       <div class="d-flex justify-content-center col-2">
         <img src="../../assets/logo/logo.png">
@@ -93,6 +93,7 @@ img {
 
 .navbar {
   padding: 50px 0 10px 0;
+  width: 100%;
 }
 
 ul {
