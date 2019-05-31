@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="container">
+    <div class="mission-content">
       <div class="row-12 d-flex justify-content-center">
         <h2 id="title">Mover Features</h2>
       </div>
@@ -63,6 +63,13 @@
 </template>
 
 <style scoped>
+.mission-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding-top: 5em;
+}
 h2 {
   font-weight: 600;
   font: bolder;
@@ -190,6 +197,16 @@ h3 {
 }
 
 @media screen and (max-width: 768px) {
+  .top {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .textContainer {
+    margin: 0;
+  }
+
   #iphone {
     left: 10%;
   }
@@ -211,13 +228,10 @@ h3 {
   .top {
     padding: 2em 0em;
   }
-
-  .textContainer p {
-    font-size: 1em;
-  }
 }
 
 .content {
+  font-size: 1.2em;
   margin-top: 20px;
 }
 
