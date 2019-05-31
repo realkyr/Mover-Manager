@@ -1,6 +1,5 @@
 <template>
   <div class="sidebar">
-    <!-- <vs-col vs-type="flex" vs-justify="center"> -->
     <div class="col-2 d-flex justify-content-center align-items-center">
       <ul>
         <router-link to="/dashboard" tag="li" active-class="active" class="navbtn" exact>
@@ -16,7 +15,6 @@
           <family width="18" height="18" />
         </router-link>
       </ul>
-    <!-- </vs-col> -->
     </div>
   </div>
 </template>

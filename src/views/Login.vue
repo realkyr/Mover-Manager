@@ -42,10 +42,8 @@
       </form>
       <small class="alert-text thai" v-show="errorMsg">{{ errorMsg }}</small>
       <div class="logo-container">
-        <!-- <vs-button id="login" class="thai" @click="login" type="filled">เข้าสู่ระบบ</vs-button> -->
-        <div class="button btn-primary thai" id="login" @click="login" type="filled">เข้าสู่ระบบ</div>
+        <button type="button" id="login" class="btn thai text-light" @click="login">เข้าสู่ระบบ</button>
       </div>
-      <!-- <vs-row style="margin-top: 10px;" vs-type="flex" vs-justify="space-between"> -->
       <div class="mt-3 d-flex justify-content-between">
         <small class="thai">
           <router-link to="/register">สมัครสมาชิก</router-link>
@@ -55,14 +53,13 @@
             ลืมรหัสผ่าน?
           </router-link>
         </small>
-      <!-- </vs-row> -->
       </div>
     </div>
   </div>
 </template>
 
 <script>
-// import firebase from 'firebase'
+import firebase from 'firebase'
 import { mapActions } from 'vuex'
 import 'firebase/auth'
 import 'firebase/firestore'
@@ -80,37 +77,37 @@ export default {
     }
   },
   created: function () {
-    // firebase.auth().signOut()
+    firebase.auth().signOut()
   },
   methods: {
     ...mapActions(['setUser']),
     login () {
-      // firebase
-      //   .auth()
-      //   .signInWithEmailAndPassword(this.email, this.password)
-      //   .then(
-      //     user => {
-      //       if (user.user.emailVerified) {
-      //         firebase
-      //           .firestore()
-      //           .collection('managers')
-      //           .doc(user.user.uid)
-      //           .get()
-      //           .then(data => {
-      //             user['information'] = data.data()
-      //             this.setUser(user)
-      //             this.$router.replace('dashboard')
-      //           })
-      //       } else {
-      //         firebase.auth().signOut()
-      //         this.$router.replace('verify')
-      //       }
-      //     },
-      //     err => {
-      //       this.errorMsg = 'ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง'
-      //       console.log(err)
-      //     }
-      //   )
+      firebase
+        .auth()
+        .signInWithEmailAndPassword(this.email, this.password)
+        .then(
+          user => {
+            if (user.user.emailVerified) {
+              firebase
+                .firestore()
+                .collection('managers')
+                .doc(user.user.uid)
+                .get()
+                .then(data => {
+                  user['information'] = data.data()
+                  this.setUser(user)
+                  this.$router.replace('dashboard')
+                })
+            } else {
+              firebase.auth().signOut()
+              this.$router.replace('verify')
+            }
+          },
+          err => {
+            this.errorMsg = 'ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง'
+            console.log(err)
+          }
+        )
     }
   }
 }
@@ -135,7 +132,17 @@ export default {
 
 #login {
   text-align: center;
-  padding: 5%;
+}
+
+#login {
+  background: linear-gradient(180deg, rgba(33,149,186,1) 0%, rgba(27,127,158,1) 100%) !important;
+  border-radius: 18px;
+  width: 100%;
+  margin: 10px 0 10px 0;
+}
+
+#login:hover {
+  box-shadow: none;
 }
 
 .form {
