@@ -59,7 +59,7 @@
 </template>
 
 <script>
-// import firebase from 'firebase'
+import firebase from 'firebase'
 import { mapActions } from 'vuex'
 import 'firebase/auth'
 import 'firebase/firestore'
@@ -77,37 +77,37 @@ export default {
     }
   },
   created: function () {
-    // firebase.auth().signOut()
+    firebase.auth().signOut()
   },
   methods: {
     ...mapActions(['setUser']),
     login () {
-      // firebase
-      //   .auth()
-      //   .signInWithEmailAndPassword(this.email, this.password)
-      //   .then(
-      //     user => {
-      //       if (user.user.emailVerified) {
-      //         firebase
-      //           .firestore()
-      //           .collection('managers')
-      //           .doc(user.user.uid)
-      //           .get()
-      //           .then(data => {
-      //             user['information'] = data.data()
-      //             this.setUser(user)
-      //             this.$router.replace('dashboard')
-      //           })
-      //       } else {
-      //         firebase.auth().signOut()
-      //         this.$router.replace('verify')
-      //       }
-      //     },
-      //     err => {
-      //       this.errorMsg = 'ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง'
-      //       console.log(err)
-      //     }
-      //   )
+      firebase
+        .auth()
+        .signInWithEmailAndPassword(this.email, this.password)
+        .then(
+          user => {
+            if (user.user.emailVerified) {
+              firebase
+                .firestore()
+                .collection('managers')
+                .doc(user.user.uid)
+                .get()
+                .then(data => {
+                  user['information'] = data.data()
+                  this.setUser(user)
+                  this.$router.replace('dashboard')
+                })
+            } else {
+              firebase.auth().signOut()
+              this.$router.replace('verify')
+            }
+          },
+          err => {
+            this.errorMsg = 'ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง'
+            console.log(err)
+          }
+        )
     }
   }
 }
