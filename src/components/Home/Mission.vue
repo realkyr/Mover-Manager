@@ -197,6 +197,16 @@ h3 {
 }
 
 @media screen and (max-width: 768px) {
+  .top {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .textContainer {
+    margin: 0;
+  }
+
   #iphone {
     left: 10%;
   }
@@ -217,10 +227,6 @@ h3 {
 
   .top {
     padding: 2em 0em;
-  }
-
-  .textContainer p {
-    font-size: 2em;
   }
 }
 

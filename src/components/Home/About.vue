@@ -18,12 +18,17 @@
 </template>
 
 <style scoped>
+.imgContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .top {
   width: 100%;
   padding: 8em 0em 8em 0em;
 }
 img {
-  max-height: 400px;
+  max-height: 380px;
 }
 
 @media screen and (max-width: 1124px){
