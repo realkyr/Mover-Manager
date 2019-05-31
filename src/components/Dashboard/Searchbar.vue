@@ -1,21 +1,31 @@
 <template>
-  <div class="searchbar row">
-    <div class="col-2 mt-3 d-flex justify-content-center xs-2 sm-1 lg-1">
-      <img id="logo" src="../../assets/logo/logo.png">
-    </div>
-    <div class="col-5 mt-2  d-flex align-items-center">
-      <div class="search-input">
-        <input class="thai" type="text" placeholder="ค้นหารถ, นักเรียน">
-        <i class="fas fa-search" aria-hidden="true"></i>
+  <!-- <div class="container-fluid"> -->
+    <div class="searchbar row">
+      <div class="col-2 mt-3 d-flex justify-content-center col-xs-2 col-sm-1 col-lg-1">
+        <img id="logo" src="../../assets/logo/logo.png">
+      <!-- </vs-col> -->
       </div>
-    </div>
-    <div class="col mt-3 d-flex justify-content-end">
-      <div class="avatar">
-        <span class="dname">{{ displayName }}</span>
-        <button class="btn" href="#"><i class="fas fa-user"></i></button>
+      <!-- <vs-col vs-w="5" vs-type="flex" vs-align="center"> -->
+      <div class="col-5 mt-2  d-flex align-items-center">
+        <div class="search-input">
+          <input class="thai" type="text" placeholder="ค้นหารถ, นักเรียน">
+          <i class="fas fa-search" aria-hidden="true"></i>
+        </div>
+      <!-- </vs-col> -->
       </div>
+      <!-- <vs-col vs-offset="3" vs-w="2" vs-type="flex" vs-justify="flex-end" vs-align="center"> -->
+      <div class="col-2 offset-3 mt-3 d-flex justify-content-end align-items-center">
+        <div class="avatar">
+          <span class="dname">{{ displayName }}</span>
+          <button class="btn fa-lg" href="#">
+            <i class="fas fa-user">
+          </i></button>
+        </div>
+      <!-- </vs-col> -->
+      </div>
+      <!-- <vs-col vs-w="1"></vs-col> -->
     </div>
-  </div>
+  <!-- </div> -->
 </template>
 
 <script>
@@ -26,7 +36,8 @@ import { mapGetters, mapActions } from 'vuex'
 export default {
   data () {
     return {
-      displayName: this.getDisplayName()
+      // displayName: this.getDisplayName()
+      displayName: 'Phuree K.'
     }
   },
   methods: {
@@ -60,6 +71,7 @@ export default {
 
 .btn {
   display: inline-block;
+  line-height: 10px;
   height: 18pt;
   width: 18pt;
   border-radius: 50%;
