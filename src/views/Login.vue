@@ -42,7 +42,7 @@
       </form>
       <small class="alert-text thai" v-show="errorMsg">{{ errorMsg }}</small>
       <div class="logo-container">
-        <div class="button btn-primary thai" id="login" @click="login" type="filled">เข้าสู่ระบบ</div>
+        <button type="button" id="login" class="btn thai text-light" @click="login">เข้าสู่ระบบ</button>
       </div>
       <div class="mt-3 d-flex justify-content-between">
         <small class="thai">
@@ -132,7 +132,17 @@ export default {
 
 #login {
   text-align: center;
-  padding: 5%;
+}
+
+#login {
+  background: linear-gradient(180deg, rgba(33,149,186,1) 0%, rgba(27,127,158,1) 100%) !important;
+  border-radius: 18px;
+  width: 100%;
+  margin: 10px 0 10px 0;
+}
+
+#login:hover {
+  box-shadow: none;
 }
 
 .form {
