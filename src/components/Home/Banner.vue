@@ -1,11 +1,13 @@
 <template>
   <div>
-    <vs-row vs-w="12" vs-type="flex" vs-justify="center">
-      <h1>
-        <span>MOVER</span>
-        School Bus Security Platform.
-      </h1>
-    </vs-row>
+    <div class="row-12">
+      <div class="col">
+        <h1>
+          <span>MOVER</span>
+          School Bus Security Platform.
+        </h1>
+      </div>
+    </div>
     <div class="banner">
       <img class="school" :src="picture" />
     </div>
@@ -67,6 +69,13 @@ img {
 
 .mobile {
   display: none;
+}
+
+.banner {
+  width: 100%;
+}
+.banner img{
+  width: 100%;
 }
 
 @media screen and (max-width: 768px) {

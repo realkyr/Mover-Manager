@@ -1,19 +1,25 @@
 <template>
   <div class="container">
-    <vs-row vs-type="flex" vs-justify="center">
+    <div class="row justify-content-center">
+    <!-- <vs-row vs-type="flex" vs-justify="center"> -->
       <h2>Coming Soon!</h2><br>
-    </vs-row>
-    <vs-row vs-type="flex" vs-justify="center">
+    <!-- </vs-row> -->
+    </div>
+    <div class="row justify-content-center">
+    <!-- <vs-row vs-type="flex" vs-justify="center"> -->
       <h4>Download app from</h4>
-    </vs-row>
-    <vs-row vs-type="flex" vs-justify="center">
+    <!-- </vs-row> -->
+    </div>
+    <div class="row justify-content-center">
+    <!-- <vs-row vs-type="flex" vs-justify="center"> -->
       <div class="application">
         <i class="fab fa-google-play"></i> &nbsp; Play Store
       </div>
       <div class="application" id="appstore">
         <i class="fab fa-apple"></i> &nbsp; App Store
       </div>
-    </vs-row>
+    <!-- </vs-row> -->
+    </div>
   </div>
 </template>
 
