@@ -1,42 +1,39 @@
 <template>
   <div class="box">
-    <vs-card>
-      <div slot="header">
-        <div class="logo-container">
-          <img id="logo" src="../assets/logo/logo.png">
-        </div>
+    <div class="logo-container">
+      <img id="logo" src="../assets/logo/logo.png">
+    </div>
+    <hr />
+    <div class="input-control">
+      <div class="my-input-control">
+        <input v-model="email" class="thai" type="text" placeholder="E-Mail">
+        <i class="fas fa-envelope" aria-hidden="true"></i>
       </div>
-      <div>
-        <div class="input-control">
-          <div class="my-input-control">
-            <input v-model="email" class="thai" type="text" placeholder="E-Mail">
-            <i class="fas fa-envelope" aria-hidden="true"></i>
-          </div>
-          <div class="my-input-control">
-            <input v-model="fname" class="thai" type="text" placeholder="ชื่อ">
-            <i class="fas fa-user-circle" aria-hidden="true"></i>
-          </div>
-          <div class="my-input-control">
-            <input v-model="lname" class="thai" type="text" placeholder="นามสกุล">
-            <i class="fas fa-user-circle" aria-hidden="true"></i>
-          </div>
-          <div class="my-input-control">
-            <input v-model="phone" class="thai" type="text" placeholder="เบอร์โทรศัพท์">
-            <i class="fas fa-mobile-alt" aria-hidden="true"></i>
-          </div>
-          <div class="my-input-control">
-            <input v-model="password" class="thai" type="password" placeholder="รหัสผ่าน">
-            <i class="fas fa-lock" aria-hidden="true"></i>
-          </div>
-          <div class="my-input-control">
-            <input v-model="conPassword" class="thai" type="password" placeholder="ยืนยันรหัสผ่าน">
-            <i class="fas fa-lock" aria-hidden="true"></i>
-          </div>
-        </div>
-        <vs-button id="register" class="thai" @click="register">สมัครสมาชิก</vs-button>
-        <vs-button id="back" color="dark" type="flat" to="/login">ยกเลิก</vs-button>
+      <div class="my-input-control">
+        <input v-model="fname" class="thai" type="text" placeholder="ชื่อ">
+        <i class="fas fa-user-circle" aria-hidden="true"></i>
       </div>
-    </vs-card>
+      <div class="my-input-control">
+        <input v-model="lname" class="thai" type="text" placeholder="นามสกุล">
+        <i class="fas fa-user-circle" aria-hidden="true"></i>
+      </div>
+      <div class="my-input-control">
+        <input v-model="phone" class="thai" type="text" placeholder="เบอร์โทรศัพท์">
+        <i class="fas fa-mobile-alt" aria-hidden="true"></i>
+      </div>
+      <div class="my-input-control">
+      <input v-model="password" class="thai" type="password" placeholder="รหัสผ่าน">
+      <i class="fas fa-lock" aria-hidden="true"></i>
+      </div>
+      <div class="my-input-control">
+        <input v-model="conPassword" class="thai" type="password" placeholder="ยืนยันรหัสผ่าน">
+        <i class="fas fa-lock" aria-hidden="true"></i>
+      </div>
+    </div>
+    <div class="btn-group">
+      <button type="button" id="regiter" class="btn thai" @click="register">สมัครสมาชิก</button>
+      <button type="button" id="back" class="btn thai" @click="cancel">ยกเลิก</button>
+    </div>
   </div>
 </template>
 
@@ -65,6 +62,9 @@ export default {
       } else {
         this.$router.replace('Login')
       }
+    },
+    cancel () {
+      this.$router.replace('Login')
     }
   }
 }
@@ -73,6 +73,7 @@ export default {
 <style scoped>
 
 .box {
+  background: white;
   padding: 20px;
   position: absolute;
   left: 50%;
@@ -80,6 +81,7 @@ export default {
   transform: translate(-50%, -50%);
   display: block;
   width: 480px;
+  box-shadow: 0 4px 25px 0 rgba(0, 0, 0, 0.1);
 }
 
 #logo {
@@ -91,6 +93,7 @@ export default {
   display: flex;
   justify-content: center;
   margin: 10px 0 10px 0;
+  width: 100%;
 }
 
 .my-input-control {
@@ -139,7 +142,7 @@ input[type="password"]:focus + i {
 
 .input-control {
   position: relative;
-  margin-bottom: 15px;
+  margin: 15px 0 15px 0;
   width: 100%;
   padding: 0 70px 0 70px;
 }
@@ -156,14 +159,30 @@ input[type="password"]:focus + i {
 }
 
 #back {
+  color: black !important;
+  background: white !important;
   /* background: linear-gradient(180deg, rgba(33,149,186,1) 0%, rgba(27,127,158,1) 100%) !important; */
   border-radius: 18px;
   width: 100%;
-  /* margin: 20px 0 20px 0; */
 }
 
-.input-control {
-  padding: 0 40px 0 40px;
+#back:hover {
+  background: #d3d3d3;
+}
+
+.btn-group {
+  display: flex;
+  /* margin: 0 15px 0 15px; */
+  justify-content: center;
+  flex-direction: column;
+  padding: 0 70px 0 70px;
+}
+
+.btn {
+  margin: 10px 0 10px 0;
+  color: white;
+  border-radius: 18px !important;
+  background: linear-gradient(180deg, rgba(33,149,186,1) 0%, rgba(27,127,158,1) 100%) !important;
 }
 
 </style>
