@@ -42,10 +42,8 @@
       </form>
       <small class="alert-text thai" v-show="errorMsg">{{ errorMsg }}</small>
       <div class="logo-container">
-        <!-- <vs-button id="login" class="thai" @click="login" type="filled">เข้าสู่ระบบ</vs-button> -->
         <div class="button btn-primary thai" id="login" @click="login" type="filled">เข้าสู่ระบบ</div>
       </div>
-      <!-- <vs-row style="margin-top: 10px;" vs-type="flex" vs-justify="space-between"> -->
       <div class="mt-3 d-flex justify-content-between">
         <small class="thai">
           <router-link to="/register">สมัครสมาชิก</router-link>
@@ -55,7 +53,6 @@
             ลืมรหัสผ่าน?
           </router-link>
         </small>
-      <!-- </vs-row> -->
       </div>
     </div>
   </div>

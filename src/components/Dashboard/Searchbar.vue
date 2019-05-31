@@ -1,29 +1,20 @@
 <template>
-  <!-- <vs-row class="searchbar"> -->
   <div class="searchbar row">
-    <!-- <vs-col vs-type="flex" vs-justify="center" vs-align="center" vs-xs="2" vs-sm="1" vs-lg="1"> -->
     <div class="col-2 mt-3 d-flex justify-content-center xs-2 sm-1 lg-1">
       <img id="logo" src="../../assets/logo/logo.png">
-    <!-- </vs-col> -->
     </div>
-    <!-- <vs-col vs-w="5" vs-type="flex" vs-align="center"> -->
     <div class="col-5 mt-2  d-flex align-items-center">
       <div class="search-input">
         <input class="thai" type="text" placeholder="ค้นหารถ, นักเรียน">
         <i class="fas fa-search" aria-hidden="true"></i>
       </div>
-    <!-- </vs-col> -->
     </div>
-    <!-- <vs-col vs-offset="3" vs-w="2" vs-type="flex" vs-justify="flex-end" vs-align="center"> -->
     <div class="col mt-3 d-flex justify-content-end">
       <div class="avatar">
         <span class="dname">{{ displayName }}</span>
         <button class="btn" href="#"><i class="fas fa-user"></i></button>
       </div>
-    <!-- </vs-col> -->
     </div>
-    <!-- <vs-col vs-w="1"></vs-col> -->
-  <!-- </vs-row> -->
   </div>
 </template>
 
