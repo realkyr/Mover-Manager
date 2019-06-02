@@ -1,20 +1,22 @@
 <template>
-  <div class="sidebar">
-    <div class="col-2 d-flex justify-content-center align-items-center">
-      <ul>
-        <router-link to="/dashboard" tag="li" active-class="active" class="navbtn" exact>
-          <home width="18" height="18" />
-        </router-link>
-        <router-link to="/dashboard/bus" tag="li" active-class="active" class="navbtn" exact>
-          <schoolbus width="18" height="18" />
-        </router-link>
-        <router-link to="/dashboard/student" tag="li" active-class="active" class="navbtn" exact>
-          <student width="18" height="18" />
-        </router-link>
-        <router-link to="/dashboard/family" tag="li" active-class="active" class="navbtn" exact>
-          <family width="18" height="18" />
-        </router-link>
-      </ul>
+  <div class="container-fluid">
+    <div class="sidebar">
+      <div class="col-2 d-flex justify-content-center align-items-center">
+        <ul>
+          <router-link to="/dashboard" tag="li" active-class="active" class="navbtn" exact>
+            <home width="18" height="18" />
+          </router-link>
+          <router-link to="/dashboard/bus" tag="li" active-class="active" class="navbtn" exact>
+            <schoolbus width="18" height="18" />
+          </router-link>
+          <router-link to="/dashboard/student" tag="li" active-class="active" class="navbtn" exact>
+            <student width="18" height="18" />
+          </router-link>
+          <router-link to="/dashboard/family" tag="li" active-class="active" class="navbtn" exact>
+            <family width="18" height="18" />
+          </router-link>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
@@ -46,7 +48,7 @@ li {
   height: calc(100vh - 50pt);
   background: white;
   position: absolute;
-  border-top: 0.5pt solid rgb(236, 235, 243);
+  border-right: 0.5pt solid rgb(236, 235, 243);
 }
 
 .navbtn path {
@@ -73,5 +75,8 @@ li {
 
 .active {
   border: 0.5pt solid rgb(235, 235, 235);
+}
+.navbtn.active {
+  background-color: rgba(155, 155, 155, 0.2);
 }
 </style>

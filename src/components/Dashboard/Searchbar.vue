@@ -1,12 +1,12 @@
 <template>
   <!-- <div class="container-fluid"> -->
     <div class="searchbar row">
-      <div class="col-2 mt-3 d-flex justify-content-center col-xs-2 col-sm-1 col-lg-1">
+      <div class="ml-5 mt-3 d-flex justify-content-center">
         <img id="logo" src="../../assets/logo/logo.png">
       <!-- </vs-col> -->
       </div>
       <!-- <vs-col vs-w="5" vs-type="flex" vs-align="center"> -->
-      <div class="col-5 mt-2  d-flex align-items-center">
+      <div class="col-5 ml-5 mt-2  d-flex align-items-center">
         <div class="search-input">
           <input class="thai" type="text" placeholder="ค้นหารถ, นักเรียน">
           <i class="fas fa-search" aria-hidden="true"></i>
@@ -14,10 +14,10 @@
       <!-- </vs-col> -->
       </div>
       <!-- <vs-col vs-offset="3" vs-w="2" vs-type="flex" vs-justify="flex-end" vs-align="center"> -->
-      <div class="col-2 offset-3 mt-3 d-flex justify-content-end align-items-center">
+      <div class="col-2 offset-3 mt-2 d-flex justify-content-end align-items-center">
         <div class="avatar">
           <span class="dname">{{ displayName }}</span>
-          <button class="btn fa-lg" href="#">
+          <button class="btn fa-lg p-1" href="#">
             <i class="fas fa-user">
           </i></button>
         </div>
@@ -85,6 +85,7 @@ export default {
 .searchbar {
   height: 50pt;
   background: white;
+  border-bottom: 0.5pt solid rgb(236, 235, 243);
 }
 
 #logo {
