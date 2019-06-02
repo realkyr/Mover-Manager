@@ -7,7 +7,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     user: undefined,
-    info: undefined
+    info: undefined,
+    addressName: ''
   },
   mutations: {
     SET_USER (state, payload) {
@@ -18,9 +19,15 @@ export default new Vuex.Store({
     },
     CLEAR_USER (state) {
       state.user = undefined
+    },
+    SET_ADDRESSNAME (state, payload) {
+      state.addressName = payload
     }
   },
   actions: {
+    setAddress: ({ commit }, addName) => {
+      commit('SET_ADDRESSNAME', addName)
+    },
     setUser: ({ commit }, user) => {
       /*
       firebase.firestore().collection('managers').doc(user.uid).get().then((data) => {
