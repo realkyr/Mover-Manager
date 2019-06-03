@@ -74,6 +74,9 @@ export default {
   margin-right: 1em;
   font-size: 10pt;
   border-radius: 10px;
+  border: solid;
+  border-width: 0.5px;
+  border-color: rgb(228, 228, 228);
 }
 
 #schoolbus-icon,
