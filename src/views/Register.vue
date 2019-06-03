@@ -26,7 +26,7 @@
           <small v-show="errName" style="color:red;" class="alert-text thai"
           > {{ errName }} </small>
           <div class="my-input-control">
-            <input v-model="phone" class="thai" type="text" placeholder="เบอร์โทรศัพท์">
+            <input v-model="phone" class="thai" type="tel" placeholder="เบอร์โทรศัพท์" maxlength="10">
             <i class="fas fa-mobile-alt" aria-hidden="true"></i>
           </div>
           <small v-show="errPhone" style="color:red;" class="alert-text thai"
@@ -47,10 +47,7 @@
       </div>
       <div class="vl"></div>
       <div class="col">
-        <div class="search">
-          <input id="pac-input" ref="pac-input" type="text" placeholder="Enter a School name" v-model="$store.state.addressName">
-        </div>
-        <div id="myMap" ref="myMap"></div>
+        <Map />
       </div>
     </div>
     <div class="btn-group">
@@ -61,10 +58,14 @@
 </template>
 
 <script>
+import Map from '../components/Register/Map'
 /* eslint-disable no-undef */
-import axios from 'axios'
-import { mapActions } from 'vuex'
+// import axios from 'axios'
+// import { mapActions } from 'vuex'
 export default {
+  components: {
+    Map
+  },
   name: 'Register',
   metaInfo: {
     title: 'Register | Mover'
@@ -81,70 +82,10 @@ export default {
       conPassword: '',
       fname: '',
       lname: '',
-      phone: '',
-      initial_position: {
-        lat: 13.7122618,
-        lng: 100.65775
-      }
+      phone: ''
     }
   },
-  mounted () {
-    this.initMap()
-  },
   methods: {
-    ...mapActions(['setAddress']),
-    initMap () {
-      const map = new google.maps.Map(this.$refs['myMap'], {
-        center: this.initial_position,
-        zoom: 13,
-        streetViewControl: false,
-        mapTypeControl: false
-      })
-      const input = this.$refs['pac-input']
-      const autocomplete = new google.maps.places.Autocomplete(input)
-      // so that the autocomplete requests use the current map bounds for the
-      // bounds option in the request.
-      autocomplete.bindTo('bounds', map)
-      // เซ็ตดาต้าที่รีเทรินมาเมื่อยูสเซอร์เลือกสถานที่
-      autocomplete.setFields(
-        ['address_components', 'geometry', 'icon', 'name'])
-      const marker = new google.maps.Marker({
-        map: map,
-        anchorPoint: new google.maps.Point(0, -29),
-        draggable: true
-      })
-      // marker drag actions
-      marker.addListener('dragend', this.changeAddress)
-      autocomplete.addListener('place_changed', () => {
-        marker.setVisible(false)
-        const place = autocomplete.getPlace()
-        if (!place.geometry) {
-          // User entered the name of a Place that was not suggested and
-          // pressed the Enter key, or the Place Details request failed.
-          window.alert("No details available for input: '" + place.name + "'")
-          return
-        }
-        // If the place has a geometry, then present it on a map.
-        if (place.geometry.viewport) {
-          map.fitBounds(place.geometry.viewport)
-        } else {
-          map.setCenter(place.geometry.location)
-          map.setZoom(16)
-        }
-        marker.setPosition(place.geometry.location)
-        marker.setVisible(true)
-        this.setAddress(place.name)
-      })
-    },
-    async changeAddress (event) {
-      const latLng = event.latLng.lat() + ',' + event.latLng.lng()
-      const key = 'AIzaSyBZKN6M5vhOed1h6qwr45FtLQWYNAElDd4'
-      const api = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latLng}&key=${key}`
-      const address = await axios.get(api)
-      console.log(api)
-      console.log(address.data)
-      this.setAddress(address.data.results[0].address_components[1].long_name)
-    },
     register () {
       if (this.conPassword !== this.password) {
         this.errConPass = 'โปรดกรอกรหัสให้ตรงกัน'
@@ -171,9 +112,27 @@ export default {
       } else {
         this.errName = ''
       }
-      // } else {
-      //   this.$router.replace('Login')
-      // }
+      if (this.validate()) {
+        firebase.auth().createUserWithEmailAndPassword(this.email, this.password)
+          .catch(function (error) {
+            let errorCode = error.code
+            let errorMessage = error.message
+            if (errorCode === 'auth/weak-password') {
+              alert('The password is too weak.')
+            } else {
+              alert(errorMessage)
+            }
+            console.log(error)
+          })
+      }
+    },
+    validate () {
+      if (this.errEmail === '' && this.errPass === '' && this.errConPass === '' &&
+       this.errName === '' && this.errPhone === '') {
+        return true
+      } else {
+        return false
+      }
     },
     cancel () {
       this.$router.replace('Login')
@@ -183,17 +142,6 @@ export default {
 </script>
 
 <style scoped>
-.search {
-  display: flex;
-  justify-content: center;
-}
-#pac-input {
-  padding-left: 12px;
-}
-#myMap {
-  height: 360px;
-}
-
 .box {
   background: white;
   padding: 20px;
