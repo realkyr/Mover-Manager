@@ -11,26 +11,38 @@
             <input v-model="email" class="thai" type="text" placeholder="E-Mail">
             <i class="fas fa-envelope" aria-hidden="true"></i>
           </div>
+          <small v-show="errEmail" style="color:red;" class="alert-text thai"
+          > {{ errEmail }} </small>
           <div class="my-input-control">
             <input v-model="fname" class="thai" type="text" placeholder="ชื่อ">
             <i class="fas fa-user-circle" aria-hidden="true"></i>
           </div>
+          <small v-show="errName" style="color:red;" class="alert-text thai"
+          > {{ errName }} </small>
           <div class="my-input-control">
             <input v-model="lname" class="thai" type="text" placeholder="นามสกุล">
             <i class="fas fa-user-circle" aria-hidden="true"></i>
           </div>
+          <small v-show="errName" style="color:red;" class="alert-text thai"
+          > {{ errName }} </small>
           <div class="my-input-control">
             <input v-model="phone" class="thai" type="text" placeholder="เบอร์โทรศัพท์">
             <i class="fas fa-mobile-alt" aria-hidden="true"></i>
           </div>
+          <small v-show="errPhone" style="color:red;" class="alert-text thai"
+          > {{ errPhone }} </small>
           <div class="my-input-control">
           <input v-model="password" class="thai" type="password" placeholder="รหัสผ่าน">
           <i class="fas fa-lock" aria-hidden="true"></i>
           </div>
+          <small v-show="errPass" style="color:red;" class="alert-text thai"
+          > {{ errPass }} </small>
           <div class="my-input-control">
             <input v-model="conPassword" class="thai" type="password" placeholder="ยืนยันรหัสผ่าน">
             <i class="fas fa-lock" aria-hidden="true"></i>
           </div>
+          <small v-show="errConPass" style="color:red;" class="alert-text thai"
+          > {{ errConPass }} </small>
         </div>
       </div>
       <div class="vl"></div>
@@ -50,6 +62,7 @@
 
 <script>
 /* eslint-disable no-undef */
+import axios from 'axios'
 import { mapActions } from 'vuex'
 export default {
   name: 'Register',
@@ -58,6 +71,11 @@ export default {
   },
   data () {
     return {
+      errEmail: '',
+      errPass: '',
+      errConPass: '',
+      errName: '',
+      errPhone: '',
       email: '',
       password: '',
       conPassword: '',
@@ -95,6 +113,8 @@ export default {
         anchorPoint: new google.maps.Point(0, -29),
         draggable: true
       })
+      // marker drag actions
+      marker.addListener('dragend', this.changeAddress)
       autocomplete.addListener('place_changed', () => {
         marker.setVisible(false)
         const place = autocomplete.getPlace()
@@ -109,21 +129,51 @@ export default {
           map.fitBounds(place.geometry.viewport)
         } else {
           map.setCenter(place.geometry.location)
-          map.setZoom(17)
+          map.setZoom(16)
         }
         marker.setPosition(place.geometry.location)
         marker.setVisible(true)
         this.setAddress(place.name)
       })
     },
+    async changeAddress (event) {
+      const latLng = event.latLng.lat() + ',' + event.latLng.lng()
+      const key = 'AIzaSyBZKN6M5vhOed1h6qwr45FtLQWYNAElDd4'
+      const api = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latLng}&key=${key}`
+      const address = await axios.get(api)
+      console.log(api)
+      console.log(address.data)
+      this.setAddress(address.data.results[0].address_components[1].long_name)
+    },
     register () {
       if (this.conPassword !== this.password) {
-        alert('รหัสผ่านและยืนยันรหัสผ่านไม่ตรงกัน')
-      } else if (this.password === '' || this.conPassword === '') {
-        alert('โปรดกรอกข้อมูลให้ครบถ้วน')
+        this.errConPass = 'โปรดกรอกรหัสให้ตรงกัน'
       } else {
-        this.$router.replace('Login')
+        this.errConPass = ''
       }
+      if (this.password === '' || this.conPassword === '') {
+        this.errPass = 'โปรดกรอกรหัสผ่าน'
+      } else {
+        this.errPass = ''
+      }
+      if (this.email === '') {
+        this.errEmail = 'โปรดกรอกอีเมล'
+      } else {
+        this.errEmail = ''
+      }
+      if (this.phone === '') {
+        this.errPhone = 'โปรดกรอกเบอร์โทรศัพท์'
+      } else {
+        this.errPhone = ''
+      }
+      if (this.fname === '' || this.lname === '') {
+        this.errName = 'โปรดกรอกชื่อ-นามสกุลให้ครบถ้วน'
+      } else {
+        this.errName = ''
+      }
+      // } else {
+      //   this.$router.replace('Login')
+      // }
     },
     cancel () {
       this.$router.replace('Login')
