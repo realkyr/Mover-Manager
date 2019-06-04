@@ -5,7 +5,7 @@
     </div>
     <hr />
     <div class="row">
-      <div class="col-12 col-sm-12 col-lg-6 input-group">
+      <div class="col-12 col-sm-12 col-md-6 col-lg-6 input-group">
         <div class="input-control">
           <div class="my-input-control">
             <input v-model="email" class="thai" type="text" placeholder="E-Mail">
@@ -150,7 +150,7 @@ export default {
   top: 50%;
   transform: translate(-50%, -50%);
   display: block;
-  width: 70%;
+  width: 60%;
   box-shadow: 0 4px 25px 0 rgba(0, 0, 0, 0.1);
 }
 
@@ -214,10 +214,10 @@ input[type="password"]:focus + i {
   position: relative;
   margin: 15px 0 15px 0;
   width: 100%;
-  padding: 0 4rem 0 4rem;
 }
 
 .input-group {
+  padding: 0 3rem 0 3rem;
   justify-content: center;
   align-items: center;
 }
@@ -265,30 +265,38 @@ input[type="password"]:focus + i {
 }
 
 .input-school {
-  padding: 3rem 3rem 3rem 3rem;
+  padding: 2rem 3rem 2rem 3rem;
 }
 
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1280px) {
   .box {
-    width: 80%;
+    width: 65%;
     transform: translate(-50%, -45%);
   }
-  .input-control {
-    padding: 0;
+  .input-group {
+    padding: 0 2.5rem 0 2.5rem;
   }
   .input-school {
-    padding: 25px 25px 25px 25px;
+    padding: 0 2.5rem 0 2.5rem;
   }
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 992px) {
+  .input-group {
+    padding: 0 1rem 0 1rem;
+  }
+  .input-school {
+    padding: 0 1rem 0 1rem;
+  }
+}
+@media screen and (max-width: 767px) {
   .vl {
     display: none;
   }
   .input-group {
-    padding: 0 5rem 0 5rem;
+    padding: 0 2rem 0 2rem;
   }
   .input-school {
-    padding: 0 5rem 0 5rem;
+    padding: 0 2rem 0 2rem;
   }
 }
 @media screen and (max-width: 576px) {
