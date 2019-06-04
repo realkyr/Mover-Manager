@@ -147,7 +147,7 @@ export default {
   top: 50%;
   transform: translate(-50%, -50%);
   display: block;
-  width: 90%;
+  width: 70%;
   box-shadow: 0 4px 25px 0 rgba(0, 0, 0, 0.1);
 }
 
@@ -211,7 +211,12 @@ input[type="password"]:focus + i {
   position: relative;
   margin: 15px 0 15px 0;
   width: 100%;
-  padding: 0 70px 0 70px;
+  padding: 0 4rem 0 4rem;
+}
+
+.input-group {
+  justify-content: center;
+  align-items: center;
 }
 
 #register {
@@ -256,13 +261,8 @@ input[type="password"]:focus + i {
   border-left: 1px solid #d3d3d3;
 }
 
-.input-group {
-  justify-content: center;
-  align-items: center;
-}
-
 .input-school {
-  padding: 0 50px 0 50px;
+  padding: 0 3rem 0 3rem;
 }
 
 @media screen and (max-width: 992px) {
@@ -270,7 +270,7 @@ input[type="password"]:focus + i {
     padding: 0 10px 0 10px;
   }
   .input-school {
-    padding: 0 25px 0 25px;
+    padding: 25px 25px 25px 25px;
   }
 }
 @media screen and (max-width: 576px) {

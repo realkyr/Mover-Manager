@@ -148,6 +148,11 @@ input[type="password"]:focus + i {
     height: 280px;
   }
 }
+@media screen and (max-width: 768px) {
+  #myMap {
+    height: 250px;
+  }
+}
 @media screen and (max-width: 576px) {
   #myMap {
     height: 250px;
