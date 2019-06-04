@@ -29,7 +29,7 @@
           </li>
         </ul>
       </div>
-      <div id="holder" class="col-2">
+      <div id="holder" class="col-1">
         <button @click="burger" class="burgerbutton" id="burger">
           <span class="line"></span>
           <span class="line"></span>
@@ -73,7 +73,7 @@ export default {
       }
     },
     toggleNav () {
-      if (screen.width > 768) this.toggle.collapse = false
+      if (screen.width > 1024) this.toggle.collapse = false
       else this.toggle.collapse = true
 
       if (screen.height < 500) this.toggle.collapse = true
@@ -102,7 +102,7 @@ ul {
   margin-bottom: 0px;
 }
 
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1440px) {
   ul {
     list-style-type: none;
     padding: 0;
@@ -121,7 +121,7 @@ li:first-child button {
 .logIn {
   margin-top: 6px;
   margin-right: 0px;
-  margin-left: 40px;
+  margin-left: 30px;
   color: #000;
   border-right: 1px solid #e6e6e6;
   padding: 4px 20px 2px 0px;
@@ -186,7 +186,7 @@ button:after {
   display: none;
 }
 
-@media screen and (max-width: 768px), screen and (max-height: 500px) {
+@media screen and (max-width: 1024px), screen and (max-height: 500px) {
   .nav-items {
     display: block !important;
     flex: 0;

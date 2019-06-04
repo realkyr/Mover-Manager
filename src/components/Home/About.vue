@@ -1,10 +1,10 @@
 <template>
   <div>
     <div class="row top">
-      <div class="col-6 imgContainer">
+      <div class="col-12 col-sm-6 imgContainer">
         <img src="../../assets/pics/aboutus.jpg" />
       </div>
-      <div class="col-6 about-content">
+      <div class="col-12 col-sm-6 about-content">
         <p style="font-size: 18pt" class="thai">เกี่ยวกับเรา</p>
         <h2>About Mover</h2>
         <p class="content thai">
@@ -84,5 +84,11 @@ h2 {
   display: flex;
   justify-content: center;
   flex-direction: column;
+}
+
+@media screen and (max-width: 480px) {
+  .about-content {
+    padding-left: 40px;
+  }
 }
 </style>

@@ -90,4 +90,8 @@ h3 {
 .social i {
   margin-right: 20px;
 }
+
+.tel {
+  font-size: 10px;
+}
 </style>

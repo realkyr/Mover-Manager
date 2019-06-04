@@ -5,7 +5,15 @@
         <h2 id="title">Mover Features</h2>
       </div>
       <div class="row">
-        <div class="col-12 col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start">
+        <div class="
+          col-12
+          col-sm-12
+          col-md-6
+          col-lg-6
+          d-flex
+          justify-content-md-start
+          justify-content-center
+        ">
           <div class="card">
             <img src="../../assets/pics/forparent.jpg">
             <h3>For Parent</h3>
@@ -16,7 +24,15 @@
             </p>
           </div>
         </div>
-        <div class="col-12 col-sm-12 col-md-6 col-lg-6 d-flex justify-content-end">
+        <div class="
+          col-12
+          col-sm-12
+          col-md-6
+          col-lg-6
+          d-flex
+          justify-content-md-start
+          justify-content-center
+        ">
           <div class="card">
             <img src="../../assets/pics/forschool.jpg">
             <h3>For School</h3>
@@ -273,8 +289,14 @@ h3 {
   .card {
     margin-right: 0 !important;
     margin-left: 0 !important;
-    width: 290px;
+    width: 270px;
     padding: 1em;
+  }
+}
+
+@media screen and (max-width: 363px){
+  .onbanner {
+    transform: translateY(-150%);
   }
 }
 </style>

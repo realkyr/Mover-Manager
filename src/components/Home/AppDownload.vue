@@ -59,9 +59,13 @@ h4 {
   background: #1b82a5;
 }
 
-@media screen and (min-width: 400px){
-  .application:first-child {
-    margin-right: 20px;
+.application:first-child {
+  margin-right: 20px;
+}
+
+@media screen and (max-width: 375px){
+  .application {
+    width: 140px;
   }
 }
 
