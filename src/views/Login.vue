@@ -238,4 +238,10 @@ input[type="text"]:focus + i {
   margin-top: 10px;
   margin-bottom: 10px;
 }
+
+@media screen and (max-width: 768px) {
+  .box {
+    transform: translate(-50%, -50%);
+  }
+}
 </style>

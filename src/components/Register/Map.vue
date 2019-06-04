@@ -1,7 +1,10 @@
 <template>
   <div>
-    <div class="search">
-      <input id="pac-input" ref="pac-input" type="text" placeholder="โปรดระบุชื่อโรงเรียน" v-model="$store.state.addressName">
+    <div class="search ">
+      <div class="my-input-control">
+        <input id="pac-input" class="thai" ref="pac-input" type="text" placeholder="  โปรดระบุชื่อโรงเรียน" v-model="$store.state.addressName">
+        <i class="fas fa-school" aria-hidden="true"></i>
+      </div>
     </div>
     <div id="myMap" ref="myMap"></div>
   </div>
@@ -97,11 +100,13 @@ export default {
   display: flex;
   justify-content: center;
 }
-#pac-input {
-  padding-left: 12px;
-}
 #myMap {
   height: 280px;
+  border-radius: 10px;
+}
+.my-input-control {
+  position: relative;
+  width: 100%;
 }
 i {
   position: absolute;

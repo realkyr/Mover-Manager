@@ -5,7 +5,7 @@
     </div>
     <hr />
     <div class="row">
-      <div class="col-12 col-sm-6 col-lg-6 input-group">
+      <div class="col-12 col-sm-12 col-lg-6 input-group">
         <div class="input-control">
           <div class="my-input-control">
             <input v-model="email" class="thai" type="text" placeholder="E-Mail">
@@ -115,8 +115,11 @@ export default {
           .catch((error) => {
             let errorCode = error.code
             let errorMessage = error.message
+            console.log(errorCode)
             if (errorCode === 'auth/email-already-in-use') {
               this.errEmail = 'อีเมลนี้ถูกใช้ไปแล้ว'
+            } else if (errorCode === 'auth/invalid-email') {
+              this.errEmail = 'กรอกอีเมลให้ถูกต้อง'
             } else {
               console.log(errorMessage)
             }
@@ -262,20 +265,36 @@ input[type="password"]:focus + i {
 }
 
 .input-school {
-  padding: 0 3rem 0 3rem;
+  padding: 3rem 3rem 3rem 3rem;
 }
 
-@media screen and (max-width: 992px) {
+@media screen and (max-width: 1024px) {
+  .box {
+    width: 80%;
+    transform: translate(-50%, -45%);
+  }
   .input-control {
-    padding: 0 10px 0 10px;
+    padding: 0;
   }
   .input-school {
     padding: 25px 25px 25px 25px;
   }
 }
+@media screen and (max-width: 768px) {
+  .vl {
+    display: none;
+  }
+  .input-group {
+    padding: 0 5rem 0 5rem;
+  }
+  .input-school {
+    padding: 0 5rem 0 5rem;
+  }
+}
 @media screen and (max-width: 576px) {
   .box {
-    transform: translate(-50%, -40%);
+    width: 100%;
+    transform: translate(-50%, -42%);
   }
   .vl {
     display: none;
@@ -286,6 +305,11 @@ input[type="password"]:focus + i {
   #back {
     margin-left: 15px;
   }
+  .input-group {
+    padding: 0 4rem 0 4rem;
+  }
+  .input-school {
+    padding: 0 4rem 0 4rem;
+  }
 }
-
 </style>
