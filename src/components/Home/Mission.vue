@@ -1,11 +1,11 @@
 <template>
   <div>
-    <div class="mission-content">
-      <div class="row-12 d-flex justify-content-center">
+    <div class="mission-content container-fluid">
+      <div class="d-flex justify-content-center">
         <h2 id="title">Mover Features</h2>
       </div>
-      <div class="row" style="margin-left: 12%;">
-        <div class="col-5 sm-12 lg-6 d-flex justify-content-start">
+      <div class="row">
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 d-flex justify-content-start">
           <div class="card">
             <img src="../../assets/pics/forparent.jpg">
             <h3>For Parent</h3>
@@ -16,7 +16,7 @@
             </p>
           </div>
         </div>
-        <div class="col-5 sm-12 lg-6 d-flex justify-content-end">
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 d-flex justify-content-end">
           <div class="card">
             <img src="../../assets/pics/forschool.jpg">
             <h3>For School</h3>
@@ -28,8 +28,8 @@
           </div>
         </div>
       </div>
-      <div class="row top">
-        <div class="textContainer col d-flex justify-content-center xs-12 sm-5 lg-5 offset-1">
+      <div class="container-fluid top">
+        <div class="textContainer d-flex justify-content-center">
           <h2>Mission & Believe</h2>
           <p class="content thai">
             <ul>
@@ -40,7 +40,13 @@
             </ul>
           </p>
         </div>
-        <div class="imgContainer col d-flex justify-content-center xs-12 sm-6 lg-6 align-items-center">
+        <div class="
+          container-fluid
+          imgContainer
+          d-flex
+          justify-content-center
+          align-items-center"
+        >
           <img style="z-index: -1" src="../../assets/pics/imgmission.jpg">
         </div>
       </div>
@@ -70,6 +76,7 @@
   flex-direction: column;
   padding-top: 5em;
 }
+
 h2 {
   font-weight: 600;
   font: bolder;
@@ -261,6 +268,13 @@ h3 {
 
   br {
     display: block;
+  }
+
+  .card {
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+    width: 290px;
+    padding: 1em;
   }
 }
 </style>

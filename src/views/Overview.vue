@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="background: ">
     <Searchbar/>
     <Sidebar />
     <div style="margin-left: 50pt; padding: 20px" class="thai inside-container">
@@ -65,14 +65,15 @@ export default {
 }
 </script>
 
-<style scoped>
-.container {
-  height: 100vh;
-  background: rgb(243, 243, 243);
+<style>
+ul {
+  padding-inline-start: 0;
 }
 
 .inside-container {
   margin-left: 50pt;
   padding: 20px;
+  background: rgb(243, 243, 243);
+  height: calc(100vh - 60px);
 }
 </style>

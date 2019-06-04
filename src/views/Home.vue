@@ -1,5 +1,5 @@
 <template>
-  <div class="Home">
+  <div class="Home" style="width: 100%;">
     <Navbar @nav="scroll($event)"/>
     <Banner/>
     <About id="about" />

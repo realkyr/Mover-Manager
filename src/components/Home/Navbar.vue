@@ -94,6 +94,7 @@ img {
 .navbar {
   padding: 50px 0 10px 0;
   width: 100%;
+  z-index: 99;
 }
 
 ul {
