@@ -101,7 +101,7 @@ export default {
   padding-left: 12px;
 }
 #myMap {
-  height: 360px;
+  height: 280px;
 }
 i {
   position: absolute;
@@ -141,5 +141,16 @@ input[type="text"]:focus + i {
 
 input[type="password"]:focus + i {
   color: #2094b9;
+}
+
+@media screen and (max-width: 992px) {
+  #myMap {
+    height: 280px;
+  }
+}
+@media screen and (max-width: 576px) {
+  #myMap {
+    height: 250px;
+  }
 }
 </style>

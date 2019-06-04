@@ -5,7 +5,7 @@
     </div>
     <hr />
     <div class="row">
-      <div class="col">
+      <div class="col-12 col-sm-6 col-lg-6 input-group">
         <div class="input-control">
           <div class="my-input-control">
             <input v-model="email" class="thai" type="text" placeholder="E-Mail">
@@ -46,9 +46,9 @@
         </div>
       </div>
       <div class="vl"></div>
-      <div class="col">
-        <Map />
-      </div>
+        <div class="col input-school">
+          <Map />
+        </div>
     </div>
     <div class="btn-group">
       <button type="button" id="regiter" class="btn thai" @click="register">สมัครสมาชิก</button>
@@ -58,10 +58,8 @@
 </template>
 
 <script>
+import firebase from 'firebase'
 import Map from '../components/Register/Map'
-/* eslint-disable no-undef */
-// import axios from 'axios'
-// import { mapActions } from 'vuex'
 export default {
   components: {
     Map
@@ -114,15 +112,14 @@ export default {
       }
       if (this.validate()) {
         firebase.auth().createUserWithEmailAndPassword(this.email, this.password)
-          .catch(function (error) {
+          .catch((error) => {
             let errorCode = error.code
             let errorMessage = error.message
-            if (errorCode === 'auth/weak-password') {
-              alert('The password is too weak.')
+            if (errorCode === 'auth/email-already-in-use') {
+              this.errEmail = 'อีเมลนี้ถูกใช้ไปแล้ว'
             } else {
-              alert(errorMessage)
+              console.log(errorMessage)
             }
-            console.log(error)
           })
       }
     },
@@ -257,6 +254,38 @@ input[type="password"]:focus + i {
 
 .vl {
   border-left: 1px solid #d3d3d3;
+}
+
+.input-group {
+  justify-content: center;
+  align-items: center;
+}
+
+.input-school {
+  padding: 0 50px 0 50px;
+}
+
+@media screen and (max-width: 992px) {
+  .input-control {
+    padding: 0 10px 0 10px;
+  }
+  .input-school {
+    padding: 0 25px 0 25px;
+  }
+}
+@media screen and (max-width: 576px) {
+  .box {
+    transform: translate(-50%, -40%);
+  }
+  .vl {
+    display: none;
+  }
+  .btn-group {
+    flex-direction: row;
+  }
+  #back {
+    margin-left: 15px;
+  }
 }
 
 </style>
