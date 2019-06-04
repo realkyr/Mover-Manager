@@ -45,25 +45,30 @@
         </div>
       </div>
       <div class="container-fluid top">
-        <div class="textContainer d-flex justify-content-center">
-          <h2>Mission & Believe</h2>
-          <p class="content thai">
-            <ul>
-              <li>เพื่อขับเคลื่อนการบริการทางด้านการศึกษาให้มีประสิทธิภาพ เหมาะกับการเป็นสถานศึกษาสมัยใหม่ 4.0</li>
-              <li><p>เพิ่มความปลอดภัยให้กับลูกหลานของผู้ปกครอง <br/>ที่ใช้บริการของสถานศึกษา</p></li>
-              <li>ปรับเปลี่ยนโรงเรียนหรือสถานศึกษา (Digital Transformation) จากระบบการจัดการแบบเก่า ไปสู่ระบบการจัดการที่ทันสมัย</li>
-              <li>เป็นตัวช่วยพัฒนาคุณภาพของสถานศึกษา โดยการจัดหาเทคโนโลยีที่เหมาะสมกับปัญหานั้นๆ</li>
-            </ul>
-          </p>
-        </div>
-        <div class="
-          container-fluid
-          imgContainer
-          d-flex
-          justify-content-center
-          align-items-center"
-        >
-          <img style="z-index: -1" src="../../assets/pics/imgmission.jpg">
+        <div class="row">
+          <div class="textContainer col-12 col-md-6 d-flex justify-content-center">
+            <div class="container">
+              <h2>Mission & Believe</h2>
+              <p class="content thai">
+                <ul>
+                  <li>เพื่อขับเคลื่อนการบริการทางด้านการศึกษาให้มีประสิทธิภาพ เหมาะกับการเป็นสถานศึกษาสมัยใหม่ 4.0</li>
+                  <li><p>เพิ่มความปลอดภัยให้กับลูกหลานของผู้ปกครอง <br/>ที่ใช้บริการของสถานศึกษา</p></li>
+                  <li>ปรับเปลี่ยนโรงเรียนหรือสถานศึกษา (Digital Transformation) จากระบบการจัดการแบบเก่า ไปสู่ระบบการจัดการที่ทันสมัย</li>
+                  <li>เป็นตัวช่วยพัฒนาคุณภาพของสถานศึกษา โดยการจัดหาเทคโนโลยีที่เหมาะสมกับปัญหานั้นๆ</li>
+                </ul>
+              </p>
+            </div>
+          </div>
+          <div class="
+            container-fluid
+            col-12 col-md-6
+            imgContainer
+            d-flex
+            justify-content-center
+            align-items-center"
+          >
+            <img style="z-index: -1" src="../../assets/pics/imgmission.jpg">
+          </div>
         </div>
       </div>
     </div>
@@ -85,6 +90,7 @@
 </template>
 
 <style scoped>
+
 .mission-content {
   display: flex;
   justify-content: center;
@@ -192,7 +198,7 @@ h3 {
 }
 
 .imgContainer img {
-  max-height: 250px;
+  max-height: 300px;
 }
 
 .top {
@@ -245,7 +251,7 @@ h3 {
   }
 
   .imgContainer img {
-    max-height: 150px;
+    max-height: 200px;
   }
 
   .top {
@@ -264,7 +270,9 @@ h3 {
 
 @media screen and (max-width: 600px) {
   .imgContainer img {
-    margin-top: 80px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    max-height: 200px;
   }
 }
 
@@ -297,6 +305,10 @@ h3 {
 @media screen and (max-width: 363px){
   .onbanner {
     transform: translateY(-150%);
+  }
+
+  .imgContainer img {
+    max-height: 150px;
   }
 }
 </style>
