@@ -1,7 +1,7 @@
 <template>
   <div class="box">
     <div class="logo-container">
-      <img id="logo" src="../assets/logo/logo.png">
+      <img id="logo" src="../../assets/logo/logo.png">
     </div>
     <div style="text-align: center;">
       <p class="thai" id="title-info">ข้อมูลนักเรียน</p>
@@ -33,7 +33,6 @@
     </div>
     <div class="btn-group">
       <button type="button" id="save" class="btn thai" @click="save">บันทึก</button>
-      <button type="button" id="delete" class="btn thai" @click="remove">ลบ</button>
       <button type="button" id="back" class="btn thai" @click="cancel">ยกเลิก</button>
     </div>
   </div>
@@ -41,9 +40,9 @@
 
 <script>
 export default {
-  name: 'students-updating-console',
+  name: 'students-creating-console',
   metaInfo: {
-    title: 'Update Student | Mover'
+    title: 'Create Student | Mover'
   },
   data () {
     return {
@@ -71,9 +70,6 @@ export default {
       }
     },
     cancel () {
-      this.$router.replace('../student')
-    },
-    remove () {
       this.$router.replace('../student')
     }
   }
@@ -168,17 +164,6 @@ input[type="password"]:focus + i {
   box-shadow: none;
 }
 
-#delete {
-  background: linear-gradient(180deg, rgb(255, 0, 0) 0%, rgb(182, 10, 10) 100%) !important;
-  border-radius: 18px;
-  width: 100%;
-  margin: 10px 0 10px 0;
-}
-
-#delete:hover {
-  box-shadow: none;
-}
-
 #back {
   color: black !important;
   background: white !important;
@@ -204,6 +189,12 @@ input[type="password"]:focus + i {
   color: white;
   border-radius: 18px !important;
   background: linear-gradient(180deg, rgba(33,149,186,1) 0%, rgba(27,127,158,1) 100%) !important;
+}
+
+@media screen and (max-width: 576px) {
+  .box {
+    transform: translate(-43%, -50%);
+  }
 }
 
 </style>

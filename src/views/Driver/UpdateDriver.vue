@@ -1,7 +1,7 @@
 <template>
   <div class="box">
     <div class="logo-container">
-      <img id="logo" src="../assets/logo/logo.png">
+      <img id="logo" src="../../assets/logo/logo.png">
     </div>
     <div style="text-align: center;">
       <p class="thai" id="title-info">ข้อมูลพนักงานขับรถ</p>
@@ -183,6 +183,12 @@ input[type="password"]:focus + i {
   color: white;
   border-radius: 18px !important;
   background: linear-gradient(180deg, rgba(33,149,186,1) 0%, rgba(27,127,158,1) 100%) !important;
+}
+
+@media screen and (max-width: 320px) {
+  .box {
+    transform: translate(-40%, -50%);
+  }
 }
 
 </style>
