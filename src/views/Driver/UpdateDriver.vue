@@ -1,7 +1,7 @@
 <template>
   <div class="box">
     <div class="logo-container">
-      <img id="logo" src="../assets/logo/logo.png">
+      <img id="logo" src="../../assets/logo/logo.png">
     </div>
     <div style="text-align: center;">
       <p class="thai" id="title-info">ข้อมูลพนักงานขับรถ</p>

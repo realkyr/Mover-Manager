@@ -1,39 +1,33 @@
 <template>
   <div class="box">
     <div class="logo-container">
-      <img id="logo" src="../assets/logo/logo.png">
+      <img id="logo" src="../../assets/logo/logo.png">
     </div>
     <div style="text-align: center;">
-      <p class="thai" id="title-info">ข้อมูลนักเรียน</p>
+      <p class="thai" id="title-info">ข้อมูลกลุ่มนักเรียน</p>
     </div>
     <div class="input-control">
       <div class="my-input-control">
-        <input v-model="studentID" class="thai" type="text" placeholder="เลขประจำตัว">
-        <i class="far fa-address-card" aria-hidden="true"></i>
+        <input v-model="name" class="thai" type="text" placeholder="ชื่อกลุ่ม">
+        <i class="fas fa-users" aria-hidden="true"></i>
       </div>
-      <div class="my-input-control mb-3"  style="font-size: 0.8em;">
-        <i class="far fa-clock" aria-hidden="true"></i>
-        <select v-model="gender" class="thai ml-5 mt-3">
-          <option :value="null">---------- โปรดเลือกคำนำหน้า -----------</option>
-          <option :key="g" :value="g.id" v-for="g in genders">{{ g.name }}</option>
+      <div class="my-input-control"  style="font-size: 0.8em;">
+        <i class="fas fa-user-circle" aria-hidden="true"></i>
+        <select v-model="student" class="thai ml-5 mt-3">
+          <option :value="[]">------- โปรดเลือกนักเรียนในกลุ่ม -------</option>
+          <option :key="s" :value="s" v-for="s in students">{{ s.name }}</option>
         </select>
       </div>
-      <div class="my-input-control">
-        <input v-model="fname" class="thai" type="text" placeholder="ชื่อ">
-        <i class="fas fa-user-circle" aria-hidden="true"></i>
-      </div>
-      <div class="my-input-control">
-        <input v-model="lname" class="thai" type="text" placeholder="นามสกุล">
-        <i class="fas fa-user" aria-hidden="true"></i>
-      </div>
-      <div class="my-input-control">
-        <input v-model="phone" class="thai" type="text" placeholder="เบอร์โทรศัพท์">
-        <i class="fas fa-mobile-alt" aria-hidden="true"></i>
+      <div class="my-input-control mt-2"  style="font-size: 0.8em;">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        <select v-model="time" class="thai ml-5 mt-3">
+          <option :value="null">------------ โปรดเลือกเวลา  ------------</option>
+          <option :key="t" :value="t.id" v-for="t in times">{{ t.text }}</option>
+        </select>
       </div>
     </div>
     <div class="btn-group">
       <button type="button" id="save" class="btn thai" @click="save">บันทึก</button>
-      <button type="button" id="delete" class="btn thai" @click="remove">ลบ</button>
       <button type="button" id="back" class="btn thai" @click="cancel">ยกเลิก</button>
     </div>
   </div>
@@ -41,40 +35,36 @@
 
 <script>
 export default {
-  name: 'students-updating-console',
+  name: 'groups-creating-console',
   metaInfo: {
-    title: 'Update Student | Mover'
+    title: 'Create Student Group | Mover'
   },
   data () {
     return {
-      studentID: '',
-      gender: null,
-      genders: [
-        { name: 'นาย', id: 1 },
-        { name: 'นางสาว', id: 2 },
-        { name: 'นาง', id: 3 },
-        { name: 'เด็กชาย', id: 4 },
-        { name: 'เด็กหญิง', id: 5 }
+      name: '',
+      student: [],
+      students: [
+        { name: 'นาย ภูรี  กานุสนธิ์', id: 1 },
+        { name: 'นาย อิงครัต  ทินกรศรีสุภาพ', id: 2 },
+        { name: 'นาย ภานุพงศ์  เกตุรัตนกุล', id: 3 }
       ],
-      fname: '',
-      lname: '',
-      phone: ''
+      time: null,
+      times: [
+        { text: 'เช้า', id: 1 },
+        { text: 'บ่าย', id: 2 }
+      ]
     }
   },
   methods: {
     save () {
-      if (this.studentID === '' || this.gender === null ||
-      this.fname === '' || this.lname === '' || this.phone === '') {
+      if (this.name === '' || this.student === [] || this.time === null) {
         alert('โปรดกรอกข้อมูลให้ครบถ้วน')
       } else {
-        this.$router.replace('../student')
+        this.$router.replace('../')
       }
     },
     cancel () {
-      this.$router.replace('../student')
-    },
-    remove () {
-      this.$router.replace('../student')
+      this.$router.replace('../')
     }
   }
 }
@@ -168,17 +158,6 @@ input[type="password"]:focus + i {
   box-shadow: none;
 }
 
-#delete {
-  background: linear-gradient(180deg, rgb(255, 0, 0) 0%, rgb(182, 10, 10) 100%) !important;
-  border-radius: 18px;
-  width: 100%;
-  margin: 10px 0 10px 0;
-}
-
-#delete:hover {
-  box-shadow: none;
-}
-
 #back {
   color: black !important;
   background: white !important;
@@ -206,9 +185,9 @@ input[type="password"]:focus + i {
   background: linear-gradient(180deg, rgba(33,149,186,1) 0%, rgba(27,127,158,1) 100%) !important;
 }
 
-@media screen and (max-width: 576px) {
+@media screen and (max-width: 320px) {
   .box {
-    transform: translate(-43%, -50%);
+    transform: translate(-40%, -50%);
   }
 }
 
