@@ -1,13 +1,14 @@
 <template>
   <div class="blueBar row">
-    <div class="col xs-10 sm-8 lg-6 offset-1">
-      <p style="font-size: 16pt;">วิสัยทัศน์</p>
-      <h2>Our Vision</h2>
-      <p class="content">
-        มุ่งสู่การเป็นผู้ให้บริการเทคโนโลยีสมัยใหม่แก่ตลาดการศึกษา (Educational Industry)
-        <br />
-        อย่างมีคุณภาพและใช้งานได้จริงในทุกๆ ภาคส่วน
-      </p>
+    <div class="container">
+      <div class="col-xs-10 col-sm-8 col-lg-6">
+        <p style="font-size: 16pt; margin-bottom: 5px;">วิสัยทัศน์</p>
+        <h2>Our Vision</h2>
+        <p class="content">
+          มุ่งสู่การเป็นผู้ให้บริการเทคโนโลยีสมัยใหม่แก่ตลาดการศึกษา (Educational Industry)
+          อย่างมีคุณภาพและใช้งานได้จริงในทุก ๆ ภาคส่วน
+        </p>
+      </div>
     </div>
     <img src="../../assets/pics/busScribble.png" />
   </div>
