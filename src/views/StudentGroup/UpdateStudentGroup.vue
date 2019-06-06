@@ -14,17 +14,17 @@
           <input v-model="name" class="thai" type="text" placeholder="ชื่อกลุ่ม">
           <i class="fas fa-users" aria-hidden="true"></i>
         </div>
-        <div class="my-input-control"  style="font-size: 0.8em;">
+        <div class="my-input-control">
           <i class="fas fa-user-circle" aria-hidden="true"></i>
-          <select v-model="student" class="thai ml-5 mt-3">
-            <option :value="[]">------- โปรดเลือกนักเรียนในกลุ่ม -------</option>
+          <select v-model="student" class="thai select-option">
+            <option :value="[]">--- โปรดเลือกนักเรียนในกลุ่ม ---</option>
             <option :key="s" :value="s" v-for="s in students">{{ s.name }}</option>
           </select>
         </div>
-        <div class="my-input-control mt-2"  style="font-size: 0.8em;">
+        <div class="my-input-control mt-2">
           <i class="far fa-clock" aria-hidden="true"></i>
-          <select v-model="time" class="thai ml-5 mt-3">
-            <option :value="null">------------ โปรดเลือกเวลา  ------------</option>
+          <select v-model="time" class="thai select-option">
+            <option :value="null">---- โปรดเลือกเวลา  ----</option>
             <option :key="t" :value="t.id" v-for="t in times">{{ t.text }}</option>
           </select>
         </div>
@@ -211,6 +211,12 @@ input[type="password"]:focus + i {
   background: linear-gradient(180deg, rgba(33,149,186,1) 0%, rgba(27,127,158,1) 100%) !important;
 }
 
+.select-option {
+  width: 255px;
+  border-radius: 15px;
+  margin: 10px 0 0 40px
+}
+
 @media screen and (max-width: 576px) {
   .box {
     transform: translate(-50%, -50%);
@@ -221,6 +227,13 @@ input[type="password"]:focus + i {
   .box {
     width: 400px;
     transform: translate(-50%, -50%);
+  }
+  .thai {
+    font-size: 9pt;
+  }
+  .select-option {
+    padding: 5px;
+    width: 180px;
   }
 }
 
