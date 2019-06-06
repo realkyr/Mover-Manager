@@ -7,7 +7,7 @@
       <!--
         this page mostly about manage children
         TODO: Implement UI and most function
-        EXAMPLE: Create student profile, Checklist
+        EXAMPLE: Create student profile
        -->
     </div>
   </div>

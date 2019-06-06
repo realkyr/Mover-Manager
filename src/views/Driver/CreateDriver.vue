@@ -1,34 +1,54 @@
 <template>
-  <div class="box">
-    <div class="logo-container">
-      <img id="logo" src="../../assets/logo/logo.png">
-    </div>
-    <div style="text-align: center;">
-      <p class="thai" id="title-info">ข้อมูลพนักงานขับรถ</p>
-    </div>
-    <div class="input-control">
-      <div class="my-input-control">
-        <input v-model="fname" class="thai" type="text" placeholder="ชื่อ">
-        <i class="fas fa-user-circle" aria-hidden="true"></i>
+  <div style="background: ">
+    <Searchbar/>
+    <Sidebar />
+    <div class="box">
+      <div class="logo-container">
+        <img id="logo" src="../../assets/logo/logo.png">
       </div>
-      <div class="my-input-control">
-        <input v-model="lname" class="thai" type="text" placeholder="นามสกุล">
+      <div style="text-align: center;">
+        <p class="thai" id="title-info">ข้อมูลพนักงานขับรถ</p>
+      </div>
+      <div class="my-input-control"  style="font-size: 0.8em; margin-left: 5em;">
         <i class="fas fa-user" aria-hidden="true"></i>
+        <select v-model="gender" class="thai ml-5 mt-3">
+          <option :value="null">---------- โปรดเลือกคำนำหน้า -----------</option>
+          <option :key="g" :value="g.id" v-for="g in genders">{{ g.name }}</option>
+        </select>
       </div>
-      <div class="my-input-control">
-        <input v-model="phone" class="thai" type="text" placeholder="เบอร์โทรศัพท์">
-        <i class="fas fa-mobile-alt" aria-hidden="true"></i>
+      <div class="input-control">
+        <div class="my-input-control">
+          <input v-model="fname" class="thai" type="text" placeholder="ชื่อ">
+          <i class="fas fa-user-circle" aria-hidden="true"></i>
+        </div>
+        <div class="my-input-control">
+          <input v-model="lname" class="thai" type="text" placeholder="นามสกุล">
+          <i class="fas fa-user" aria-hidden="true"></i>
+        </div>
+        <div class="my-input-control">
+          <input v-model="phone" class="thai" type="text" placeholder="เบอร์โทรศัพท์">
+          <i class="fas fa-mobile-alt" aria-hidden="true"></i>
+        </div>
       </div>
-    </div>
-    <div class="btn-group">
-      <button type="button" id="save" class="btn thai" @click="save">บันทึก</button>
-      <button type="button" id="back" class="btn thai" @click="cancel">ยกเลิก</button>
+      <div class="btn-group">
+        <button type="button" id="save" class="btn thai" @click="save">บันทึก</button>
+        <button type="button" id="back" class="btn thai" @click="cancel">ยกเลิก</button>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+
+import Searchbar from '../../components/Dashboard/Searchbar'
+import Sidebar from '../../components/Dashboard/Sidebar'
+
 export default {
+  components: {
+    Searchbar,
+    Sidebar
+  },
+
   name: 'drivers-creating-console',
   metaInfo: {
     title: 'Create Driver | Mover'
@@ -37,7 +57,13 @@ export default {
     return {
       fname: '',
       lname: '',
-      phone: ''
+      phone: '',
+      gender: null,
+      genders: [
+        { name: 'นาย', id: 1 },
+        { name: 'นางสาว', id: 2 },
+        { name: 'นาง', id: 3 }
+      ]
     }
   },
   methods: {
