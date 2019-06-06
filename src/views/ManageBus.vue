@@ -7,7 +7,7 @@
       <!--
         this page is all about buses
         TODO: IMPLEMENT THE REST FUNCTION and UI
-        EXAMPLE: create bus, put driver into bus
+        EXAMPLE: create bus, put driver into bus, Checklist
        -->
     </div>
   </div>
