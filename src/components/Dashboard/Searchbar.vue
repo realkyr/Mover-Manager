@@ -1,31 +1,31 @@
 <template>
-  <!-- <div class="container-fluid"> -->
+  <div class="container-fluid">
     <div class="searchbar row">
-      <div class="ml-5 mt-3 d-flex justify-content-center">
+      <div class="ml-3 col-1 mt-3 d-flex justify-content-center">
         <img id="logo" src="../../assets/logo/logo.png">
-      <!-- </vs-col> -->
       </div>
-      <!-- <vs-col vs-w="5" vs-type="flex" vs-align="center"> -->
-      <div class="col-5 ml-5 mt-2  d-flex align-items-center">
+      <div class="col-8 ml-1 ml-md-4 mt-2 d-flex align-items-center">
         <div class="search-input">
           <input class="thai" type="text" placeholder="ค้นหารถ, นักเรียน">
           <i class="fas fa-search" aria-hidden="true"></i>
         </div>
-      <!-- </vs-col> -->
       </div>
-      <!-- <vs-col vs-offset="3" vs-w="2" vs-type="flex" vs-justify="flex-end" vs-align="center"> -->
-      <div class="col-2 offset-3 mt-2 d-flex justify-content-end align-items-center">
+      <div class="
+        col-2 col-sm-2
+        mt-2
+        ml-md-0 ml-sm-1
+        d-flex justify-content-center justify-content-md-end
+        align-items-center
+      ">
         <div class="avatar">
           <span class="dname">{{ displayName }}</span>
           <button class="btn fa-lg p-1" href="#">
             <i class="fas fa-user">
           </i></button>
         </div>
-      <!-- </vs-col> -->
       </div>
-      <!-- <vs-col vs-w="1"></vs-col> -->
     </div>
-  <!-- </div> -->
+  </div>
 </template>
 
 <script>
@@ -52,6 +52,7 @@ export default {
 </script>
 
 <style scoped>
+
 .dname {
   display: inline-block;
   font-size: 9pt;
@@ -59,7 +60,7 @@ export default {
 
 .avatar {
   position: absolute;
-  width: 100pt;
+  width: 90pt;
   background: white;
   border-radius: 20px;
   padding: 4pt;
@@ -145,5 +146,23 @@ input:focus {
 .search-input.inputIconBg input[type="text"]:focus + i {
   color: #fff;
   background-color: #2094b9;
+}
+
+@media screen and (max-width: 576px) {
+  .dname {
+    display: none;
+  }
+
+  .avatar {
+    width: 40px;
+  }
+
+  .search-input i {
+    padding: 9px 4px 9px 4px;
+  }
+
+  .search-input input[type="text"] {
+    padding-left: 30px;
+  }
 }
 </style>
