@@ -202,7 +202,14 @@ input[type="password"]:focus + i {
 
 @media screen and (max-width: 576px) {
   .box {
-    transform: translate(-43%, -50%);
+    transform: translate(-50%, -50%);
+  }
+}
+
+@media screen and (max-width: 376px) {
+  .box {
+    width: 400px;
+    transform: translate(-50%, -50%);
   }
 }
 
