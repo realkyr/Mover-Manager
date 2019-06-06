@@ -1,12 +1,23 @@
 <template>
   <div class="box">
     <div class="logo-container">
-      <img id="logo" src="../assets/logo/logo.png">
+      <img id="logo" src="../../assets/logo/logo.png">
     </div>
     <div style="text-align: center;">
-      <p class="thai" id="title-info">ข้อมูลพนักงานขับรถ</p>
+      <p class="thai" id="title-info">ข้อมูลนักเรียน</p>
     </div>
     <div class="input-control">
+      <div class="my-input-control">
+        <input v-model="studentID" class="thai" type="text" placeholder="เลขประจำตัว">
+        <i class="far fa-address-card" aria-hidden="true"></i>
+      </div>
+      <div class="my-input-control mb-3"  style="font-size: 0.8em;">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        <select v-model="gender" class="thai ml-5 mt-3">
+          <option :value="null">---------- โปรดเลือกคำนำหน้า -----------</option>
+          <option :key="g" :value="g.id" v-for="g in genders">{{ g.name }}</option>
+        </select>
+      </div>
       <div class="my-input-control">
         <input v-model="fname" class="thai" type="text" placeholder="ชื่อ">
         <i class="fas fa-user-circle" aria-hidden="true"></i>
@@ -22,6 +33,7 @@
     </div>
     <div class="btn-group">
       <button type="button" id="save" class="btn thai" @click="save">บันทึก</button>
+      <button type="button" id="delete" class="btn thai" @click="remove">ลบ</button>
       <button type="button" id="back" class="btn thai" @click="cancel">ยกเลิก</button>
     </div>
   </div>
@@ -29,12 +41,21 @@
 
 <script>
 export default {
-  name: 'drivers-creating-console',
+  name: 'students-updating-console',
   metaInfo: {
-    title: 'Create Driver | Mover'
+    title: 'Update Student | Mover'
   },
   data () {
     return {
+      studentID: '',
+      gender: null,
+      genders: [
+        { name: 'นาย', id: 1 },
+        { name: 'นางสาว', id: 2 },
+        { name: 'นาง', id: 3 },
+        { name: 'เด็กชาย', id: 4 },
+        { name: 'เด็กหญิง', id: 5 }
+      ],
       fname: '',
       lname: '',
       phone: ''
@@ -42,14 +63,18 @@ export default {
   },
   methods: {
     save () {
-      if (this.fname === '' || this.lname === '' || this.phone === '') {
+      if (this.studentID === '' || this.gender === null ||
+      this.fname === '' || this.lname === '' || this.phone === '') {
         alert('โปรดกรอกข้อมูลให้ครบถ้วน')
       } else {
-        this.$router.replace('../')
+        this.$router.replace('../student')
       }
     },
     cancel () {
-      this.$router.replace('../')
+      this.$router.replace('../student')
+    },
+    remove () {
+      this.$router.replace('../student')
     }
   }
 }
@@ -140,6 +165,17 @@ input[type="password"]:focus + i {
 }
 
 #save:hover {
+  box-shadow: none;
+}
+
+#delete {
+  background: linear-gradient(180deg, rgb(255, 0, 0) 0%, rgb(182, 10, 10) 100%) !important;
+  border-radius: 18px;
+  width: 100%;
+  margin: 10px 0 10px 0;
+}
+
+#delete:hover {
   box-shadow: none;
 }
 
