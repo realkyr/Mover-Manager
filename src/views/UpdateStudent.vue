@@ -206,4 +206,10 @@ input[type="password"]:focus + i {
   background: linear-gradient(180deg, rgba(33,149,186,1) 0%, rgba(27,127,158,1) 100%) !important;
 }
 
+@media screen and (max-width: 576px) {
+  .box {
+    transform: translate(-43%, -50%);
+  }
+}
+
 </style>

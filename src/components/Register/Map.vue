@@ -43,6 +43,7 @@ export default {
       // เซ็ตดาต้าที่รีเทรินมาเมื่อยูสเซอร์เลือกสถานที่
       autocomplete.setFields(
         ['address_components', 'geometry', 'icon', 'name'])
+      infowindow.setContent(infowindowContent)
       const marker = new google.maps.Marker({
         map: map,
         anchorPoint: new google.maps.Point(0, -29),
@@ -52,9 +53,25 @@ export default {
       map.addListener('click', (event) => {
         this.addMarker(event, map, marker)
       })
-      // marker drag actions
+      // marker actions
+      marker.addListener('click', () => {
+        infowindow.open(map, marker)
+      })
       marker.addListener('dragend', this.changeAddress)
       autocomplete.addListener('place_changed', () => {
+        contentString = `
+        <div class="card-content text-center">
+          <div class="media">
+            <div class="media-content">
+              <p class="title is-4 font-weight-bold">${autocomplete.getPlace()}</p>
+            </div>
+          </div>
+        </div>
+      `
+        const infowindow = new google.maps.InfoWindow({
+          content: contentString
+        })
+        infowindow.open(map, marker)
         marker.setVisible(false)
         const place = autocomplete.getPlace()
         if (!place.geometry) {
