@@ -8,7 +8,9 @@ export default new Vuex.Store({
   state: {
     user: undefined,
     info: undefined,
-    addressName: ''
+    address: {
+      name: ''
+    }
   },
   mutations: {
     SET_USER (state, payload) {
@@ -20,13 +22,28 @@ export default new Vuex.Store({
     CLEAR_USER (state) {
       state.user = undefined
     },
-    SET_ADDRESSNAME (state, payload) {
-      state.addressName = payload
+    SET_ADDRESS (state, payload) {
+      if ('name' in payload) {
+        state.address = {
+          name: payload.name,
+          geometry: {
+            location: {
+              lat: payload.geometry.location.lat(),
+              lng: payload.geometry.location.lng()
+            }
+          }
+        }
+      } else {
+        state.address = {
+          name: payload.results[0].address_components[1].long_name,
+          geometry: payload.results[0].geometry
+        }
+      }
     }
   },
   actions: {
-    setAddress: ({ commit }, addName) => {
-      commit('SET_ADDRESSNAME', addName)
+    setAddress: ({ commit }, address) => {
+      commit('SET_ADDRESS', address)
     },
     setUser: ({ commit }, user) => {
       /*

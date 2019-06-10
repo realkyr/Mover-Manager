@@ -2,7 +2,7 @@
   <div>
     <div class="search ">
       <div class="my-input-control">
-        <input id="pac-input" class="thai" ref="pac-input" type="text" placeholder="  โปรดระบุชื่อโรงเรียน" v-model="$store.state.addressName">
+        <input id="pac-input" class="thai" ref="pac-input" type="text" placeholder="  โปรดระบุชื่อโรงเรียน" v-model="$store.state.address.name">
         <i class="fas fa-school" aria-hidden="true"></i>
       </div>
     </div>
@@ -43,7 +43,6 @@ export default {
       // เซ็ตดาต้าที่รีเทรินมาเมื่อยูสเซอร์เลือกสถานที่
       autocomplete.setFields(
         ['address_components', 'geometry', 'icon', 'name'])
-      infowindow.setContent(infowindowContent)
       const marker = new google.maps.Marker({
         map: map,
         anchorPoint: new google.maps.Point(0, -29),
@@ -54,24 +53,8 @@ export default {
         this.addMarker(event, map, marker)
       })
       // marker actions
-      marker.addListener('click', () => {
-        infowindow.open(map, marker)
-      })
       marker.addListener('dragend', this.changeAddress)
       autocomplete.addListener('place_changed', () => {
-        contentString = `
-        <div class="card-content text-center">
-          <div class="media">
-            <div class="media-content">
-              <p class="title is-4 font-weight-bold">${autocomplete.getPlace()}</p>
-            </div>
-          </div>
-        </div>
-      `
-        const infowindow = new google.maps.InfoWindow({
-          content: contentString
-        })
-        infowindow.open(map, marker)
         marker.setVisible(false)
         const place = autocomplete.getPlace()
         if (!place.geometry) {
@@ -87,10 +70,10 @@ export default {
           map.setCenter(place.geometry.location)
           map.setZoom(16)
         }
-        console.log(place.geometry.location)
+        console.log(place)
         marker.setPosition(place.geometry.location)
         marker.setVisible(true)
-        this.setAddress(place.name)
+        this.setAddress(place)
       })
     },
     addMarker (event, map, marker) {
@@ -106,7 +89,7 @@ export default {
       const address = await axios.get(api)
       console.log(api)
       console.log(address.data)
-      this.setAddress(address.data.results[0].address_components[1].long_name)
+      this.setAddress(address.data)
     }
   }
 }

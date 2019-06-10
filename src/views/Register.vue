@@ -47,6 +47,8 @@
       </div>
       <div class="vl"></div>
         <div class="col input-school">
+          <small v-show="errAddress" style="color:red;" class="alert-text thai"
+          > {{ errAddress }} </small>
           <Map />
         </div>
     </div>
@@ -68,6 +70,9 @@ export default {
   metaInfo: {
     title: 'Register | Mover'
   },
+  mounted () {
+    this.$store.state.address = { name: '' }
+  },
   data () {
     return {
       errEmail: '',
@@ -75,6 +80,7 @@ export default {
       errConPass: '',
       errName: '',
       errPhone: '',
+      errAddress: '',
       email: '',
       password: '',
       conPassword: '',
@@ -95,6 +101,12 @@ export default {
       } else {
         this.errPass = ''
       }
+      let withoutSpace = this.password.replace(/ /g, '')
+      if (withoutSpace.length < 8) {
+        this.errPass = 'โปรดกรอกรหัสให้มากกว่า 7 ตัวอักษร'
+      } else {
+        this.errPass = ''
+      }
       if (this.email === '') {
         this.errEmail = 'โปรดกรอกอีเมล'
       } else {
@@ -110,8 +122,35 @@ export default {
       } else {
         this.errName = ''
       }
+      if (!('geometry' in this.$store.state.address)) {
+        this.errAddress = 'โปรดกรอกชื่อโรงเรียน'
+      } else {
+        this.errAddress = ''
+      }
       if (this.validate()) {
         firebase.auth().createUserWithEmailAndPassword(this.email, this.password)
+          .then((user) => {
+            console.log(user.user.uid)
+            firebase.firestore().collection('managers').doc(user.user.uid).set({
+              fname: this.fname,
+              lname: this.lname,
+              phone: this.phone,
+              school: {
+                latlng: {
+                  lat: this.$store.state.address.geometry.location.lat,
+                  lng: this.$store.state.address.geometry.location.lng
+                },
+                name: this.$store.state.address.name
+              },
+              url: 'something'
+            })
+              .then(() => {
+                this.$router.replace('Login')
+              })
+              .catch((error) => {
+                console.log(error)
+              })
+          })
           .catch((error) => {
             let errorCode = error.code
             let errorMessage = error.message

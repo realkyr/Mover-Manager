@@ -1,40 +1,51 @@
 <template>
-  <div class="box">
-    <div class="logo-container">
-      <img id="logo" src="../../assets/logo/logo.png">
-    </div>
-    <div style="text-align: center;">
-      <p class="thai" id="title-info">ข้อมูลกลุ่มนักเรียน</p>
-    </div>
-    <div class="input-control">
-      <div class="my-input-control">
-        <input v-model="name" class="thai" type="text" placeholder="ชื่อกลุ่ม">
-        <i class="fas fa-users" aria-hidden="true"></i>
+  <div style="background: ">
+    <Searchbar/>
+    <Sidebar />
+    <div class="box">
+      <div class="logo-container">
+        <img id="logo" src="../../assets/logo/logo.png">
       </div>
-      <div class="my-input-control"  style="font-size: 0.8em;">
-        <i class="fas fa-user-circle" aria-hidden="true"></i>
-        <select v-model="student" class="thai ml-5 mt-3">
-          <option :value="[]">------- โปรดเลือกนักเรียนในกลุ่ม -------</option>
-          <option :key="s" :value="s" v-for="s in students">{{ s.name }}</option>
-        </select>
+      <div style="text-align: center;">
+        <p class="thai" id="title-info">ข้อมูลกลุ่มนักเรียน</p>
       </div>
-      <div class="my-input-control mt-2"  style="font-size: 0.8em;">
-        <i class="far fa-clock" aria-hidden="true"></i>
-        <select v-model="time" class="thai ml-5 mt-3">
-          <option :value="null">------------ โปรดเลือกเวลา  ------------</option>
-          <option :key="t" :value="t.id" v-for="t in times">{{ t.text }}</option>
-        </select>
+      <div class="input-control">
+        <div class="my-input-control">
+          <input v-model="name" class="thai" type="text" placeholder="ชื่อกลุ่ม">
+          <i class="fas fa-users" aria-hidden="true"></i>
+        </div>
+        <div class="my-input-control">
+          <i class="fas fa-user-circle" aria-hidden="true"></i>
+          <select v-model="student" class="thai select-option">
+            <option :value="[]">--- โปรดเลือกนักเรียนในกลุ่ม ---</option>
+            <option :key="s" :value="s" v-for="s in students">{{ s.name }}</option>
+          </select>
+        </div>
+        <div class="my-input-control mt-2">
+          <i class="far fa-clock" aria-hidden="true"></i>
+          <select v-model="time" class="thai select-option">
+            <option :value="null">--- โปรดเลือกเวลา  ---</option>
+            <option :key="t" :value="t.id" v-for="t in times">{{ t.text }}</option>
+          </select>
+        </div>
       </div>
-    </div>
-    <div class="btn-group">
-      <button type="button" id="save" class="btn thai" @click="save">บันทึก</button>
-      <button type="button" id="back" class="btn thai" @click="cancel">ยกเลิก</button>
+      <div class="btn-group">
+        <button type="button" id="save" class="btn thai" @click="save">บันทึก</button>
+        <button type="button" id="back" class="btn thai" @click="cancel">ยกเลิก</button>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import Searchbar from '../../components/Dashboard/Searchbar'
+import Sidebar from '../../components/Dashboard/Sidebar'
+
 export default {
+  components: {
+    Searchbar,
+    Sidebar
+  },
   name: 'groups-creating-console',
   metaInfo: {
     title: 'Create Student Group | Mover'
@@ -71,7 +82,6 @@ export default {
 </script>
 
 <style scoped>
-
 .box {
   background: white;
   padding: 20px;
@@ -185,9 +195,29 @@ input[type="password"]:focus + i {
   background: linear-gradient(180deg, rgba(33,149,186,1) 0%, rgba(27,127,158,1) 100%) !important;
 }
 
-@media screen and (max-width: 320px) {
+.select-option {
+  width: 255px;
+  border-radius: 15px;
+  margin: 10px 0 0 40px
+}
+
+@media screen and (max-width: 576px) {
   .box {
-    transform: translate(-40%, -50%);
+    transform: translate(-50%, -50%);
+  }
+}
+
+@media screen and (max-width: 376px) {
+  .box {
+    width: 400px;
+    transform: translate(-50%, -50%);
+  }
+  .thai {
+    font-size: 9pt;
+  }
+  .select-option {
+    padding: 5px;
+    width: 180px;
   }
 }
 
