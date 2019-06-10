@@ -7,25 +7,30 @@
     <div class="bus-listview">
       <div class="container-fluid">
         <div class="row">
-          <div class="col-auto" :key="i" v-for="i in 35">
+          <div class="col-auto" :key="bus" v-for="bus in Object.keys(buses)">
             <div class="bus-card rounded mb-3">
               <div>
                 <span>
-                  SBUS A1 | กค-1234
+                  {{ buses[bus].busID.slice(0, 7) }} | {{ buses[bus].plate }}
                   <button class="btn edit-btn thai ml-3"><i class="far fa-edit" /></button>
                   <button
                     data-toggle="modal"
-                    data-target="#exampleModal"
+                    :data-target="`#${bus}`"
                     class="btn del-btn thai ml-1"
                   >
                     <i class="far fa-trash-alt" />
                   </button>
                 </span>
               </div>
-              <div>คนขับ : สมชาย ศรีสุข</div>
-              <div>กลุ่มนักเรียน : 1</div>
+              <div>คนขับ : {{ buses[bus].driverName }}</div>
+              <div>กลุ่มนักเรียน : {{ buses[bus].studentGroup }}</div>
             </div>
-            <DeleteModal id="exampleModal"/>
+            <DeleteModal
+              :plate="buses[bus].plate"
+              :busID="buses[bus].busID"
+              :id="bus"
+              :uid="bus"
+            />
           </div>
         </div>
       </div>
@@ -39,6 +44,27 @@ import DeleteModal from './DeleteBus'
 export default {
   components: {
     DeleteModal
+  },
+  data () {
+    return {
+      buses: {
+        // all buses information goes here
+        A1: {
+          busID: 'SBUS A1',
+          plate: 'กค-5417',
+          driverName: 'สมชาย ศรีสุข',
+          phoneNum: '0945587588',
+          studentGroup: 1
+        },
+        A2: {
+          busID: 'SBUS A2',
+          plate: '1 มม-112',
+          driverName: 'ธีรภัทร ฟูเทพ',
+          phoneNum: '081xxxxxx',
+          studentGroup: 1
+        }
+      }
+    }
   }
 }
 </script>
