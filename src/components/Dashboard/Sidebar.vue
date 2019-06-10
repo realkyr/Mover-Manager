@@ -1,22 +1,20 @@
 <template>
-  <div class="container-fluid">
-    <div class="sidebar">
-      <div class="d-flex justify-content-center align-items-center">
-        <ul>
-          <router-link to="/dashboard" tag="li" active-class="active" class="navbtn" exact>
-            <home width="18" height="18" />
-          </router-link>
-          <router-link to="/dashboard/bus" tag="li" active-class="active" class="navbtn" exact>
-            <schoolbus width="18" height="18" />
-          </router-link>
-          <router-link to="/dashboard/student" tag="li" active-class="active" class="navbtn" exact>
-            <student width="18" height="18" />
-          </router-link>
-          <router-link to="/dashboard/family" tag="li" active-class="active" class="navbtn" exact>
-            <family width="18" height="18" />
-          </router-link>
-        </ul>
-      </div>
+  <div class="sidebar">
+    <div class="d-flex justify-content-center align-items-center">
+      <ul>
+        <router-link to="/dashboard" tag="li" active-class="active" class="navbtn" exact>
+          <home width="18" height="18" />
+        </router-link>
+        <router-link to="/dashboard/bus" tag="li" active-class="active" class="navbtn" exact>
+          <schoolbus width="18" height="18" />
+        </router-link>
+        <router-link to="/dashboard/student" tag="li" active-class="active" class="navbtn" exact>
+          <student width="18" height="18" />
+        </router-link>
+        <router-link to="/dashboard/family" tag="li" active-class="active" class="navbtn" exact>
+          <family width="18" height="18" />
+        </router-link>
+      </ul>
     </div>
   </div>
 </template>
@@ -49,6 +47,7 @@ li {
   background: white;
   position: absolute;
   left: 0;
+  top: 50pt;
   border-right: 0.5pt solid rgb(236, 235, 243);
 }
 
