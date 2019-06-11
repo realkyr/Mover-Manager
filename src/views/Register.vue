@@ -46,11 +46,11 @@
         </div>
       </div>
       <div class="vl"></div>
-        <div class="col input-school">
-          <small v-show="errAddress" style="color:red;" class="alert-text thai"
-          > {{ errAddress }} </small>
-          <Map />
-        </div>
+      <div class="col input-school">
+        <small v-show="errAddress" style="color:red;" class="alert-text thai"
+        > {{ errAddress }} </small>
+        <Map />
+      </div>
     </div>
     <div class="btn-group">
       <button type="button" id="regiter" class="btn thai" @click="register">สมัครสมาชิก</button>
@@ -167,7 +167,7 @@ export default {
     },
     validate () {
       if (this.errEmail === '' && this.errPass === '' && this.errConPass === '' &&
-       this.errName === '' && this.errPhone === '') {
+       this.errName === '' && this.errPhone === '' && this.errAddress === '') {
         return true
       } else {
         return false
@@ -275,7 +275,6 @@ input[type="password"]:focus + i {
 #back {
   color: black !important;
   background: white !important;
-  /* background: linear-gradient(180deg, rgba(33,149,186,1) 0%, rgba(27,127,158,1) 100%) !important; */
   border-radius: 18px;
   width: 100%;
 }
