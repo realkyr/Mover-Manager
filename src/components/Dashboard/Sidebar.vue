@@ -5,7 +5,7 @@
         <router-link to="/dashboard" tag="li" active-class="active" class="navbtn" exact>
           <home width="18" height="18" />
         </router-link>
-        <router-link to="/dashboard/bus" tag="li" active-class="active" class="navbtn" exact>
+        <router-link to="/dashboard/bus" tag="li" active-class="active" class="navbtn">
           <schoolbus width="18" height="18" />
         </router-link>
         <router-link to="/dashboard/student" tag="li" active-class="active" class="navbtn" exact>

@@ -35,6 +35,8 @@ export default {
   },
   methods: {
     closeModal () {
+      console.log({ uid: this.uid })
+      this.$emit('onDelete', { uid: this })
       // eslint-disable-next-line no-undef
       $('#' + this.uid).modal('hide')
     }
