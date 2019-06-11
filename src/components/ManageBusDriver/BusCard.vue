@@ -10,8 +10,8 @@
         >
           <i class="far fa-edit"/>
         </button>
-        <button v-if="edit" @click="editToggle" class="btn save-btn thai ml-3">
-          <i class="far fa-save"/>
+        <button v-if="edit" @click="editToggle" class="btn del-btn thai ml-3">
+          <i class="fas fa-times" />
         </button>
         <button data-toggle="modal" :data-target="`#${bus}`" class="btn del-btn thai ml-1">
           <i class="far fa-trash-alt"/>
@@ -41,6 +41,7 @@
         </select>
       </div>
       <router-link to="/" tag="a" class="thai">แก้ไขโดยละเอียด</router-link>
+      <button style="float: right;" @click="editToggle" class="btn btn-success">บันทึก</button>
     </div>
   </div>
 </template>
