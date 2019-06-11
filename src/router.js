@@ -13,6 +13,7 @@ import CreateStudent from '@/views/Student/CreateStudent'
 import UpdateStudent from '@/views/Student/UpdateStudent'
 import CreateDriver from '@/views/Driver/CreateDriver'
 import UpdateDriver from '@/views/Driver/UpdateDriver'
+import Profile from '@/views/Profile'
 import CreateBus from '@/views/Bus/CreateBus'
 
 // import firebase from 'firebase'
@@ -38,6 +39,11 @@ let router = new Router({
       path: '/register',
       name: 'register',
       component: Register
+    },
+    {
+      path: '/profile',
+      name: 'profile',
+      component: Profile
     },
     {
       path: '/dashboard',

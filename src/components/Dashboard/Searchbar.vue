@@ -19,7 +19,7 @@
       ">
         <div class="avatar">
           <span class="dname">{{ displayName }}</span>
-          <button class="btn fa-lg p-1" href="#">
+          <button class="btn fa-lg p-1" @click="toProfile">
             <i class="fas fa-user">
           </i></button>
         </div>
@@ -46,6 +46,9 @@ export default {
     ]),
     getDisplayName () {
       return `${this.getUser().information.fname} ${this.getUser().information.lname}`
+    },
+    toProfile () {
+      this.$router.replace('profile')
     }
   }
 }
