@@ -4,17 +4,40 @@
       <span>
         {{ busID.slice(0, 7) }} | {{ plate }}
         <button
+          v-if="!edit"
           class="btn edit-btn thai ml-3"
+          @click="editToggle"
         >
           <i class="far fa-edit"/>
+        </button>
+        <button v-if="edit" @click="editToggle" class="btn save-btn thai ml-3">
+          <i class="far fa-save"/>
         </button>
         <button data-toggle="modal" :data-target="`#${bus}`" class="btn del-btn thai ml-1">
           <i class="far fa-trash-alt"/>
         </button>
       </span>
     </div>
-    <div>คนขับ : {{ driverName }}</div>
-    <div>กลุ่มนักเรียน : {{ studentGroup }}</div>
+    <div v-if="!edit">คนขับ : {{ driverName }}</div>
+    <div class="form-group" v-if="edit">
+      คนขับ :
+      <select :value="1" class="custom-select mr-sm-2" id="driver">
+        <option selected>เลือกคนขับ...</option>
+        <option value="1">นายธีรภัทร ฟูเทพ</option>
+        <option value="2">นายภูรี กานุสนธิ์</option>
+        <option value="3">นายอิงครัต ทินกรศรีสุภาพ</option>
+      </select>
+    </div>
+    <div v-if="!edit">กลุ่มนักเรียน : {{ studentGroup }}</div>
+    <div class="form-group" v-if="edit">
+      กลุ่มนักเรียน :
+      <select :value="1" class="custom-select mr-sm-2" id="driver">
+        <option selected>เลือกกลุ่มนักเรียน...</option>
+        <option value="1">1 เช้า</option>
+        <option value="2">1 บ่าย</option>
+      </select>
+    </div>
+    <router-link v-if="edit" to="/" tag="a" class="thai">แก้ไขโดยละเอียด</router-link>
   </div>
 </template>
 
@@ -40,6 +63,16 @@ export default {
     bus: {
       type: String,
       default: ''
+    }
+  },
+  data () {
+    return {
+      edit: false
+    }
+  },
+  methods: {
+    editToggle () {
+      this.edit = !this.edit
     }
   }
 }
@@ -68,5 +101,14 @@ export default {
 
   .del-btn {
     color: rgb(229, 23, 23);
+  }
+
+  .save-btn {
+    border: 0.5pt solid rgb(236, 235, 243);
+    border-radius: 15px;
+  }
+
+  .save-btn i {
+    color: #28a745;
   }
 </style>
