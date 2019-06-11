@@ -18,26 +18,30 @@
         </button>
       </span>
     </div>
+    <!-- show this if not edit -->
     <div v-if="!edit">คนขับ : {{ driverName }}</div>
-    <div class="form-group" v-if="edit">
-      คนขับ :
-      <select :value="1" class="custom-select mr-sm-2" id="driver">
-        <option selected>เลือกคนขับ...</option>
-        <option value="1">นายธีรภัทร ฟูเทพ</option>
-        <option value="2">นายภูรี กานุสนธิ์</option>
-        <option value="3">นายอิงครัต ทินกรศรีสุภาพ</option>
-      </select>
-    </div>
     <div v-if="!edit">กลุ่มนักเรียน : {{ studentGroup }}</div>
-    <div class="form-group" v-if="edit">
-      กลุ่มนักเรียน :
-      <select :value="1" class="custom-select mr-sm-2" id="driver">
-        <option selected>เลือกกลุ่มนักเรียน...</option>
-        <option value="1">1 เช้า</option>
-        <option value="2">1 บ่าย</option>
-      </select>
+    <!-- edit section -->
+    <div v-if="edit" class="edit-section">
+      <div class="form-group">
+        คนขับ :
+        <select :value="1" class="custom-select mr-sm-2" id="bus-card-driver">
+          <option selected>เลือกคนขับ...</option>
+          <option value="1">นายธีรภัทร ฟูเทพ</option>
+          <option value="2">นายภูรี กานุสนธิ์</option>
+          <option value="3">นายอิงครัต ทินกรศรีสุภาพ</option>
+        </select>
+      </div>
+      <div class="form-group">
+        กลุ่มนักเรียน :
+        <select :value="1" class="custom-select mr-sm-2" id="bus-card-student-group">
+          <option selected>เลือกกลุ่มนักเรียน...</option>
+          <option value="1">1 เช้า</option>
+          <option value="2">1 บ่าย</option>
+        </select>
+      </div>
+      <router-link to="/" tag="a" class="thai">แก้ไขโดยละเอียด</router-link>
     </div>
-    <router-link v-if="edit" to="/" tag="a" class="thai">แก้ไขโดยละเอียด</router-link>
   </div>
 </template>
 
@@ -110,5 +114,9 @@ export default {
 
   .save-btn i {
     color: #28a745;
+  }
+
+  .edit-section {
+    width: 246.86px;
   }
 </style>
