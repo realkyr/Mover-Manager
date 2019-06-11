@@ -76,6 +76,11 @@ export default {
   padding: 0 20px 0 20px;
 }
 
+.mover-btn:hover {
+  background: rgb(207, 88, 24);
+  color: white;
+}
+
 .bus-listview {
   /* background: red; */
   height: 60vh;
