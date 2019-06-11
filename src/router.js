@@ -13,6 +13,7 @@ import CreateStudent from '@/views/Student/CreateStudent'
 import UpdateStudent from '@/views/Student/UpdateStudent'
 import CreateDriver from '@/views/Driver/CreateDriver'
 import UpdateDriver from '@/views/Driver/UpdateDriver'
+import CreateBus from '@/views/Bus/CreateBus'
 
 // import firebase from 'firebase'
 import 'firebase/auth'
@@ -47,6 +48,11 @@ let router = new Router({
       path: '/dashboard/bus',
       name: 'bus-managing-console',
       component: ManageBus
+    },
+    {
+      path: '/dashboard/bus/create',
+      name: 'create-bus',
+      component: CreateBus
     },
     {
       path: '/dashboard/student',

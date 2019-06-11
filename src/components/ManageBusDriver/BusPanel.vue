@@ -2,7 +2,7 @@
   <div class="container-fluid mt-3 p-2 rounded buspanel">
     <div class="row p-4 d-flex align-items-center justify-content-between">
       <h3 class="thai">รถโรงเรียน</h3>
-      <button class="btn mover-btn thai">&#43; เพิ่ม</button>
+      <router-link to="bus/create" tag="button" class="btn mover-btn thai">&#43; เพิ่ม</router-link>
     </div>
     <div class="bus-listview">
       <div class="container-fluid">
