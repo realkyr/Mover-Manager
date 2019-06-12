@@ -1,14 +1,25 @@
 <template>
   <div class="container-fluid">
     <div class="nav-tab row mt-3">
-      <div class="nav-tab-button left-nav-tab-button rounded-left">
+      <router-link
+        to="/dashboard/bus"
+        active-class="active"
+        tag="div"
+        class="nav-tab-button left-nav-tab-button rounded-left"
+        exact
+      >
         <Schoolbus class="managebus-logo mr-2" />
         รถโรงเรียน
-      </div>
-      <div class="nav-tab-button right-nav-tab-button rounded-right">
+      </router-link>
+      <router-link
+        to="/dashboard/drivers"
+        active-class="active"
+        tag="div"
+        class="nav-tab-button right-nav-tab-button rounded-right"
+      >
         <Driver class="managebus-logo mr-2" />
         คนขับรถ
-      </div>
+      </router-link>
     </div>
   </div>
 </template>
@@ -44,9 +55,24 @@ export default {
   background: white;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.nav-tab-button:hover {
+  background: #ececec;
+}
+
+.nav-tab-button.active {
+  background: #2594bc;
+  color: white;
 }
 
 .managebus-logo path{
   fill: #2c3e50;
+}
+
+.active .managebus-logo path{
+  fill: white;
 }
 </style>

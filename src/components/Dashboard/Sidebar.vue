@@ -11,7 +11,7 @@
         <router-link to="/dashboard/student" tag="li" active-class="active" class="navbtn" exact>
           <student width="18" height="18" />
         </router-link>
-        <router-link to="/dashboard/family" tag="li" active-class="active" class="navbtn" exact>
+        <router-link to="/dashboard/family" tag="li" active-class="active" class="navbtn">
           <family width="18" height="18" />
         </router-link>
       </ul>

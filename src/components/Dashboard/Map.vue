@@ -44,7 +44,7 @@ export default {
       console.log({ lat, lng })
       let myLatLng = new google.maps.LatLng(lat, lng + 0.001)
       this.buses['A1']['marker'].setPosition(myLatLng)
-    }, 1000)
+    }, 4000)
   },
   data () {
     return {
@@ -86,7 +86,8 @@ export default {
         this.buses[i].marker = new google.maps.Marker({
           position: this.buses[i].position,
           map: this.map,
-          icon: require('../../assets/pics/marker.svg')
+          icon: require('../../assets/pics/marker.svg'),
+          title: 'myMarker'
         })
 
         this.buses[i].marker.addListener('click', e => {
@@ -133,6 +134,10 @@ export default {
 </script>
 
 <style>
+[title="myMaker"] {
+  transition: all 0.5s ease;
+}
+
 #map {
   width: calc(100vw - 80pt);
   height: calc(100vh - 180pt);

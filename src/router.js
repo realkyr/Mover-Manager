@@ -7,6 +7,7 @@ import Overview from '@/views/Overview'
 import ManageBus from '@/views/ManageBus'
 import ManageStudent from '@/views/ManageStudent'
 import ManageFamily from '@/views/ManageFamily'
+import ManageFamilyRequests from '@/views/Family/RequestsPage'
 import CreateStudentGroup from '@/views/StudentGroup/CreateStudentGroup'
 import UpdateStudentGroup from '@/views/StudentGroup/UpdateStudentGroup'
 import CreateStudent from '@/views/Student/CreateStudent'
@@ -69,6 +70,11 @@ let router = new Router({
       path: '/dashboard/family',
       name: 'family-managing-console',
       component: ManageFamily
+    },
+    {
+      path: '/dashboard/family/requests',
+      name: 'requests-managing-console',
+      component: ManageFamilyRequests
     },
     {
       path: '/dashboard/group/create',
