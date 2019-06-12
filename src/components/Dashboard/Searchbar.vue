@@ -19,9 +19,11 @@
       ">
         <div class="avatar">
           <span class="dname">{{ displayName }}</span>
-          <button class="btn fa-lg p-1" @click="toProfile">
-            <i class="fas fa-user">
-          </i></button>
+          <router-link :to="{ name: 'profile' }" >
+            <button class="btn fa-lg p-1">
+              <i class="fas fa-user">
+            </i></button>
+          </router-link>
         </div>
       </div>
     </div>

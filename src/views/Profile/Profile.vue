@@ -2,72 +2,77 @@
   <div>
     <Searchbar/>
     <Sidebar />
-    <div class="container">
+    <div class="container-fluid" style="padding: 0 30px 0 100px;">
       <div class="content">
-      <h4 class="thai ml-4 mt-4">Edit Profile</h4>
-      <div class="row mt-5">
-        <div class="col-6">
-          <div class="input-control">
-            <div class="my-input-control">
-              <input v-model="email" class="thai" type="text" placeholder="E-Mail">
-              <i class="fas fa-envelope" aria-hidden="true"></i>
-            </div>
-            <small v-show="errEmail" style="color:red;" class="alert-text thai"
-            > {{ errEmail }} </small>
-            <div class="my-input-control">
-              <input v-model="fname" class="thai" type="text" placeholder="ชื่อ">
-              <i class="fas fa-user-circle" aria-hidden="true"></i>
-            </div>
-            <small v-show="errName" style="color:red;" class="alert-text thai"
-            > {{ errName }} </small>
-            <div class="my-input-control">
-              <input v-model="lname" class="thai" type="text" placeholder="นามสกุล">
-              <i class="fas fa-user-circle" aria-hidden="true"></i>
-            </div>
-            <small v-show="errName" style="color:red;" class="alert-text thai"
-            > {{ errName }} </small>
-            <div class="my-input-control">
-              <input v-model="phone" class="thai" type="tel" placeholder="เบอร์โทรศัพท์" maxlength="10">
-              <i class="fas fa-mobile-alt" aria-hidden="true"></i>
-            </div>
-            <small v-show="errPhone" style="color:red;" class="alert-text thai"
-            > {{ errPhone }} </small>
-            <div class="my-input-control">
-            <input v-model="password" class="thai" type="password" placeholder="รหัสผ่าน">
-            <i class="fas fa-lock" aria-hidden="true"></i>
-            </div>
-            <small v-show="errPass" style="color:red;" class="alert-text thai"
-            > {{ errPass }} </small>
-            <div class="my-input-control">
-              <input v-model="conPassword" class="thai" type="password" placeholder="ยืนยันรหัสผ่าน">
-              <i class="fas fa-lock" aria-hidden="true"></i>
-            </div>
-            <small v-show="errConPass" style="color:red;" class="alert-text thai"
-            > {{ errConPass }} </small>
+        <div class="row">
+          <div class="col">
+            <h4 class="thai ml-4 mt-4">โปรไฟล์</h4>
+          </div>
+          <div class="col-2 d-flex justify-content-center align-item-center">
+            <router-link :to="{ name: 'edit-profile' }" >
+              <button type="button" class="btn thai">Edit Profile</button>
+            </router-link>
           </div>
         </div>
-        <div class="vl"></div>
-        <div class="col input-school">
-          <small v-show="errAddress" style="color:red;" class="alert-text thai"
-          > {{ errAddress }} </small>
-          <Map />
+        <div class="profile"></div>
+        <button type="button" id="qr" class="btn btn-success"><i style="position: initial; color: white;" class="fas fa-qrcode"></i>ดูคิวอาร์โค้ด</button>
+        <div class="row mt-2">
+          <div class="col-6">
+            <div class="input-control">
+              <div class="my-input-control">
+                <input v-model="email" class="thai" type="text" placeholder="E-Mail">
+                <i class="fas fa-envelope" aria-hidden="true"></i>
+              </div>
+              <small v-show="errEmail" style="color:red;" class="alert-text thai"
+              > {{ errEmail }} </small>
+              <div class="my-input-control">
+                <input v-model="fname" class="thai" type="text" placeholder="ชื่อ">
+                <i class="fas fa-user-circle" aria-hidden="true"></i>
+              </div>
+              <small v-show="errName" style="color:red;" class="alert-text thai"
+              > {{ errName }} </small>
+              <div class="my-input-control">
+                <input v-model="lname" class="thai" type="text" placeholder="นามสกุล">
+                <i class="fas fa-user-circle" aria-hidden="true"></i>
+              </div>
+              <small v-show="errName" style="color:red;" class="alert-text thai"
+              > {{ errName }} </small>
+              <div class="my-input-control">
+                <input v-model="phone" class="thai" type="tel" placeholder="เบอร์โทรศัพท์" maxlength="10">
+                <i class="fas fa-mobile-alt" aria-hidden="true"></i>
+              </div>
+              <small v-show="errPhone" style="color:red;" class="alert-text thai"
+              > {{ errPhone }} </small>
+              <div class="my-input-control">
+              <input v-model="password" class="thai" type="password" placeholder="รหัสผ่าน">
+              <i class="fas fa-lock" aria-hidden="true"></i>
+              </div>
+              <small v-show="errPass" style="color:red;" class="alert-text thai"
+              > {{ errPass }} </small>
+              <div class="my-input-control">
+                <input v-model="conPassword" class="thai" type="password" placeholder="ยืนยันรหัสผ่าน">
+                <i class="fas fa-lock" aria-hidden="true"></i>
+              </div>
+              <small v-show="errConPass" style="color:red;" class="alert-text thai"
+              > {{ errConPass }} </small>
+            </div>
+          </div>
+          <div class="vl"></div>
+          <div class="col input-school">
+            <small v-show="errAddress" style="color:red;" class="alert-text thai"
+            > {{ errAddress }} </small>
+            <Map />
+          </div>
         </div>
-      </div>
-      <div class="btn-group">
-        <button type="button" id="regiter" class="btn thai" @click="updateInfo">บันทึกข้อมูล</button>
-        <router-link to="/dashboard" >
-          <button type="button" id="back" class="btn thai">ยกเลิก</button>
-        </router-link>
-      </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import Searchbar from '../components/Dashboard/Searchbar'
-import Sidebar from '../components/Dashboard/Sidebar'
-import Map from '../components/Register/Map'
+import Searchbar from '../../components/Dashboard/Searchbar'
+import Sidebar from '../../components/Dashboard/Sidebar'
+import Map from '../../components/Profile/Map'
 export default {
   components: {
     Searchbar,
@@ -79,14 +84,6 @@ export default {
   },
   data () {
     return {
-      classObject1: {
-        active: true,
-        'list-group-item list-group-item-action': true
-      },
-      classObject2: {
-        active: false,
-        'list-group-item list-group-item-action': true
-      },
       errEmail: '',
       errPass: '',
       errConPass: '',
@@ -148,38 +145,20 @@ export default {
       } else {
         return false
       }
-    },
-    selected1 () {
-      if (this.classObject1.active) {
-        this.classObject1.active = true
-      } else {
-        this.classObject1.active = true
-        this.classObject2.active = false
-      }
-    },
-    selected2 () {
-      if (this.classObject1.active) {
-        this.classObject1.active = false
-        this.classObject2.active = true
-      }
     }
   }
 }
 </script>
 
 <style scoped>
-.container {
-  margin-left: 100px;
-}
 .content {
   padding: 10px;
   box-shadow: 0 4px 25px 0 rgba(0, 0, 0, 0.1);
-  margin: 3rem 0 0 0;
+  margin: 2rem 0 2rem 0;
 }
 .row {
   justify-content: center;
   align-items: center;
-  /* box-shadow: 0 4px 25px 0 rgba(0, 0, 0, 0.1); */
 }
 .input-school {
   padding: 0 3rem 2rem 3rem;
@@ -284,5 +263,21 @@ input[type="password"]:focus + i {
 
 #back:hover {
   background: #d3d3d3 !important;
+}
+
+.profile {
+  display: block;
+  margin: 10px auto;
+  width: 150px;
+  height: 150px;
+  background: gray;
+  border-radius: 20px;
+}
+
+#qr {
+  background: orange !important;
+  border: none;
+  display: block;
+  margin: 10px auto;
 }
 </style>
