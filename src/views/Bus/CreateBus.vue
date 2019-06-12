@@ -30,14 +30,3 @@ export default {
   }
 }
 </script>
-
-<style>
-.bus-inside-container {
-  margin-left: 50pt;
-  padding: 20px;
-  background: rgb(243, 243, 243);
-  margin-left: 50pt;
-  padding: 20px;
-  flex-grow : 1;
-}
-</style>

@@ -34,11 +34,8 @@ export default {
 <style>
 .bus-inside-container {
   margin-left: 50pt;
-  padding: 20px;
+  padding: 20px 20px 0 20px;
   background: rgb(243, 243, 243);
-  /* background: black; */
   margin-left: 50pt;
-  padding: 20px;
-  flex-grow : 1;
 }
 </style>

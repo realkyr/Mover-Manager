@@ -68,7 +68,7 @@ export default {
 <style>
 .buspanel {
   background: white;
-  height: calc(100% - 80pt);
+  height: calc(100% - 100pt);
 }
 
 .mover-btn {
