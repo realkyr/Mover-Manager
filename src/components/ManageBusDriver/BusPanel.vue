@@ -1,27 +1,31 @@
 <template>
-  <div class="container-fluid mt-3 p-2 rounded buspanel">
-    <div class="row p-4 d-flex align-items-center justify-content-between">
-      <h3 class="thai">รถโรงเรียน</h3>
-      <router-link to="bus/create" tag="button" class="btn mover-btn thai">&#43; เพิ่ม</router-link>
+  <div class="container-fluid mt-3 p-3 rounded buspanel">
+    <div class="row mb-1 d-flex align-items-center justify-content-between">
+      <div class="col-auto">
+        <h3 class="thai">รถโรงเรียน</h3>
+      </div>
+      <div class="col-auto">
+        <router-link to="bus/create" tag="button" class="btn mover-btn thai">
+          &#43; เพิ่ม
+        </router-link>
+      </div>
     </div>
     <div class="bus-listview">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-auto" :key="bus" v-for="bus in Object.keys(buses)">
-            <BusCard
-              :bus="bus"
-              :busID="buses[bus].busID"
-              :plate="buses[bus].plate"
-              :driverName="buses[bus].driverName"
-              :studentGroup="buses[bus].studentGroup"
-            />
-            <DeleteModal
-              :plate="buses[bus].plate"
-              :busID="buses[bus].busID"
-              :id="bus"
-              :uid="bus"
-            />
-          </div>
+      <div class="row">
+        <div class="col-auto" :key="bus" v-for="bus in Object.keys(buses)">
+          <BusCard
+            :bus="bus"
+            :busID="buses[bus].busID"
+            :plate="buses[bus].plate"
+            :driverName="buses[bus].driverName"
+            :studentGroup="buses[bus].studentGroup"
+          />
+          <DeleteModal
+            :plate="buses[bus].plate"
+            :busID="buses[bus].busID"
+            :id="bus"
+            :uid="bus"
+          />
         </div>
       </div>
     </div>
@@ -85,5 +89,6 @@ export default {
   /* background: red; */
   height: 60vh;
   overflow-y: scroll;
+  overflow-x: hidden;
 }
 </style>
