@@ -177,7 +177,6 @@ input[type="password"]:focus + i {
 #back {
   color: black !important;
   background: white !important;
-  /* background: linear-gradient(180deg, rgba(33,149,186,1) 0%, rgba(27,127,158,1) 100%) !important; */
   border-radius: 18px;
   width: 100%;
 }
@@ -188,7 +187,6 @@ input[type="password"]:focus + i {
 
 .btn-group {
   display: flex;
-  /* margin: 0 15px 0 15px; */
   justify-content: center;
   flex-direction: column;
   padding: 0 70px 0 70px;

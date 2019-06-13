@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="map thai">
-      <span><i style="color:red;" class="fas fa-map-marker-alt thai"></i>  school_place</span>
+      <span><i style="color:red;" class="fas fa-map-marker-alt"></i>  school_place</span>
       <div id="myMap" ref="myMap"></div>
     </div>
   </div>
@@ -48,13 +48,13 @@ export default {
   flex-direction: column;
 }
 #myMap {
-  width: 380px;
-  height: 300px;
+  width: 400px;
+  height: 420px;
   border-radius: 10px;
   margin: 10px 0 0 0;
 }
 .map span {
-  color: red;
+  color: #aaa;
   font-style: italic;
 }
 </style>

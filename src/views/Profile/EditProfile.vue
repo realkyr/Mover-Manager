@@ -2,78 +2,72 @@
   <div>
     <Searchbar/>
     <Sidebar/>
-    <!-- <div class="inside"> -->
-      <div class="inside-container">
-        <div class="content rounded">
-          <h4 class="thai ml-4 mt-4">แก้ไขโปรไฟล์</h4>
-          <div class="row">
-            <div class="col-6 d-flex justify-content-center align-items-center flex-column">
-              <div class="profile">
-                  <img src="../../assets/holder/profileholder.png">
-              </div>
-              <div class="input-control">
-                <div class="my-input-control">
-                  <input v-model="email" class="thai" type="text" placeholder="อีเมล">
-                  <i class="fas fa-envelope" aria-hidden="true"></i>
-                </div>
-                <small v-show="errEmail" style="color:red;" class="alert-text thai">{{ errEmail }}</small>
-                <div class="my-input-control">
-                  <input v-model="fname" class="thai" type="text" placeholder="ชื่อ">
-                  <i class="fas fa-user-circle" aria-hidden="true"></i>
-                </div>
-                <small v-show="errName" style="color:red;" class="alert-text thai">{{ errName }}</small>
-                <div class="my-input-control">
-                  <input v-model="lname" class="thai" type="text" placeholder="นามสกุล">
-                  <i class="fas fa-user-circle" aria-hidden="true"></i>
-                </div>
-                <small v-show="errName" style="color:red;" class="alert-text thai">{{ errName }}</small>
-                <div class="my-input-control">
-                  <input
-                    v-model="phone"
-                    class="thai"
-                    type="tel"
-                    placeholder="เบอร์โทรศัพท์"
-                    maxlength="10"
-                  >
-                  <i class="fas fa-mobile-alt" aria-hidden="true"></i>
-                </div>
-                <small v-show="errPhone" style="color:red;" class="alert-text thai">{{ errPhone }}</small>
-                <div class="my-input-control">
-                  <input v-model="password" class="thai" type="password" placeholder="รหัสผ่าน">
-                  <i class="fas fa-lock" aria-hidden="true"></i>
-                </div>
-                <small v-show="errPass" style="color:red;" class="alert-text thai">{{ errPass }}</small>
-                <div class="my-input-control">
-                  <input
-                    v-model="conPassword"
-                    class="thai"
-                    type="password"
-                    placeholder="ยืนยันรหัสผ่าน"
-                  >
-                  <i class="fas fa-lock" aria-hidden="true"></i>
-                </div>
-                <small
-                  v-show="errConPass"
-                  style="color:red;"
-                  class="alert-text thai"
-                >{{ errConPass }}</small>
-              </div>
+    <div class="inside-container">
+      <div class="content rounded">
+        <h4 class="thai ml-4 mt-4">แก้ไขโปรไฟล์</h4>
+        <div class="row">
+          <div class="col-6 d-flex justify-content-center align-items-center flex-column">
+            <div class="profile">
+              <img src="../../assets/holder/profileholder.png">
             </div>
-            <div class="vl"></div>
-            <div class="col input-school">
-              <small v-show="errAddress" style="color:red;" class="alert-text thai">{{ errAddress }}</small>
-              <Map />
+            <div class="input-control">
+              <div class="my-input-control">
+                <input v-model="email" class="thai" type="text" placeholder="อีเมล">
+                <i class="fas fa-envelope" aria-hidden="true"></i>
+              </div>
+              <small v-show="errEmail" style="color:red;" class="alert-text thai">{{ errEmail }}</small>
+              <div class="my-input-control">
+                <input v-model="fname" class="thai" type="text" placeholder="ชื่อ">
+                <i class="fas fa-user-circle" aria-hidden="true"></i>
+              </div>
+              <small v-show="errName" style="color:red;" class="alert-text thai">{{ errName }}</small>
+              <div class="my-input-control">
+                <input v-model="lname" class="thai" type="text" placeholder="นามสกุล">
+                <i class="fas fa-user-circle" aria-hidden="true"></i>
+              </div>
+              <small v-show="errName" style="color:red;" class="alert-text thai">{{ errName }}</small>
+              <div class="my-input-control">
+                <input
+                  v-model="phone"
+                  class="thai"
+                  type="tel"
+                  placeholder="เบอร์โทรศัพท์"
+                  maxlength="10"
+                >
+                <i class="fas fa-mobile-alt" aria-hidden="true"></i>
+              </div>
+              <small v-show="errPhone" style="color:red;" class="alert-text thai">{{ errPhone }}</small>
+              <div class="my-input-control">
+                <input v-model="password" class="thai" type="password" placeholder="รหัสผ่าน">
+                <i class="fas fa-lock" aria-hidden="true"></i>
+              </div>
+              <small v-show="errPass" style="color:red;" class="alert-text thai">{{ errPass }}</small>
+              <div class="my-input-control">
+                <input
+                  v-model="conPassword"
+                  class="thai"
+                  type="password"
+                  placeholder="ยืนยันรหัสผ่าน"
+                >
+                <i class="fas fa-lock" aria-hidden="true"></i>
+              </div>
+              <small v-show="errConPass" style="color:red;" class="alert-text thai">{{ errConPass }}</small>
             </div>
           </div>
-          <div class="btn-group">
-            <button type="button" id="regiter" class="btn thai" @click="updateInfo">บันทึกข้อมูล</button>
-            <router-link :to="{ name: 'profile' }">
-              <button type="button" id="back" class="btn thai">ยกเลิก</button>
-            </router-link>
+          <div class="vl"></div>
+          <div class="col input-school">
+            <small v-show="errAddress" style="color:red;" class="alert-text thai">{{ errAddress }}</small>
+            <Map/>
           </div>
         </div>
+        <div class="btn-group">
+          <button type="button" id="regiter" class="btn thai" @click="updateInfo">บันทึกข้อมูล</button>
+          <router-link :to="{ name: 'profile' }">
+            <button type="button" id="back" class="btn thai">ยกเลิก</button>
+          </router-link>
+        </div>
       </div>
-    <!-- </div> -->
+    </div>
   </div>
 </template>
 
