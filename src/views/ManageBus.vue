@@ -37,5 +37,6 @@ export default {
   padding: 20px 20px 0 20px;
   background: rgb(243, 243, 243);
   margin-left: 50pt;
+  flex-grow: 1;
 }
 </style>
