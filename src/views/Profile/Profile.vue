@@ -1,75 +1,96 @@
 <template>
   <div>
     <Searchbar/>
-    <Sidebar />
-    <div class="inside">
-      <div class="container-fluid" style="padding: 0 20px 0 90px;">
-        <div class="content rounded">
-          <div class="row">
-            <div class="col">
-              <h4 class="thai ml-4 mt-4">โปรไฟล์</h4>
-            </div>
-            <div class="col-2 d-flex justify-content-center align-item-center">
+    <Sidebar/>
+    <div class="inside-container">
+      <div class="content rounded">
+        <div class="row">
+          <div class="col">
+            <h4 class="thai ml-4 mt-3">โปรไฟล์</h4>
+          </div>
+          <!-- <div class="col-2 d-flex justify-content-center align-item-center">
               <router-link :to="{ name: 'edit-profile' }" >
                 <button type="button" class="btn thai">Edit Profile</button>
               </router-link>
-            </div>
-          </div>
-          <div class="profile">
+          </div>-->
+        </div>
+        <!-- <div class="profile">
             <img src="../../assets/holder/profileholder.png">
-          </div>
-          <button type="button" id="qrBtn" class="btn" data-toggle="modal" data-target="#qrModal"><i style="position: initial; color: white;" class="fas fa-qrcode"></i>ดูคิวอาร์โค้ด</button>
-          <!-- Modal -->
-          <div class="modal fade" id="qrModal" tabindex="-1" role="dialog" aria-labelledby="qrModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="qrModalLongTitle">My QR Code</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <div class="myQr"></div>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn" data-dismiss="modal">Close</button>
-                </div>
+        </div> -->
+        <!-- <button type="button" id="qrBtn" class="btn thai" data-toggle="modal" data-target="#qrModal">
+            <i style="position: initial; color: white;" class="fas fa-qrcode"></i>ดูคิวอาร์โค้ด
+        </button>-->
+        <!-- Modal -->
+        <div
+          class="modal fade"
+          id="qrModal"
+          tabindex="-1"
+          role="dialog"
+          aria-labelledby="qrModalCenterTitle"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="qrModalLongTitle">My QR Code</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="myQr"></div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn" data-dismiss="modal">Close</button>
               </div>
             </div>
           </div>
-          <div class="row mt-2">
-            <div class="col-6">
-              <div class="input-control">
-                <div class="my-input-control">
-                  <span><i class="fas fa-envelope" aria-hidden="true"></i>Email</span>
-                </div>
-                <div class="my-input-control">
-                  <input v-model="fname" class="thai" type="text" placeholder="ชื่อ">
-                  <i class="fas fa-user-circle" aria-hidden="true"></i>
-                </div>
-                <div class="my-input-control">
-                  <input v-model="lname" class="thai" type="text" placeholder="นามสกุล">
-                  <i class="fas fa-user-circle" aria-hidden="true"></i>
-                </div>
-                <div class="my-input-control">
-                  <input v-model="phone" class="thai" type="tel" placeholder="เบอร์โทรศัพท์" maxlength="10">
-                  <i class="fas fa-mobile-alt" aria-hidden="true"></i>
-                </div>
-                <div class="my-input-control">
-                <input v-model="password" class="thai" type="password" placeholder="รหัสผ่าน">
-                <i class="fas fa-lock" aria-hidden="true"></i>
-                </div>
-                <div class="my-input-control">
-                  <input v-model="conPassword" class="thai" type="password" placeholder="ยืนยันรหัสผ่าน">
-                  <i class="fas fa-lock" aria-hidden="true"></i>
-                </div>
+        </div>
+        <div class="row mt-2 pt-2 pb-2">
+          <div class="col-6 d-flex justify-content-center align-items-center flex-column">
+            <div class="align-self-end">
+              <router-link :to="{ name: 'edit-profile' }">
+                <button type="button" class="btn thai">Edit Profile</button>
+              </router-link>
+            </div>
+            <div class="profile">
+              <img src="../../assets/holder/profileholder.png">
+            </div>
+            <button
+              type="button"
+              id="qrBtn"
+              class="btn thai"
+              data-toggle="modal"
+              data-target="#qrModal"
+            >
+              <i style="position: initial; color: white;" class="fas fa-qrcode"></i>ดูคิวอาร์โค้ด
+            </button>
+            <div class="input-control thai">
+              <div class="my-output-control">
+                <span>
+                  <i class="fas fa-envelope" aria-hidden="true"></i>อีเมล:
+                </span>
+              </div>
+              <div class="my-output-control">
+                <span>
+                  <i class="fas fa-user-circle" aria-hidden="true"></i>ชื่อ:
+                </span>
+              </div>
+              <div class="my-output-control">
+                <span>
+                  <i class="fas fa-envelope" aria-hidden="true"></i>นามสกุล:
+                </span>
+              </div>
+              <div class="my-output-control">
+                <span>
+                  <i class="fas fa-mobile-alt" aria-hidden="true"></i>เบอร์โทรศัพท์:
+                </span>
               </div>
             </div>
-            <div class="vl"></div>
-            <div class="col input-school">
-              <Map />
-            </div>
+          </div>
+          <div class="vl"></div>
+          <div class="col d-flex justify-content-center align-items-center">
+            <Map/>
           </div>
         </div>
       </div>
@@ -91,24 +112,15 @@ export default {
     this.$store.state.address = { name: '' }
   },
   data () {
-    return {
-    }
+    return {}
   },
-  methods: {
-  }
+  methods: {}
 }
 </script>
 
 <style>
-.inside {
-  background: rgb(243, 243, 243);
-  height: calc(100vh - 50pt);
-  justify-content: center;
-  display: flex;
-  align-items: center;
-}
 .content {
-  padding: 10px;
+  padding: 20px;
   background: white;
 }
 input {
@@ -144,21 +156,33 @@ input[type="text"]:focus + i {
 input[type="password"]:focus + i {
   color: #2094b9;
 }
+
+.my-output-control {
+  margin: 1rem 0 0 0;
+}
+
+.profile img {
+  display: block;
+  margin: 10px auto;
+  width: 150px;
+  height: 150px;
+  border-radius: 20px;
+}
 </style>
 
 <style scoped>
-.my-input-control {
-  position: relative;
-  padding: 0 15px 0 15px;
+.inside-container {
+  padding: 20px;
+  height: calc(100vh - 50pt);
 }
 .input-control {
   position: relative;
-  margin: 0 0 15px 0;
+  margin: 2rem 0 2rem 0;
   padding: 0 4rem 0 4rem;
   width: 100%;
 }
 i {
-  position: absolute;
+  position: initial;
   left: 16pt;
   top: 12px;
   padding: 9px 8px;
@@ -187,11 +211,19 @@ i {
   margin: 10px 0 0 0;
   color: white;
   border-radius: 18px !important;
-  background: linear-gradient(180deg, rgba(33,149,186,1) 0%, rgba(27,127,158,1) 100%) !important;
+  background: linear-gradient(
+    180deg,
+    rgba(33, 149, 186, 1) 0%,
+    rgba(27, 127, 158, 1) 100%
+  ) !important;
 }
 
 .active {
-  background: linear-gradient(180deg, rgba(33,149,186,1) 0%, rgba(27,127,158,1) 100%)
+  background: linear-gradient(
+    180deg,
+    rgba(33, 149, 186, 1) 0%,
+    rgba(27, 127, 158, 1) 100%
+  );
 }
 
 .col-3 {
@@ -209,16 +241,8 @@ i {
   background: #d3d3d3 !important;
 }
 
-.profile img {
-  display: block;
-  margin: 10px auto;
-  width: 150px;
-  height: 150px;
-  border-radius: 20px;
-}
-
 #qrBtn {
-  background: #F26B27 !important;
+  background: #f26b27 !important;
   border: none;
   display: block;
   margin: 10px auto;

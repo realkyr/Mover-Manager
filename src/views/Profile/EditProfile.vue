@@ -2,12 +2,15 @@
   <div>
     <Searchbar/>
     <Sidebar/>
-    <div class="inside">
-      <div class="container-fluid" style="padding: 0 20px 0 90px;">
+    <!-- <div class="inside"> -->
+      <div class="inside-container">
         <div class="content rounded">
           <h4 class="thai ml-4 mt-4">แก้ไขโปรไฟล์</h4>
-          <div class="row mt-5">
-            <div class="col-6">
+          <div class="row">
+            <div class="col-6 d-flex justify-content-center align-items-center flex-column">
+              <div class="profile">
+                  <img src="../../assets/holder/profileholder.png">
+              </div>
               <div class="input-control">
                 <div class="my-input-control">
                   <input v-model="email" class="thai" type="text" placeholder="อีเมล">
@@ -70,7 +73,7 @@
           </div>
         </div>
       </div>
-    </div>
+    <!-- </div> -->
   </div>
 </template>
 
@@ -163,6 +166,12 @@ export default {
 </script>
 
 <style scoped>
+.inside-container {
+  padding: 20px;
+}
+.content {
+  padding: 10px 20px 10px 20px;
+}
 .my-input-control {
   position: relative;
   padding: 0 15px 0 15px;
@@ -171,11 +180,10 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 0 3rem 2rem 3rem;
+  padding: 0 3rem 0 3rem;
 }
 .input-control {
   position: relative;
-  margin: 0 0 15px 0;
   padding: 0 4rem 0 4rem;
   width: 100%;
 }
@@ -222,10 +230,6 @@ i {
     rgba(33, 149, 186, 1) 0%,
     rgba(27, 127, 158, 1) 100%
   );
-}
-
-.col-3 {
-  max-width: 20%;
 }
 
 #back {

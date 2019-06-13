@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="map thai">
-      <span><i style="color:red;" class="fas fa-map-marker-alt thai"></i>  name_place</span>
+      <span><i style="color:red;" class="fas fa-map-marker-alt thai"></i>  school_place</span>
       <div id="myMap" ref="myMap"></div>
     </div>
   </div>
@@ -49,7 +49,7 @@ export default {
 }
 #myMap {
   width: 380px;
-  height: 280px;
+  height: 300px;
   border-radius: 10px;
   margin: 10px 0 0 0;
 }

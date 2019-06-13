@@ -236,36 +236,6 @@ i {
   font-size: 10pt;
 }
 
-input {
-  position: relative;
-  width: 100%;
-  -webkit-appearance: none;
-  overflow-x: hidden;
-  border: 1pt solid rgb(234, 234, 234);
-  border-radius: 18px;
-  margin: 8px 0;
-  outline: none;
-  padding: 8px;
-  padding-left: 40px;
-  box-sizing: border-box;
-  transition: 0.3s;
-  font-size: 10pt;
-  -webkit-appearance: none;
-}
-
-input:focus {
-  border-color: #2094b9;
-  box-shadow: 0 0 8px 0 #2094b9;
-}
-
-input[type="text"]:focus + i {
-  color: #2094b9;
-}
-
-input[type="password"]:focus + i {
-  color: #2094b9;
-}
-
 .input-control {
   position: relative;
   margin: 15px 0 15px 0;
@@ -321,10 +291,6 @@ input[type="password"]:focus + i {
     rgba(33, 149, 186, 1) 0%,
     rgba(27, 127, 158, 1) 100%
   ) !important;
-}
-
-.input-school {
-  padding: 2rem 3rem 2rem 3rem;
 }
 
 @media screen and (max-width: 1280px) {
