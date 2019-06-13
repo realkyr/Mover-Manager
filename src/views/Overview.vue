@@ -1,5 +1,5 @@
 <template>
-  <div style="background: ">
+  <div style="display: flex; flex-flow: column; height: 100vh;">
     <Searchbar/>
     <Sidebar />
     <div style="margin-left: 50pt; padding: 20px" class="thai inside-container">
@@ -13,8 +13,8 @@
         which has been calculated
         ใส่ prop เป็นรถที่ขับอยู่ รถทั้งหมด ต่าง ๆ
       -->
+      <Map :buses="buses" />
     </div>
-    <Map :buses="buses" />
   </div>
 </template>
 

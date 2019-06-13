@@ -14,7 +14,7 @@
             d-flex justify-content-between
             align-items-center
             shadow-sm
-            mt-1 ml-1 p-3 mb-2
+            mt-2 ml-1 p-3
             bg-white
             rounded"
           >
