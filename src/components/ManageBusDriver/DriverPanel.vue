@@ -4,11 +4,11 @@
       <div class="col-auto">
         <h3 class="thai">คนขับรถ</h3>
       </div>
-      <div class="col-auto">
+      <!-- <div class="col-auto">
         <router-link to="bus/create" tag="button" class="btn mover-btn thai">
           &#43; เพิ่ม
         </router-link>
-      </div>
+      </div> -->
     </div>
     <div class="bus-listview">
       <div class="row mr-3">
@@ -28,11 +28,12 @@
               <img class="rounded-circle" type="image/webp" src="../../assets/pics/profile-placeholder.webp">
             </div>
             <div class="col-auto">
-              <h6 class="thai">{{ i.name }}</h6>
-              <small v-if="Boolean(i.phoneNum)">Tel {{ i.phoneNum }}</small>
+              <h6 class="thai">{{i.prefix}}{{ i.name }}</h6>
+              <small v-if="Boolean(i.uid)">{{ i.uid }}<br/></small>
+              <small><i class="fas fa-mobile-alt mr-2" />094558755</small>
             </div>
           </div>
-          <button class="btn mover-btn">ดูข้อมูล</button>
+          <router-link to="/dashboard/drivers/profile" tag="button" class="btn mover-btn">แก้ไขข้อมูล</router-link>
           </div>
         </div>
       </div>
@@ -49,12 +50,13 @@ export default {
         A1: {
           id: 'A1',
           name: 'สมชาย ศรีสุข',
-          phoneNum: '0945587588'
+          uid: 'EF236D0-521A-57D2-B27C-A55662F7A26B',
+          prefix: 'นาย'
         },
         A2: {
           id: 'A2',
           name: 'ภูรี กานุสนธิ์',
-          phoneNum: '0945587588'
+          prefix: 'นาย'
         }
       }
     }
@@ -65,5 +67,9 @@ export default {
 <style scoped>
   img {
     max-width: 100px;
+  }
+
+  i {
+    width: 10px
   }
 </style>

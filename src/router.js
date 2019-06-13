@@ -13,6 +13,7 @@ import CreateStudentGroup from '@/views/StudentGroup/CreateStudentGroup'
 import UpdateStudentGroup from '@/views/StudentGroup/UpdateStudentGroup'
 import CreateStudent from '@/views/Student/CreateStudent'
 import UpdateStudent from '@/views/Student/UpdateStudent'
+import DriverProfile from '@/views/Driver/DriverProfile'
 import CreateDriver from '@/views/Driver/CreateDriver'
 import UpdateDriver from '@/views/Driver/UpdateDriver'
 import EditProfile from '@/views/Profile/EditProfile'
@@ -109,12 +110,17 @@ let router = new Router({
       component: UpdateStudent
     },
     {
-      path: '/dashboard/driver/create',
+      path: '/dashboard/drivers/profile',
+      name: 'drivers-profile',
+      component: DriverProfile
+    },
+    {
+      path: '/dashboard/drivers/create',
       name: 'drivers-creating-console',
       component: CreateDriver
     },
     {
-      path: '/dashboard/driver/update',
+      path: '/dashboard/drivers/update',
       name: 'drivers-updating-console',
       component: UpdateDriver
     }
