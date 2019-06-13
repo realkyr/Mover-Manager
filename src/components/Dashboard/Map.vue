@@ -44,7 +44,8 @@ export default {
       console.log({ lat, lng })
       let myLatLng = new google.maps.LatLng(lat, lng + 0.001)
       this.buses['A1']['marker'].setPosition(myLatLng)
-    }, 4000)
+      this.buses['A1'].popup.position = myLatLng
+    }, 3000)
   },
   data () {
     return {
@@ -106,6 +107,7 @@ export default {
           'popup-' + i
         )
         temp.setMap(this.map)
+        this.buses[i].popup = temp
       }
     },
     getUserLocation () {
@@ -134,10 +136,6 @@ export default {
 </script>
 
 <style>
-[title="myMaker"] {
-  transition: all 0.5s ease;
-}
-
 #map {
   width: calc(100vw - 80pt);
   height: calc(100vh - 180pt);

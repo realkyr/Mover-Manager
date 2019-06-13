@@ -2,7 +2,8 @@
   <div class="container-fluid mt-3 p-3 rounded buspanel">
     <div class="row mb-1 d-flex align-items-center justify-content-between">
       <div class="col-auto">
-        <h3 class="thai">บัญชีผู้ปกครอง</h3>
+        <h3 class="thai">คำขอรับรอง</h3>
+        <small>กดรับคำขอเพื่อยืนยันว่าผู้ใช้งานนี้เป็นผู้ปกครองตัวจริงของนักเรียน</small>
       </div>
     </div>
     <div class="bus-listview">
@@ -20,14 +21,18 @@
           >
           <div class="row d-flex align-items-center">
             <div class="col-auto">
-              <img class="rounded-circle" type="image/webp" src="../../assets/pics/profile-placeholder.webp">
+              <img class="rounded-circle" type="image/webp" src="../../../assets/pics/profile-placeholder.webp">
             </div>
             <div class="col-auto">
               <h6 class="thai">{{ i.name }}</h6>
               <small v-if="Boolean(i.tel)">Tel {{ i.tel }}</small>
             </div>
           </div>
-          <button class="btn mover-btn">ดูข้อมูล</button>
+          <span>
+            <button class="btn mover-btn">ดูข้อมูล</button>
+            <button class="btn mover-btn bg-success ml-1 mr-1">รับคำขอ</button>
+            <button class="btn mover-btn bg-danger">ปฏิเสธคำขอ</button>
+          </span>
           </div>
         </div>
       </div>
@@ -48,10 +53,6 @@ export default {
         ab2: {
           id: 'ab2',
           name: 'นายภากร ศุภนิมิตวาสนา'
-        },
-        ab3: {
-          id: 'ab3',
-          name: 'นายธีรภัทร ฟูเทพ'
         }
       }
     }

@@ -30,9 +30,4 @@ export default {
   height: 100vh;
   background: rgb(243, 243, 243);
 }
-
-.inside-container {
-  margin-left: 50pt;
-  padding: 20px;
-}
 </style>

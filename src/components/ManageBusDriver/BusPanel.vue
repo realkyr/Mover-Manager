@@ -88,7 +88,7 @@ export default {
 .bus-listview {
   /* background: red; */
   position: relative;
-  height: calc(100% - 5vh);
+  height: calc(100% - 10vh);
   overflow-y: scroll;
   overflow-x: hidden;
 }

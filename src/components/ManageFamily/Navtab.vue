@@ -19,7 +19,7 @@
         exact
       >
         <Driver class="managebus-logo mr-2" />
-        คำขอยอมรับ
+        คำขอรับรอง
       </router-link>
     </div>
   </div>
