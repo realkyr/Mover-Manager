@@ -191,6 +191,12 @@ export default {
 }
 </script>
 
+<style>
+.vl {
+  border-left: 1px solid #d3d3d3;
+}
+</style>
+
 <style scoped>
 .box {
   background: white;
@@ -315,11 +321,6 @@ input[type="password"]:focus + i {
     rgba(33, 149, 186, 1) 0%,
     rgba(27, 127, 158, 1) 100%
   ) !important;
-}
-
-.vl {
-  border-left: 1px solid #d3d3d3;
-  height: 20rem;
 }
 
 .input-school {

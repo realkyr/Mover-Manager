@@ -1,7 +1,7 @@
 <template>
   <div>
     <Searchbar/>
-    <Sidebar />
+    <Sidebar/>
     <div class="inside">
       <div class="container-fluid" style="padding: 0 20px 0 90px;">
         <div class="content rounded">
@@ -13,50 +13,58 @@
                   <input v-model="email" class="thai" type="text" placeholder="อีเมล">
                   <i class="fas fa-envelope" aria-hidden="true"></i>
                 </div>
-                <small v-show="errEmail" style="color:red;" class="alert-text thai"
-                > {{ errEmail }} </small>
+                <small v-show="errEmail" style="color:red;" class="alert-text thai">{{ errEmail }}</small>
                 <div class="my-input-control">
                   <input v-model="fname" class="thai" type="text" placeholder="ชื่อ">
                   <i class="fas fa-user-circle" aria-hidden="true"></i>
                 </div>
-                <small v-show="errName" style="color:red;" class="alert-text thai"
-                > {{ errName }} </small>
+                <small v-show="errName" style="color:red;" class="alert-text thai">{{ errName }}</small>
                 <div class="my-input-control">
                   <input v-model="lname" class="thai" type="text" placeholder="นามสกุล">
                   <i class="fas fa-user-circle" aria-hidden="true"></i>
                 </div>
-                <small v-show="errName" style="color:red;" class="alert-text thai"
-                > {{ errName }} </small>
+                <small v-show="errName" style="color:red;" class="alert-text thai">{{ errName }}</small>
                 <div class="my-input-control">
-                  <input v-model="phone" class="thai" type="tel" placeholder="เบอร์โทรศัพท์" maxlength="10">
+                  <input
+                    v-model="phone"
+                    class="thai"
+                    type="tel"
+                    placeholder="เบอร์โทรศัพท์"
+                    maxlength="10"
+                  >
                   <i class="fas fa-mobile-alt" aria-hidden="true"></i>
                 </div>
-                <small v-show="errPhone" style="color:red;" class="alert-text thai"
-                > {{ errPhone }} </small>
+                <small v-show="errPhone" style="color:red;" class="alert-text thai">{{ errPhone }}</small>
                 <div class="my-input-control">
-                <input v-model="password" class="thai" type="password" placeholder="รหัสผ่าน">
-                <i class="fas fa-lock" aria-hidden="true"></i>
-                </div>
-                <small v-show="errPass" style="color:red;" class="alert-text thai"
-                > {{ errPass }} </small>
-                <div class="my-input-control">
-                  <input v-model="conPassword" class="thai" type="password" placeholder="ยืนยันรหัสผ่าน">
+                  <input v-model="password" class="thai" type="password" placeholder="รหัสผ่าน">
                   <i class="fas fa-lock" aria-hidden="true"></i>
                 </div>
-                <small v-show="errConPass" style="color:red;" class="alert-text thai"
-                > {{ errConPass }} </small>
+                <small v-show="errPass" style="color:red;" class="alert-text thai">{{ errPass }}</small>
+                <div class="my-input-control">
+                  <input
+                    v-model="conPassword"
+                    class="thai"
+                    type="password"
+                    placeholder="ยืนยันรหัสผ่าน"
+                  >
+                  <i class="fas fa-lock" aria-hidden="true"></i>
+                </div>
+                <small
+                  v-show="errConPass"
+                  style="color:red;"
+                  class="alert-text thai"
+                >{{ errConPass }}</small>
               </div>
             </div>
             <div class="vl"></div>
             <div class="col input-school">
-              <small v-show="errAddress" style="color:red;" class="alert-text thai"
-              > {{ errAddress }} </small>
-              <Map style="width: 480px;"/>
+              <small v-show="errAddress" style="color:red;" class="alert-text thai">{{ errAddress }}</small>
+              <Map />
             </div>
           </div>
           <div class="btn-group">
             <button type="button" id="regiter" class="btn thai" @click="updateInfo">บันทึกข้อมูล</button>
-            <router-link :to="{ name: 'profile' }" >
+            <router-link :to="{ name: 'profile' }">
               <button type="button" id="back" class="btn thai">ยกเลิก</button>
             </router-link>
           </div>
@@ -133,11 +141,18 @@ export default {
       } else {
         this.errAddress = ''
       }
-      if (this.validate()) {}
+      if (this.validate()) {
+      }
     },
     validate () {
-      if (this.errEmail === '' && this.errPass === '' && this.errConPass === '' &&
-       this.errName === '' && this.errPhone === '' && this.errAddress === '') {
+      if (
+        this.errEmail === '' &&
+        this.errPass === '' &&
+        this.errConPass === '' &&
+        this.errName === '' &&
+        this.errPhone === '' &&
+        this.errAddress === ''
+      ) {
         return true
       } else {
         return false
@@ -154,6 +169,7 @@ export default {
 }
 .input-school {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   padding: 0 3rem 2rem 3rem;
 }
@@ -193,20 +209,23 @@ i {
   margin: 10px 0 0 0;
   color: white;
   border-radius: 18px !important;
-  background: linear-gradient(180deg, rgba(33,149,186,1) 0%, rgba(27,127,158,1) 100%) !important;
+  background: linear-gradient(
+    180deg,
+    rgba(33, 149, 186, 1) 0%,
+    rgba(27, 127, 158, 1) 100%
+  ) !important;
 }
 
 .active {
-  background: linear-gradient(180deg, rgba(33,149,186,1) 0%, rgba(27,127,158,1) 100%)
+  background: linear-gradient(
+    180deg,
+    rgba(33, 149, 186, 1) 0%,
+    rgba(27, 127, 158, 1) 100%
+  );
 }
 
 .col-3 {
   max-width: 20%;
-}
-
-.vl {
-  border-left: 1px solid #d3d3d3;
-  height: 20rem;
 }
 
 #back {
