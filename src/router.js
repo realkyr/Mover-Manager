@@ -18,7 +18,6 @@ import UpdateDriver from '@/views/Driver/UpdateDriver'
 import EditProfile from '@/views/Profile/EditProfile'
 import Profile from '@/views/Profile/Profile'
 import CreateBus from '@/views/Bus/CreateBus'
-import ManageDriver from '@/views/Driver/ManageDriver'
 
 // import firebase from 'firebase'
 import 'firebase/auth'
