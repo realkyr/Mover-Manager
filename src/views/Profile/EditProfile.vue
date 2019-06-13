@@ -2,63 +2,65 @@
   <div>
     <Searchbar/>
     <Sidebar />
-    <div class="container-fluid" style="padding: 0 30px 0 100px;">
-      <div class="content">
-      <h4 class="thai ml-4 mt-4">Edit Profile</h4>
-      <div class="row mt-5">
-        <div class="col-6">
-          <div class="input-control">
-            <div class="my-input-control">
-              <input v-model="email" class="thai" type="text" placeholder="E-Mail">
-              <i class="fas fa-envelope" aria-hidden="true"></i>
+    <div class="inside">
+      <div class="container-fluid" style="padding: 0 20px 0 90px;">
+        <div class="content rounded">
+          <h4 class="thai ml-4 mt-4">Edit Profile</h4>
+          <div class="row mt-5">
+            <div class="col-6">
+              <div class="input-control">
+                <div class="my-input-control">
+                  <input v-model="email" class="thai" type="text" placeholder="E-Mail">
+                  <i class="fas fa-envelope" aria-hidden="true"></i>
+                </div>
+                <small v-show="errEmail" style="color:red;" class="alert-text thai"
+                > {{ errEmail }} </small>
+                <div class="my-input-control">
+                  <input v-model="fname" class="thai" type="text" placeholder="ชื่อ">
+                  <i class="fas fa-user-circle" aria-hidden="true"></i>
+                </div>
+                <small v-show="errName" style="color:red;" class="alert-text thai"
+                > {{ errName }} </small>
+                <div class="my-input-control">
+                  <input v-model="lname" class="thai" type="text" placeholder="นามสกุล">
+                  <i class="fas fa-user-circle" aria-hidden="true"></i>
+                </div>
+                <small v-show="errName" style="color:red;" class="alert-text thai"
+                > {{ errName }} </small>
+                <div class="my-input-control">
+                  <input v-model="phone" class="thai" type="tel" placeholder="เบอร์โทรศัพท์" maxlength="10">
+                  <i class="fas fa-mobile-alt" aria-hidden="true"></i>
+                </div>
+                <small v-show="errPhone" style="color:red;" class="alert-text thai"
+                > {{ errPhone }} </small>
+                <div class="my-input-control">
+                <input v-model="password" class="thai" type="password" placeholder="รหัสผ่าน">
+                <i class="fas fa-lock" aria-hidden="true"></i>
+                </div>
+                <small v-show="errPass" style="color:red;" class="alert-text thai"
+                > {{ errPass }} </small>
+                <div class="my-input-control">
+                  <input v-model="conPassword" class="thai" type="password" placeholder="ยืนยันรหัสผ่าน">
+                  <i class="fas fa-lock" aria-hidden="true"></i>
+                </div>
+                <small v-show="errConPass" style="color:red;" class="alert-text thai"
+                > {{ errConPass }} </small>
+              </div>
             </div>
-            <small v-show="errEmail" style="color:red;" class="alert-text thai"
-            > {{ errEmail }} </small>
-            <div class="my-input-control">
-              <input v-model="fname" class="thai" type="text" placeholder="ชื่อ">
-              <i class="fas fa-user-circle" aria-hidden="true"></i>
+            <div class="vl"></div>
+            <div class="col input-school">
+              <small v-show="errAddress" style="color:red;" class="alert-text thai"
+              > {{ errAddress }} </small>
+              <Map style="width: 480px;"/>
             </div>
-            <small v-show="errName" style="color:red;" class="alert-text thai"
-            > {{ errName }} </small>
-            <div class="my-input-control">
-              <input v-model="lname" class="thai" type="text" placeholder="นามสกุล">
-              <i class="fas fa-user-circle" aria-hidden="true"></i>
-            </div>
-            <small v-show="errName" style="color:red;" class="alert-text thai"
-            > {{ errName }} </small>
-            <div class="my-input-control">
-              <input v-model="phone" class="thai" type="tel" placeholder="เบอร์โทรศัพท์" maxlength="10">
-              <i class="fas fa-mobile-alt" aria-hidden="true"></i>
-            </div>
-            <small v-show="errPhone" style="color:red;" class="alert-text thai"
-            > {{ errPhone }} </small>
-            <div class="my-input-control">
-            <input v-model="password" class="thai" type="password" placeholder="รหัสผ่าน">
-            <i class="fas fa-lock" aria-hidden="true"></i>
-            </div>
-            <small v-show="errPass" style="color:red;" class="alert-text thai"
-            > {{ errPass }} </small>
-            <div class="my-input-control">
-              <input v-model="conPassword" class="thai" type="password" placeholder="ยืนยันรหัสผ่าน">
-              <i class="fas fa-lock" aria-hidden="true"></i>
-            </div>
-            <small v-show="errConPass" style="color:red;" class="alert-text thai"
-            > {{ errConPass }} </small>
+          </div>
+          <div class="btn-group">
+            <button type="button" id="regiter" class="btn thai" @click="updateInfo">บันทึกข้อมูล</button>
+            <router-link :to="{ name: 'profile' }" >
+              <button type="button" id="back" class="btn thai">ยกเลิก</button>
+            </router-link>
           </div>
         </div>
-        <div class="vl"></div>
-        <div class="col input-school">
-          <small v-show="errAddress" style="color:red;" class="alert-text thai"
-          > {{ errAddress }} </small>
-          <Map style="width: 480px;"/>
-        </div>
-      </div>
-      <div class="btn-group">
-        <button type="button" id="regiter" class="btn thai" @click="updateInfo">บันทึกข้อมูล</button>
-        <router-link :to="{ name: 'profile' }" >
-          <button type="button" id="back" class="btn thai">ยกเลิก</button>
-        </router-link>
-      </div>
       </div>
     </div>
   </div>
@@ -146,13 +148,16 @@ export default {
 </script>
 
 <style scoped>
-.container {
-  margin-left: 100px;
+.inside {
+  background: rgb(243, 243, 243);
+  height: calc(100vh - 50pt);
+  justify-content: center;
+  display: flex;
+  align-items: center;
 }
 .content {
   padding: 10px;
-  box-shadow: 0 4px 25px 0 rgba(0, 0, 0, 0.1);
-  margin: 2rem 0 2rem 0;
+  background: white;
 }
 .row {
   justify-content: center;
