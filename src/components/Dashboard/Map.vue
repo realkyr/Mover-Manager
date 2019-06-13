@@ -41,7 +41,6 @@ export default {
     setInterval(() => {
       let lat = this.buses['A1']['marker'].getPosition().lat()
       let lng = this.buses['A1']['marker'].getPosition().lng()
-      console.log({ lat, lng })
       let myLatLng = new google.maps.LatLng(lat, lng + 0.001)
       this.buses['A1']['marker'].setPosition(myLatLng)
       this.buses['A1'].popup.position = myLatLng
