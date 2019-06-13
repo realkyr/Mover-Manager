@@ -5,7 +5,7 @@
     <div class="thai inside-container">
       <span>จัดการครอบครัว</span>
       <Navtab />
-      <BusPanel />
+      <RequestsPanel />
     </div>
   </div>
 </template>
@@ -14,14 +14,14 @@
 import Searchbar from '../../components/Dashboard/Searchbar'
 import Sidebar from '../../components/Dashboard/Sidebar'
 import Navtab from '../../components/ManageFamily/Navtab'
-import BusPanel from '../../components/ManageBusDriver/BusPanel'
+import RequestsPanel from '../../components/ManageFamily/Requests/RequestsPanel'
 
 export default {
   components: {
     Searchbar,
     Sidebar,
     Navtab,
-    BusPanel
+    RequestsPanel
   }
 }
 </script>

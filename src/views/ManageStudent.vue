@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="display: flex; flex-flow: column; height: 100vh;">
     <Searchbar/>
     <Sidebar />
     <div style="margin-left: 50pt; padding: 20px" class="thai inside-container">
@@ -29,10 +29,5 @@ export default {
 .container {
   height: 100vh;
   background: rgb(243, 243, 243);
-}
-
-.inside-container {
-  margin-left: 50pt;
-  padding: 20px;
 }
 </style>
