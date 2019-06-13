@@ -7,22 +7,22 @@
     <div class="row">
       <div class="col-12 col-sm-12 col-md-6 col-lg-6 input-group">
         <div class="input-control">
-          <div class="my-input-control">
+          <div class="register-input-control">
             <input v-model="email" class="thai" type="text" placeholder="E-Mail">
             <i class="fas fa-envelope" aria-hidden="true"></i>
           </div>
           <small v-show="errEmail" style="color:red;" class="alert-text thai">{{ errEmail }}</small>
-          <div class="my-input-control">
+          <div class="register-input-control">
             <input v-model="fname" class="thai" type="text" placeholder="ชื่อ">
             <i class="fas fa-user-circle" aria-hidden="true"></i>
           </div>
           <small v-show="errName" style="color:red;" class="alert-text thai">{{ errName }}</small>
-          <div class="my-input-control">
+          <div class="register-input-control">
             <input v-model="lname" class="thai" type="text" placeholder="นามสกุล">
             <i class="fas fa-user-circle" aria-hidden="true"></i>
           </div>
           <small v-show="errName" style="color:red;" class="alert-text thai">{{ errName }}</small>
-          <div class="my-input-control">
+          <div class="register-input-control">
             <input
               v-model="phone"
               class="thai"
@@ -33,12 +33,12 @@
             <i class="fas fa-mobile-alt" aria-hidden="true"></i>
           </div>
           <small v-show="errPhone" style="color:red;" class="alert-text thai">{{ errPhone }}</small>
-          <div class="my-input-control">
+          <div class="register-input-control">
             <input v-model="password" class="thai" type="password" placeholder="รหัสผ่าน">
             <i class="fas fa-lock" aria-hidden="true"></i>
           </div>
           <small v-show="errPass" style="color:red;" class="alert-text thai">{{ errPass }}</small>
-          <div class="my-input-control">
+          <div class="register-input-control">
             <input v-model="conPassword" class="thai" type="password" placeholder="ยืนยันรหัสผ่าน">
             <i class="fas fa-lock" aria-hidden="true"></i>
           </div>
@@ -216,7 +216,7 @@ export default {
   width: 100%;
 }
 
-.my-input-control {
+.register-input-control {
   position: relative;
 }
 
@@ -319,6 +319,7 @@ input[type="password"]:focus + i {
 
 .vl {
   border-left: 1px solid #d3d3d3;
+  height: 20rem;
 }
 
 .input-school {

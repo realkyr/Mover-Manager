@@ -148,6 +148,10 @@ export default {
 </script>
 
 <style scoped>
+.my-input-control {
+  position: relative;
+  padding: 0 15px 0 15px;
+}
 .input-school {
   display: flex;
   justify-content: center;
@@ -214,9 +218,5 @@ i {
 
 #back:hover {
   background: #d3d3d3 !important;
-}
-
-Map {
-  width: 360px;
 }
 </style>

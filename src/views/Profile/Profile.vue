@@ -173,7 +173,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .inside {
   background: rgb(243, 243, 243);
   height: calc(100vh - 50pt);
@@ -222,14 +222,13 @@ input[type="text"]:focus + i {
 input[type="password"]:focus + i {
   color: #2094b9;
 }
+</style>
 
+<style scoped>
 .my-input-control {
   position: relative;
   padding: 0 15px 0 15px;
 }
-</style>
-
-<style scoped>
 .input-school {
   padding: 0 3rem 2rem 3rem;
 }
