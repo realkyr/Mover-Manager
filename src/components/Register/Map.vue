@@ -101,7 +101,7 @@ export default {
   justify-content: center;
 }
 #myMap {
-  height: 280px;
+  height: 380px;
   border-radius: 10px;
 }
 .school-input-control {

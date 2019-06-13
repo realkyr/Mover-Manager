@@ -8,18 +8,7 @@
           <div class="col">
             <h4 class="thai ml-4 mt-3">โปรไฟล์</h4>
           </div>
-          <!-- <div class="col-2 d-flex justify-content-center align-item-center">
-              <router-link :to="{ name: 'edit-profile' }" >
-                <button type="button" class="btn thai">Edit Profile</button>
-              </router-link>
-          </div>-->
         </div>
-        <!-- <div class="profile">
-            <img src="../../assets/holder/profileholder.png">
-        </div> -->
-        <!-- <button type="button" id="qrBtn" class="btn thai" data-toggle="modal" data-target="#qrModal">
-            <i style="position: initial; color: white;" class="fas fa-qrcode"></i>ดูคิวอาร์โค้ด
-        </button>-->
         <!-- Modal -->
         <div
           class="modal fade"
@@ -48,43 +37,43 @@
         </div>
         <div class="row mt-2 pt-2 pb-2">
           <div class="col-6 d-flex justify-content-center align-items-center flex-column">
-            <div class="align-self-end">
-              <router-link :to="{ name: 'edit-profile' }">
-                <button type="button" class="btn thai">Edit Profile</button>
-              </router-link>
-            </div>
             <div class="profile">
               <img src="../../assets/holder/profileholder.png">
             </div>
             <button
               type="button"
               id="qrBtn"
-              class="btn thai"
+              class="btn mover-btn thai"
               data-toggle="modal"
               data-target="#qrModal"
             >
               <i style="position: initial; color: white;" class="fas fa-qrcode"></i>ดูคิวอาร์โค้ด
             </button>
-            <div class="input-control thai">
-              <div class="my-output-control">
-                <span>
-                  <i class="fas fa-envelope" aria-hidden="true"></i>อีเมล:
-                </span>
-              </div>
-              <div class="my-output-control">
-                <span>
-                  <i class="fas fa-user-circle" aria-hidden="true"></i>ชื่อ:
-                </span>
-              </div>
-              <div class="my-output-control">
-                <span>
-                  <i class="fas fa-envelope" aria-hidden="true"></i>นามสกุล:
-                </span>
-              </div>
-              <div class="my-output-control">
-                <span>
-                  <i class="fas fa-mobile-alt" aria-hidden="true"></i>เบอร์โทรศัพท์:
-                </span>
+            <router-link :to="{ name: 'edit-profile' }">
+              <button type="button" class="btn mover-btn thai">แก้ไขโปรไฟล์</button>
+            </router-link>
+            <div class="d-flex justify-content-center align-items-center flex-column">
+              <div class="input-control thai">
+                <div class="my-output-control">
+                  <span>
+                    <i class="fas fa-envelope" aria-hidden="true"></i>อีเมล: {{ email }}
+                  </span>
+                </div>
+                <div class="my-output-control">
+                  <span>
+                    <i class="fas fa-user-circle" aria-hidden="true"></i>ชื่อ: {{ fname }}
+                  </span>
+                </div>
+                <div class="my-output-control">
+                  <span>
+                    <i class="fas fa-envelope" aria-hidden="true"></i>นามสกุล: {{ lname }}
+                  </span>
+                </div>
+                <div class="my-output-control">
+                  <span>
+                    <i class="fas fa-mobile-alt" aria-hidden="true"></i>เบอร์โทรศัพท์: {{ phone }}
+                  </span>
+                </div>
               </div>
             </div>
           </div>
@@ -112,7 +101,12 @@ export default {
     this.$store.state.address = { name: '' }
   },
   data () {
-    return {}
+    return {
+      email: 'ingkaratt@gmail.com',
+      fname: 'ing',
+      lname: 'tin',
+      phone: '080000000'
+    }
   },
   methods: {}
 }
@@ -123,7 +117,7 @@ export default {
   padding: 20px;
   background: white;
 }
-input {
+.input-info {
   position: relative;
   width: 100%;
   -webkit-appearance: none;
@@ -171,9 +165,15 @@ input[type="password"]:focus + i {
 </style>
 
 <style scoped>
+.mover-btn {
+  width: 10rem;
+}
+.mover-btn i {
+  padding: 0 5px 0 0;
+}
 .inside-container {
-  padding: 20px;
   height: calc(100vh - 50pt);
+  padding: 20px;
 }
 .input-control {
   position: relative;
@@ -208,7 +208,8 @@ i {
 }
 
 .btn {
-  margin: 10px 0 0 0;
+  margin: 0;
+  padding: 0;
   color: white;
   border-radius: 18px !important;
   background: linear-gradient(

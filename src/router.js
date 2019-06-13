@@ -123,6 +123,11 @@ let router = new Router({
       path: '/dashboard/drivers/update',
       name: 'drivers-updating-console',
       component: UpdateDriver
+    },
+    {
+      path: '/dashboard/drivers',
+      name: 'bus-driver-console',
+      component: ManageDriver
     }
   ]
 })

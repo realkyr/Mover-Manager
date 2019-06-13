@@ -3,7 +3,7 @@
     <Searchbar/>
     <Sidebar />
     <div style="margin-left: 50pt; padding: 20px" class="thai inside-container">
-      <span>จัดการรายชื่อนักเรียน</span>
+      <span>จัดการรถโรงเรียน</span>
       <!--
         this page mostly about manage children
         TODO: Implement UI and most function
@@ -15,22 +15,15 @@
 </template>
 
 <script>
-import Navtab from '../components/ManageBusDriver/Navtab'
-import Searchbar from '../components/Dashboard/Searchbar'
-import Sidebar from '../components/Dashboard/Sidebar'
+import Navtab from '../../components/ManageBusDriver/Navtab'
+import Searchbar from '../../components/Dashboard/Searchbar'
+import Sidebar from '../../components/Dashboard/Sidebar'
 
 export default {
   components: {
+    Navtab,
     Searchbar,
-    Sidebar,
-    Navtab
+    Sidebar
   }
 }
 </script>
-
-<style scoped>
-.container {
-  height: 100vh;
-  background: rgb(243, 243, 243);
-}
-</style>
