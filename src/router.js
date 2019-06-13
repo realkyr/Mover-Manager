@@ -5,6 +5,7 @@ import Login from '@/views/Login'
 import Register from '@/views/Register'
 import Overview from '@/views/Overview'
 import ManageBus from '@/views/ManageBus'
+import ManageDriver from '@/views/ManageDriver'
 import ManageStudent from '@/views/ManageStudent'
 import ManageFamily from '@/views/ManageFamily'
 import ManageFamilyRequests from '@/views/Family/RequestsPage'
@@ -62,6 +63,11 @@ let router = new Router({
       path: '/dashboard/bus',
       name: 'bus-managing-console',
       component: ManageBus
+    },
+    {
+      path: '/dashboard/drivers',
+      name: 'driver-managing-console',
+      component: ManageDriver
     },
     {
       path: '/dashboard/bus/create',
