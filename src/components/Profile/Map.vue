@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="map">
+    <div class="map thai">
       <span><i style="color:red;" class="fas fa-map-marker-alt thai"></i>  name_place</span>
       <div id="myMap" ref="myMap"></div>
     </div>
@@ -52,5 +52,9 @@ export default {
   height: 280px;
   border-radius: 10px;
   margin: 10px 0 0 0;
+}
+.map span {
+  color: red;
+  font-style: italic;
 }
 </style>
