@@ -2,7 +2,7 @@
   <div style="display: flex; flex-flow: column; height: 100vh;">
     <Searchbar/>
     <Sidebar />
-    <div class="thai bus-inside-container">
+    <div class="thai inside-container">
       <span>จัดการครอบครัว</span>
       <Navtab />
       <BusPanel />

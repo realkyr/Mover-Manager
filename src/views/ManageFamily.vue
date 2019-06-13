@@ -10,7 +10,7 @@
         EXAMPLE: create parent profile which parent can view student status
        -->
       <Navtab />
-      <BusPanel />
+      <FamPanel />
     </div>
   </div>
 </template>
@@ -19,14 +19,14 @@
 import Searchbar from '../components/Dashboard/Searchbar'
 import Sidebar from '../components/Dashboard/Sidebar'
 import Navtab from '../components/ManageFamily/Navtab'
-import BusPanel from '../components/ManageBusDriver/BusPanel'
+import FamPanel from '../components/ManageFamily/FamilyPanel'
 
 export default {
   components: {
     Searchbar,
     Sidebar,
     Navtab,
-    BusPanel
+    FamPanel
   }
 }
 </script>
