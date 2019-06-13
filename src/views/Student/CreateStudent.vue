@@ -10,26 +10,26 @@
         <p class="thai" id="title-info">ข้อมูลนักเรียน</p>
       </div>
       <div class="input-control">
-        <div class="my-input-control">
+        <div class="student-input-control">
           <input v-model="studentID" class="thai" type="text" placeholder="เลขประจำตัว">
           <i class="far fa-address-card" aria-hidden="true"></i>
         </div>
-        <div class="my-input-control mb-3"  style="font-size: 0.8em;">
+        <div class="student-input-control mb-3"  style="font-size: 0.8em;">
           <i class="far fa-clock" aria-hidden="true"></i>
           <select v-model="gender" class="thai ml-5 mt-3">
             <option :value="null">---------- โปรดเลือกคำนำหน้า -----------</option>
             <option :key="g" :value="g.id" v-for="g in genders">{{ g.name }}</option>
           </select>
         </div>
-        <div class="my-input-control">
+        <div class="student-input-control">
           <input v-model="fname" class="thai" type="text" placeholder="ชื่อ">
           <i class="fas fa-user-circle" aria-hidden="true"></i>
         </div>
-        <div class="my-input-control">
+        <div class="student-input-control">
           <input v-model="lname" class="thai" type="text" placeholder="นามสกุล">
           <i class="fas fa-user" aria-hidden="true"></i>
         </div>
-        <div class="my-input-control">
+        <div class="student-input-control">
           <input v-model="phone" class="thai" type="text" placeholder="เบอร์โทรศัพท์">
           <i class="fas fa-mobile-alt" aria-hidden="true"></i>
         </div>
@@ -88,7 +88,6 @@ export default {
 </script>
 
 <style scoped>
-
 .box {
   background: white;
   padding: 20px;
@@ -113,7 +112,7 @@ export default {
   width: 100%;
 }
 
-.my-input-control {
+.student-input-control {
   position: relative;
 }
 

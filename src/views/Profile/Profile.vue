@@ -173,7 +173,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 .inside {
   background: rgb(243, 243, 243);
   height: calc(100vh - 50pt);
@@ -189,25 +189,6 @@ export default {
   justify-content: center;
   align-items: center;
 }
-.input-school {
-  padding: 0 3rem 2rem 3rem;
-}
-.input-control {
-  position: relative;
-  margin: 0 0 15px 0;
-  padding: 0 4rem 0 4rem;
-  width: 100%;
-}
-i {
-  position: absolute;
-  left: 16pt;
-  top: 12px;
-  padding: 9px 8px;
-  color: #aaa;
-  transition: 0.3s;
-  font-size: 10pt;
-}
-
 input {
   position: relative;
   width: 100%;
@@ -245,6 +226,27 @@ input[type="password"]:focus + i {
 .my-input-control {
   position: relative;
   padding: 0 15px 0 15px;
+}
+</style>
+
+<style scoped>
+.input-school {
+  padding: 0 3rem 2rem 3rem;
+}
+.input-control {
+  position: relative;
+  margin: 0 0 15px 0;
+  padding: 0 4rem 0 4rem;
+  width: 100%;
+}
+i {
+  position: absolute;
+  left: 16pt;
+  top: 12px;
+  padding: 9px 8px;
+  color: #aaa;
+  transition: 0.3s;
+  font-size: 10pt;
 }
 
 .header {

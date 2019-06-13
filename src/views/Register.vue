@@ -3,7 +3,7 @@
     <div class="logo-container">
       <img id="logo" src="../assets/logo/logo.png">
     </div>
-    <hr />
+    <hr>
     <div class="row">
       <div class="col-12 col-sm-12 col-md-6 col-lg-6 input-group">
         <div class="input-control">
@@ -11,45 +11,44 @@
             <input v-model="email" class="thai" type="text" placeholder="E-Mail">
             <i class="fas fa-envelope" aria-hidden="true"></i>
           </div>
-          <small v-show="errEmail" style="color:red;" class="alert-text thai"
-          > {{ errEmail }} </small>
+          <small v-show="errEmail" style="color:red;" class="alert-text thai">{{ errEmail }}</small>
           <div class="my-input-control">
             <input v-model="fname" class="thai" type="text" placeholder="ชื่อ">
             <i class="fas fa-user-circle" aria-hidden="true"></i>
           </div>
-          <small v-show="errName" style="color:red;" class="alert-text thai"
-          > {{ errName }} </small>
+          <small v-show="errName" style="color:red;" class="alert-text thai">{{ errName }}</small>
           <div class="my-input-control">
             <input v-model="lname" class="thai" type="text" placeholder="นามสกุล">
             <i class="fas fa-user-circle" aria-hidden="true"></i>
           </div>
-          <small v-show="errName" style="color:red;" class="alert-text thai"
-          > {{ errName }} </small>
+          <small v-show="errName" style="color:red;" class="alert-text thai">{{ errName }}</small>
           <div class="my-input-control">
-            <input v-model="phone" class="thai" type="tel" placeholder="เบอร์โทรศัพท์" maxlength="10">
+            <input
+              v-model="phone"
+              class="thai"
+              type="tel"
+              placeholder="เบอร์โทรศัพท์"
+              maxlength="10"
+            >
             <i class="fas fa-mobile-alt" aria-hidden="true"></i>
           </div>
-          <small v-show="errPhone" style="color:red;" class="alert-text thai"
-          > {{ errPhone }} </small>
+          <small v-show="errPhone" style="color:red;" class="alert-text thai">{{ errPhone }}</small>
           <div class="my-input-control">
-          <input v-model="password" class="thai" type="password" placeholder="รหัสผ่าน">
-          <i class="fas fa-lock" aria-hidden="true"></i>
+            <input v-model="password" class="thai" type="password" placeholder="รหัสผ่าน">
+            <i class="fas fa-lock" aria-hidden="true"></i>
           </div>
-          <small v-show="errPass" style="color:red;" class="alert-text thai"
-          > {{ errPass }} </small>
+          <small v-show="errPass" style="color:red;" class="alert-text thai">{{ errPass }}</small>
           <div class="my-input-control">
             <input v-model="conPassword" class="thai" type="password" placeholder="ยืนยันรหัสผ่าน">
             <i class="fas fa-lock" aria-hidden="true"></i>
           </div>
-          <small v-show="errConPass" style="color:red;" class="alert-text thai"
-          > {{ errConPass }} </small>
+          <small v-show="errConPass" style="color:red;" class="alert-text thai">{{ errConPass }}</small>
         </div>
       </div>
       <div class="vl"></div>
       <div class="col input-school">
-        <small v-show="errAddress" style="color:red;" class="alert-text thai"
-        > {{ errAddress }} </small>
-        <Map />
+        <small v-show="errAddress" style="color:red;" class="alert-text thai">{{ errAddress }}</small>
+        <Map/>
       </div>
     </div>
     <div class="btn-group">
@@ -128,30 +127,36 @@ export default {
         this.errAddress = ''
       }
       if (this.validate()) {
-        firebase.auth().createUserWithEmailAndPassword(this.email, this.password)
-          .then((user) => {
+        firebase
+          .auth()
+          .createUserWithEmailAndPassword(this.email, this.password)
+          .then(user => {
             console.log(user.user.uid)
-            firebase.firestore().collection('managers').doc(user.user.uid).set({
-              fname: this.fname,
-              lname: this.lname,
-              phone: this.phone,
-              school: {
-                latlng: {
-                  lat: this.$store.state.address.geometry.location.lat,
-                  lng: this.$store.state.address.geometry.location.lng
+            firebase
+              .firestore()
+              .collection('managers')
+              .doc(user.user.uid)
+              .set({
+                fname: this.fname,
+                lname: this.lname,
+                phone: this.phone,
+                school: {
+                  latlng: {
+                    lat: this.$store.state.address.geometry.location.lat,
+                    lng: this.$store.state.address.geometry.location.lng
+                  },
+                  name: this.$store.state.address.name
                 },
-                name: this.$store.state.address.name
-              },
-              url: 'something'
-            })
+                url: 'something'
+              })
               .then(() => {
                 this.$router.replace('Login')
               })
-              .catch((error) => {
+              .catch(error => {
                 console.log(error)
               })
           })
-          .catch((error) => {
+          .catch(error => {
             let errorCode = error.code
             let errorMessage = error.message
             console.log(errorCode)
@@ -166,8 +171,14 @@ export default {
       }
     },
     validate () {
-      if (this.errEmail === '' && this.errPass === '' && this.errConPass === '' &&
-       this.errName === '' && this.errPhone === '' && this.errAddress === '') {
+      if (
+        this.errEmail === '' &&
+        this.errPass === '' &&
+        this.errConPass === '' &&
+        this.errName === '' &&
+        this.errPhone === '' &&
+        this.errAddress === ''
+      ) {
         return true
       } else {
         return false
@@ -262,7 +273,11 @@ input[type="password"]:focus + i {
 }
 
 #register {
-  background: linear-gradient(180deg, rgba(33,149,186,1) 0%, rgba(27,127,158,1) 100%) !important;
+  background: linear-gradient(
+    180deg,
+    rgba(33, 149, 186, 1) 0%,
+    rgba(27, 127, 158, 1) 100%
+  ) !important;
   border-radius: 18px;
   width: 100%;
   margin: 10px 0 10px 0;
@@ -295,7 +310,11 @@ input[type="password"]:focus + i {
   margin: 10px 0 0 0;
   color: white;
   border-radius: 18px !important;
-  background: linear-gradient(180deg, rgba(33,149,186,1) 0%, rgba(27,127,158,1) 100%) !important;
+  background: linear-gradient(
+    180deg,
+    rgba(33, 149, 186, 1) 0%,
+    rgba(27, 127, 158, 1) 100%
+  ) !important;
 }
 
 .vl {

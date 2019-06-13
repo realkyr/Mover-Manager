@@ -5,12 +5,12 @@
     <div class="inside">
       <div class="container-fluid" style="padding: 0 20px 0 90px;">
         <div class="content rounded">
-          <h4 class="thai ml-4 mt-4">Edit Profile</h4>
+          <h4 class="thai ml-4 mt-4">แก้ไขโปรไฟล์</h4>
           <div class="row mt-5">
             <div class="col-6">
               <div class="input-control">
                 <div class="my-input-control">
-                  <input v-model="email" class="thai" type="text" placeholder="E-Mail">
+                  <input v-model="email" class="thai" type="text" placeholder="อีเมล">
                   <i class="fas fa-envelope" aria-hidden="true"></i>
                 </div>
                 <small v-show="errEmail" style="color:red;" class="alert-text thai"
@@ -148,21 +148,6 @@ export default {
 </script>
 
 <style scoped>
-.inside {
-  background: rgb(243, 243, 243);
-  height: calc(100vh - 50pt);
-  justify-content: center;
-  display: flex;
-  align-items: center;
-}
-.content {
-  padding: 10px;
-  background: white;
-}
-.row {
-  justify-content: center;
-  align-items: center;
-}
 .input-school {
   display: flex;
   justify-content: center;
@@ -182,45 +167,6 @@ i {
   color: #aaa;
   transition: 0.3s;
   font-size: 10pt;
-}
-
-input {
-  position: relative;
-  width: 100%;
-  -webkit-appearance: none;
-  overflow-x: hidden;
-  border: 1pt solid rgb(234, 234, 234);
-  border-radius: 18px;
-  margin: 8px 0;
-  outline: none;
-  padding: 8px;
-  padding-left: 40px;
-  box-sizing: border-box;
-  transition: 0.3s;
-  font-size: 10pt;
-  -webkit-appearance: none;
-}
-
-input:focus {
-  border-color: #2094b9;
-  box-shadow: 0 0 8px 0 #2094b9;
-}
-
-input[type="tel"]:focus + i {
-  color: #2094b9;
-}
-
-input[type="text"]:focus + i {
-  color: #2094b9;
-}
-
-input[type="password"]:focus + i {
-  color: #2094b9;
-}
-
-.my-input-control {
-  position: relative;
-  padding: 0 15px 0 15px;
 }
 
 .header {
