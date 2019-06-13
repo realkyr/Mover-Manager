@@ -2,7 +2,7 @@
   <div style="display: flex; flex-flow: column; height: 100vh;">
     <Searchbar/>
     <Sidebar />
-    <div class="thai bus-inside-container">
+    <div class="thai inside-container">
       <span>จัดการรถโรงเรียน</span>
       <!--
         this page is all about buses
@@ -32,7 +32,7 @@ export default {
 </script>
 
 <style>
-.bus-inside-container {
+.inside-container {
   margin-left: 50pt;
   padding: 20px 20px 0 20px;
   background: rgb(243, 243, 243);
