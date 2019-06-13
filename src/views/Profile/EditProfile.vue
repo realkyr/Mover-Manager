@@ -12,24 +12,24 @@
             </div>
             <div class="input-control">
               <div class="my-input-control">
-                <input v-model="email" class="thai" type="text" placeholder="อีเมล">
+                <input v-model="email" class="input-info thai" type="text" placeholder="อีเมล">
                 <i class="fas fa-envelope" aria-hidden="true"></i>
               </div>
               <small v-show="errEmail" style="color:red;" class="alert-text thai">{{ errEmail }}</small>
               <div class="my-input-control">
-                <input v-model="fname" class="thai" type="text" placeholder="ชื่อ">
+                <input v-model="fname" class="input-info thai" type="text" placeholder="ชื่อ">
                 <i class="fas fa-user-circle" aria-hidden="true"></i>
               </div>
               <small v-show="errName" style="color:red;" class="alert-text thai">{{ errName }}</small>
               <div class="my-input-control">
-                <input v-model="lname" class="thai" type="text" placeholder="นามสกุล">
+                <input v-model="lname" class="input-info thai" type="text" placeholder="นามสกุล">
                 <i class="fas fa-user-circle" aria-hidden="true"></i>
               </div>
               <small v-show="errName" style="color:red;" class="alert-text thai">{{ errName }}</small>
               <div class="my-input-control">
                 <input
                   v-model="phone"
-                  class="thai"
+                  class="input-info thai"
                   type="tel"
                   placeholder="เบอร์โทรศัพท์"
                   maxlength="10"
@@ -38,14 +38,14 @@
               </div>
               <small v-show="errPhone" style="color:red;" class="alert-text thai">{{ errPhone }}</small>
               <div class="my-input-control">
-                <input v-model="password" class="thai" type="password" placeholder="รหัสผ่าน">
+                <input v-model="password" class="input-info thai" type="password" placeholder="รหัสผ่าน">
                 <i class="fas fa-lock" aria-hidden="true"></i>
               </div>
-              <small v-show="errPass" style="color:red;" class="alert-text thai">{{ errPass }}</small>
+              <small v-show="errPass" style="color:red;" class="input-info alert-text thai">{{ errPass }}</small>
               <div class="my-input-control">
                 <input
                   v-model="conPassword"
-                  class="thai"
+                  class="input-info thai"
                   type="password"
                   placeholder="ยืนยันรหัสผ่าน"
                 >

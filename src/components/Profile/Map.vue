@@ -48,7 +48,7 @@ export default {
   flex-direction: column;
 }
 #myMap {
-  width: 400px;
+  width: 500px;
   height: 420px;
   border-radius: 10px;
   margin: 10px 0 0 0;

@@ -117,7 +117,7 @@ export default {
   padding: 20px;
   background: white;
 }
-input {
+.input-info {
   position: relative;
   width: 100%;
   -webkit-appearance: none;
