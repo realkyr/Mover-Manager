@@ -11,46 +11,47 @@
               <img src="../../assets/holder/profileholder.png">
             </div>
             <div class="input-control">
-              <div class="my-input-control">
-                <input v-model="email" class="input-info thai" type="text" placeholder="อีเมล">
-                <i class="fas fa-envelope" aria-hidden="true"></i>
-              </div>
+              <InputInfo
+                :icon="`fas fa-envelope`"
+                :placeholder="`อีเมล`"
+                :type="`text`"
+                ref="email"
+              />
               <small v-show="errEmail" style="color:red;" class="alert-text thai">{{ errEmail }}</small>
-              <div class="my-input-control">
-                <input v-model="fname" class="input-info thai" type="text" placeholder="ชื่อ">
-                <i class="fas fa-user-circle" aria-hidden="true"></i>
-              </div>
+              <InputInfo
+                :icon="`fas fa-user-circle`"
+                :placeholder="`ชื่อ`"
+                :type="`text`"
+                ref="fname"
+              />
               <small v-show="errName" style="color:red;" class="alert-text thai">{{ errName }}</small>
-              <div class="my-input-control">
-                <input v-model="lname" class="input-info thai" type="text" placeholder="นามสกุล">
-                <i class="fas fa-user-circle" aria-hidden="true"></i>
-              </div>
+              <InputInfo
+                :icon="`fas fa-user-circle`"
+                :placeholder="`นามสกุล`"
+                :type="`text`"
+                ref="lname"
+              />
               <small v-show="errName" style="color:red;" class="alert-text thai">{{ errName }}</small>
-              <div class="my-input-control">
-                <input
-                  v-model="phone"
-                  class="input-info thai"
-                  type="tel"
-                  placeholder="เบอร์โทรศัพท์"
-                  maxlength="10"
-                >
-                <i class="fas fa-mobile-alt" aria-hidden="true"></i>
-              </div>
+              <InputInfo
+                :icon="`fas fa-mobile-alt`"
+                :placeholder="`เบอร์โทรศัพท์`"
+                :type="`tel`"
+                ref="phone"
+              />
               <small v-show="errPhone" style="color:red;" class="alert-text thai">{{ errPhone }}</small>
-              <div class="my-input-control">
-                <input v-model="password" class="input-info thai" type="password" placeholder="รหัสผ่าน">
-                <i class="fas fa-lock" aria-hidden="true"></i>
-              </div>
-              <small v-show="errPass" style="color:red;" class="input-info alert-text thai">{{ errPass }}</small>
-              <div class="my-input-control">
-                <input
-                  v-model="conPassword"
-                  class="input-info thai"
-                  type="password"
-                  placeholder="ยืนยันรหัสผ่าน"
-                >
-                <i class="fas fa-lock" aria-hidden="true"></i>
-              </div>
+              <InputInfo
+                :icon="`fas fa-lock`"
+                :placeholder="`รหัสผ่าน`"
+                :type="`password`"
+                ref="password"
+              />
+              <small v-show="errPass" style="color:red;" class="alert-text thai">{{ errPass }}</small>
+              <InputInfo
+                :icon="`fas fa-lock`"
+                :placeholder="`ยืนยันรหัสผ่าน`"
+                :type="`password`"
+                ref="conPassword"
+              />
               <small v-show="errConPass" style="color:red;" class="alert-text thai">{{ errConPass }}</small>
             </div>
           </div>
@@ -72,6 +73,7 @@
 </template>
 
 <script>
+import InputInfo from '../../components/Profile/InputInfo'
 import Searchbar from '../../components/Dashboard/Searchbar'
 import Sidebar from '../../components/Dashboard/Sidebar'
 import Map from '../../components/Register/Map'
@@ -79,7 +81,8 @@ export default {
   components: {
     Searchbar,
     Sidebar,
-    Map
+    Map,
+    InputInfo
   },
   mounted () {
     this.$store.state.address = { name: '' }
@@ -92,7 +95,6 @@ export default {
       errName: '',
       errPhone: '',
       errAddress: '',
-      email: '',
       password: '',
       conPassword: '',
       fname: '',
@@ -102,33 +104,33 @@ export default {
   },
   methods: {
     updateInfo () {
-      if (this.conPassword !== this.password) {
+      if (this.$refs.conPassword.info !== this.$refs.password.info) {
         this.errConPass = 'โปรดกรอกรหัสให้ตรงกัน'
       } else {
         this.errConPass = ''
       }
-      if (this.password === '' || this.conPassword === '') {
+      if (this.$refs.password.info === '' || this.$refs.conPassword.info === '') {
         this.errPass = 'โปรดกรอกรหัสผ่าน'
       } else {
         this.errPass = ''
       }
-      let withoutSpace = this.password.replace(/ /g, '')
+      let withoutSpace = this.$refs.password.info.replace(/ /g, '')
       if (withoutSpace.length < 8) {
         this.errPass = 'โปรดกรอกรหัสให้มากกว่า 7 ตัวอักษร'
       } else {
         this.errPass = ''
       }
-      if (this.email === '') {
+      if (this.$refs.email.info === '') {
         this.errEmail = 'โปรดกรอกอีเมล'
       } else {
         this.errEmail = ''
       }
-      if (this.phone === '') {
+      if (this.$refs.phone.info === '') {
         this.errPhone = 'โปรดกรอกเบอร์โทรศัพท์'
       } else {
         this.errPhone = ''
       }
-      if (this.fname === '' || this.lname === '') {
+      if (this.$refs.fname.info === '' || this.$refs.lname.info === '') {
         this.errName = 'โปรดกรอกชื่อ-นามสกุลให้ครบถ้วน'
       } else {
         this.errName = ''
