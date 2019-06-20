@@ -19,6 +19,7 @@ import UpdateDriver from '@/views/Driver/UpdateDriver'
 import EditProfile from '@/views/Profile/EditProfile'
 import Profile from '@/views/Profile/Profile'
 import CreateBus from '@/views/Bus/CreateBus'
+import Profile2 from '@/views/Profile/Profile2'
 
 // import firebase from 'firebase'
 import 'firebase/auth'
@@ -50,9 +51,14 @@ let router = new Router({
       component: EditProfile
     },
     {
+      path: '/profile2',
+      name: 'profile2',
+      component: Profile
+    },
+    {
       path: '/profile',
       name: 'profile',
-      component: Profile
+      component: Profile2
     },
     {
       path: '/dashboard',
@@ -80,6 +86,11 @@ let router = new Router({
       component: ManageStudent
     },
     {
+      path: '/dashboard/student/create',
+      name: 'create-student',
+      component: CreateStudent
+    },
+    {
       path: '/dashboard/family',
       name: 'family-managing-console',
       component: ManageFamily
@@ -98,11 +109,6 @@ let router = new Router({
       path: '/dashboard/group/update',
       name: 'groups-updating-console',
       component: UpdateStudentGroup
-    },
-    {
-      path: '/dashboard/student/create',
-      name: 'students-creating-console',
-      component: CreateStudent
     },
     {
       path: '/dashboard/student/update',

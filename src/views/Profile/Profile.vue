@@ -1,14 +1,10 @@
 <template>
-  <div>
+  <div style="display: flex; flex-flow: column; height: 100vh;">
     <Searchbar/>
     <Sidebar/>
-    <div class="inside-container">
-      <div class="content rounded">
-        <div class="row">
-          <div class="col">
-            <h4 class="thai ml-4 mt-3">โปรไฟล์</h4>
-          </div>
-        </div>
+    <div class="inside-container thai">
+      <span>บัญชีผู้ใช้</span>
+      <div class="content rounded mt-3">
         <!-- Modal -->
         <div
           class="modal fade"
@@ -22,7 +18,7 @@
             <div class="modal-content">
               <div class="modal-header">
                 <h5 class="modal-title" id="qrModalLongTitle">My QR Code</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close mover-btn thai" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
@@ -36,10 +32,13 @@
           </div>
         </div>
         <div class="row mt-2 pt-2 pb-2">
-          <div class="col-6 d-flex justify-content-center align-items-center flex-column">
+          <div class="col d-flex justify-content-center align-items-center flex-column p-0">
             <div class="profile">
               <img src="../../assets/holder/profileholder.png">
             </div>
+            <!-- <button type="button" class="btn mover-btn thai">เปลี่ยนรูปโปรไฟล์</button> -->
+            <input type="file" ref="file" style="display: none">
+            <button class="btn mover-btn thai" @click="$refs.file.click()">เปลี่ยนรูปโปรไฟล์</button>
             <button
               type="button"
               id="qrBtn"
@@ -49,31 +48,32 @@
             >
               <i style="position: initial; color: white;" class="fas fa-qrcode"></i>ดูคิวอาร์โค้ด
             </button>
-            <router-link :to="{ name: 'edit-profile' }">
-              <button type="button" class="btn mover-btn thai">แก้ไขโปรไฟล์</button>
-            </router-link>
-            <div class="d-flex justify-content-center align-items-center flex-column">
-              <div class="input-control thai">
-                <div class="my-output-control">
-                  <span>
-                    <i class="fas fa-envelope" aria-hidden="true"></i>อีเมล: {{ email }}
-                  </span>
-                </div>
-                <div class="my-output-control">
-                  <span>
-                    <i class="fas fa-user-circle" aria-hidden="true"></i>ชื่อ: {{ fname }}
-                  </span>
-                </div>
-                <div class="my-output-control">
-                  <span>
-                    <i class="fas fa-envelope" aria-hidden="true"></i>นามสกุล: {{ lname }}
-                  </span>
-                </div>
-                <div class="my-output-control">
-                  <span>
-                    <i class="fas fa-mobile-alt" aria-hidden="true"></i>เบอร์โทรศัพท์: {{ phone }}
-                  </span>
-                </div>
+            <div class="d-flex justify-content-center mt-4">
+              <div class="col- d-flex flex-column">
+                <span class="mb-3">
+                  <i class="fas fa-envelope" aria-hidden="true"></i>อีเมล:
+                </span>
+                <span class="mb-3">
+                  <i class="fas fa-envelope" aria-hidden="true"></i>ชื่อ:
+                </span>
+                <span class="mb-3">
+                  <i class="fas fa-envelope" aria-hidden="true"></i>นามสกุล:
+                </span>
+                <span class="mb-3">
+                  <i class="fas fa-envelope" aria-hidden="true"></i>เบอร์โทรศัพท์:
+                </span>
+              </div>
+              <div class="col d-flex flex-column">
+                <span class="mb-4">{{ email }}</span>
+                <span class="mb-4">{{ fname }}</span>
+                <span class="mb-4">{{ lname }}</span>
+                <span class="mb-4">{{ phone }}</span>
+              </div>
+              <div class="col d-flex flex-column p-0">
+                <span class="mb-3"><i class="fas fa-edit text-danger"></i></span>
+                <span class="mb-3"><i class="fas fa-edit text-danger"></i></span>
+                <span class="mb-3"><i class="fas fa-edit text-danger"></i></span>
+                <span class="mb-3"><i class="fas fa-edit text-danger"></i></span>
               </div>
             </div>
           </div>
@@ -81,6 +81,10 @@
           <div class="col d-flex justify-content-center align-items-center">
             <Map/>
           </div>
+        </div>
+        <div v-if="isEdit" class="btn-group">
+          <button type="button" class="btn mover-btn thai w-100">บันทึก</button>
+          <button type="button" id="back" class="btn mover-btn thai">ยกเลิก</button>
         </div>
       </div>
     </div>
@@ -105,64 +109,13 @@ export default {
       email: 'ingkaratt@gmail.com',
       fname: 'ing',
       lname: 'tin',
-      phone: '080000000'
+      phone: '080000000',
+      isEdit: true
     }
   },
   methods: {}
 }
 </script>
-
-<style>
-.content {
-  padding: 20px;
-  background: white;
-}
-.input-info {
-  position: relative;
-  width: 100%;
-  -webkit-appearance: none;
-  overflow-x: hidden;
-  border: 1pt solid rgb(234, 234, 234);
-  border-radius: 18px;
-  margin: 8px 0;
-  outline: none;
-  padding: 8px;
-  padding-left: 40px;
-  box-sizing: border-box;
-  transition: 0.3s;
-  font-size: 10pt;
-  -webkit-appearance: none;
-}
-
-input:focus {
-  border-color: #2094b9;
-  box-shadow: 0 0 8px 0 #2094b9;
-}
-
-input[type="tel"]:focus + i {
-  color: #2094b9;
-}
-
-input[type="text"]:focus + i {
-  color: #2094b9;
-}
-
-input[type="password"]:focus + i {
-  color: #2094b9;
-}
-
-.my-output-control {
-  margin: 1rem 0 0 0;
-}
-
-.profile img {
-  display: block;
-  margin: 10px auto;
-  width: 150px;
-  height: 150px;
-  border-radius: 20px;
-}
-</style>
 
 <style scoped>
 .mover-btn {
@@ -170,16 +123,6 @@ input[type="password"]:focus + i {
 }
 .mover-btn i {
   padding: 0 5px 0 0;
-}
-.inside-container {
-  height: calc(100vh - 50pt);
-  padding: 20px;
-}
-.input-control {
-  position: relative;
-  margin: 2rem 0 2rem 0;
-  padding: 0 4rem 0 4rem;
-  width: 100%;
 }
 i {
   position: initial;
@@ -190,23 +133,12 @@ i {
   transition: 0.3s;
   font-size: 10pt;
 }
-
 .header {
   font-size: 14pt;
 }
-
 .list-group {
   box-shadow: 0 4px 25px 0 rgba(0, 0, 0, 0.1);
 }
-
-.btn-group {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  width: 20%;
-  margin: 1rem auto 1rem auto;
-}
-
 .btn {
   margin: 0;
   padding: 0;
@@ -218,7 +150,6 @@ i {
     rgba(27, 127, 158, 1) 100%
   ) !important;
 }
-
 .active {
   background: linear-gradient(
     180deg,
@@ -226,22 +157,19 @@ i {
     rgba(27, 127, 158, 1) 100%
   );
 }
-
 .col-3 {
   max-width: 20%;
 }
-
 #back {
   color: black !important;
   background: white !important;
   border-radius: 18px;
   width: 100%;
+  margin: 10px 0 0 0;
 }
-
 #back:hover {
   background: #d3d3d3 !important;
 }
-
 #qrBtn {
   background: #f26b27 !important;
   border: none;

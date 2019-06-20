@@ -1,8 +1,8 @@
 <template>
   <div>
     <div class="map thai">
-      <span><i style="color:red;" class="fas fa-map-marker-alt"></i>  โรงเรียนหอวัง</span>
-      <div id="myMap" ref="myMap"></div>
+      <!-- <span><i style="color:red;" class="fas fa-map-marker-alt"></i>  school_place</span> -->
+      <div id="myMap" class="shadow" ref="myMap"></div>
     </div>
   </div>
 </template>
@@ -41,6 +41,20 @@ export default {
 </script>
 
 <style scoped>
+.thai {
+  font-size: 18pt;
+}
+.school-name {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  border-radius: 20px;
+  width: 350px;
+  height: 70px;
+  position: fixed;
+  background: white;
+  bottom: 50px;
+}
 .map {
   display: flex;
   justify-content: center;
@@ -48,10 +62,10 @@ export default {
   flex-direction: column;
 }
 #myMap {
-  width: 500px;
-  height: 420px;
+  width: 100%;
+  height: calc(100vh - 120pt);
   border-radius: 10px;
-  margin: 10px 0 0 0;
+  /* margin: 10px 0 0 0; */
 }
 .map span {
   color: #aaa;
