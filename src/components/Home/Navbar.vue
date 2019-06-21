@@ -214,8 +214,8 @@ button:after {
     position: absolute;
     padding: 0;
     margin-top: 2.77777px;
-    -webkit-transform: translateX(-50%);
-    transform: translateX(-50%);
+    -webkit-transform: translateX(-53%);
+    transform: translateX(-53%);
     background: white;
     text-align: center;
     transition: all 0.3s ease-in-out;
