@@ -20,8 +20,7 @@
             type="button"
             id="qrBtn"
             class="btn mover-btn thai"
-            data-toggle="modal"
-            data-target="#qrModal"
+            @click="showModal"
           >
             <i style="position: initial; color: white;" class="fas fa-qrcode"></i>ดูคิวอาร์โค้ด
           </button>
@@ -52,20 +51,20 @@
             </div>
             <div class="col d-flex flex-column p-0">
               <span class="mb-3" @click="editToggle1">
-                <i v-if="!isEdit1" class="fas fa-edit text-danger"></i>
-                <i v-else class="fas fa-check text-success"></i>
+                <i v-if="!isEdit1" class="fas fa-edit text-primary"></i>
+                <i v-else class="fas fa-times-circle text-danger"></i>
               </span>
               <span class="mb-3" @click="editToggle2">
-                <i v-if="!isEdit2" class="fas fa-edit text-danger"></i>
-                <i v-else class="fas fa-check text-success"></i>
+                <i v-if="!isEdit2" class="fas fa-edit text-primary"></i>
+                <i v-else class="fas fa-times-circle text-danger"></i>
               </span>
               <span class="mb-3" @click="editToggle3">
-                <i v-if="!isEdit3" class="fas fa-edit text-danger"></i>
-                <i v-else class="fas fa-check text-success"></i>
+                <i v-if="!isEdit3" class="fas fa-edit text-primary"></i>
+                <i v-else class="fas fa-times-circle text-danger"></i>
               </span>
               <span class="mb-3" @click="editToggle4">
-                <i v-if="!isEdit4" class="fas fa-edit text-danger"></i>
-                <i v-else class="fas fa-check text-success"></i>
+                <i v-if="!isEdit4" class="fas fa-edit text-primary"></i>
+                <i v-else class="fas fa-times-circle text-danger"></i>
               </span>
             </div>
           </div>
@@ -82,58 +81,37 @@
             </div>
           </div>
         </div>
-        <!-- Modal -->
-        <div
-          class="modal fade"
-          id="qrModal"
-          tabindex="-1"
-          role="dialog"
-          aria-labelledby="qrModalCenterTitle"
-          aria-hidden="true"
-        >
-          <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="qrModalLongTitle">My QR Code</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <div class="myQr"></div>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn" data-dismiss="modal">Close</button>
-              </div>
-            </div>
-          </div>
-        </div>
+        <QrModal ref="modal"/>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+/* eslint-disable no-undef */
 import Searchbar from '../../components/Dashboard/Searchbar'
 import Sidebar from '../../components/Dashboard/Sidebar'
 import Map from '../../components/Profile/Map2'
 import InputInfo from '../../components/Profile/InputInfo'
+import QrModal from '../../components/Profile/QrModal'
+import { mapGetters } from 'vuex'
 export default {
   components: {
     Searchbar,
     Sidebar,
     Map,
-    InputInfo
+    InputInfo,
+    QrModal
   },
   mounted () {
     this.$store.state.address = { name: '' }
   },
   data () {
     return {
-      email: 'ingkaratt@gmail.com',
-      fname: 'ing',
-      lname: 'tin',
-      phone: '080000000',
+      email: this.getUserInfo().email,
+      fname: this.getUserInfo().fname,
+      lname: this.getUserInfo().lname,
+      phone: this.getUserInfo().phone,
       profile: '',
       isEdit: false,
       isEdit1: false,
@@ -143,39 +121,35 @@ export default {
     }
   },
   methods: {
+    ...mapGetters(['getUser']),
+    getUserInfo () {
+      return this.getUser()
+    },
     editToggle1 () {
-      if (!this.isEdit) {
-        this.isEdit = true
-      }
+      this.isEdit = !this.isEdit
       this.isEdit1 = !this.isEdit1
     },
     editToggle2 () {
-      if (!this.isEdit) {
-        this.isEdit = true
-      }
+      this.isEdit = !this.isEdit
       this.isEdit2 = !this.isEdit2
     },
     editToggle3 () {
-      if (!this.isEdit) {
-        this.isEdit = true
-      }
+      this.isEdit = !this.isEdit
       this.isEdit3 = !this.isEdit3
     },
     editToggle4 () {
-      if (!this.isEdit) {
-        this.isEdit = true
-      }
+      this.isEdit = !this.isEdit
       this.isEdit4 = !this.isEdit4
+    },
+    showModal () {
+      let element = this.$refs.modal.$el
+      $(element).modal('show')
     }
   }
 }
 </script>
 
 <style>
-.content {
-  padding: 20px 0;
-  background: white;
-}
 .input-info {
   position: relative;
   width: 100%;
@@ -234,6 +208,10 @@ input[type="password"]:focus + i {
 </style>
 
 <style scoped>
+.content {
+  padding: 20px 10px 20px 10px;
+  background: white;
+}
 .school-name {
   font-size: 16pt;
   display: flex;
@@ -245,6 +223,9 @@ input[type="password"]:focus + i {
   position: fixed;
   background: white;
   bottom: 50px;
+}
+.col {
+  padding-right: 5px;
 }
 .col-4 {
   max-width: 28.333333%;
@@ -267,18 +248,10 @@ i {
   position: initial;
   left: 16pt;
   top: 12px;
-  padding: 9px 8px;
+  padding: 0px 5px 0px 5px;
   color: #aaa;
   transition: 0.3s;
   font-size: 10pt;
-}
-
-.header {
-  font-size: 14pt;
-}
-
-.list-group {
-  box-shadow: 0 4px 25px 0 rgba(0, 0, 0, 0.1);
 }
 
 .btn {
@@ -317,15 +290,6 @@ i {
   border: none;
   display: block;
   margin: 10px auto;
-  /* height: 35px; */
   padding: 5px;
-}
-.myQr {
-  justify-content: center;
-  align-items: center;
-  width: 240px;
-  height: 240px;
-  background: #aaa;
-  margin: auto;
 }
 </style>

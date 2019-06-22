@@ -133,12 +133,14 @@ export default {
           .auth()
           .createUserWithEmailAndPassword(this.email, this.password)
           .then(user => {
+            user.user.sendEmailVerification()
             console.log(user.user.uid)
             firebase
               .firestore()
               .collection('managers')
               .doc(user.user.uid)
               .set({
+                email: this.email,
                 fname: this.fname,
                 lname: this.lname,
                 phone: this.phone,

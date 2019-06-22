@@ -31,15 +31,13 @@
 </template>
 
 <script>
-// import firebase from 'firebase'
 import 'firebase/auth'
 // eslint-disable-next-line no-unused-vars
 import { mapGetters, mapActions } from 'vuex'
 export default {
   data () {
     return {
-      // displayName: this.getDisplayName()
-      displayName: 'Phuree K.'
+      displayName: this.getDisplayName()
     }
   },
   methods: {
@@ -47,7 +45,7 @@ export default {
       'getUser'
     ]),
     getDisplayName () {
-      return `${this.getUser().information.fname} ${this.getUser().information.lname}`
+      return `${this.getUser().fname} ${this.getUser().lname}`
     },
     toProfile () {
       this.$router.replace('profile')
