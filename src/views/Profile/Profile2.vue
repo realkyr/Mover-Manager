@@ -16,7 +16,6 @@
           </div>
           <input type="file" ref="file" style="display: none" @change="onFileSelected">
           <button class="btn mover-btn thai" @click="$refs.file.click()">เปลี่ยนรูปโปรไฟล์</button>
-          <button v-show="profile" class="btn mover-btn thai mt-1" @click="onUpload">ยืนยัน</button>
           <button
             type="button"
             id="qrBtn"
@@ -98,6 +97,7 @@
 /* eslint-disable no-undef */
 import firebase from 'firebase/app'
 import 'firebase/firestore'
+import 'firebase/storage'
 import Searchbar from '../../components/Dashboard/Searchbar'
 import Sidebar from '../../components/Dashboard/Sidebar'
 import Map from '../../components/Profile/Map2'
@@ -121,7 +121,8 @@ export default {
       fname: this.getUserInfo().fname,
       lname: this.getUserInfo().lname,
       phone: this.getUserInfo().phone,
-      profile: null,
+      profile: this.getProfilePic(),
+      imageFile: null,
       isEdit: false,
       isEdit1: false,
       isEdit2: false,
@@ -132,7 +133,7 @@ export default {
   },
   methods: {
     ...mapGetters(['getUser']),
-    ...mapActions(['setUser']),
+    ...mapActions(['setUser', 'setProfile']),
     getUserInfo () {
       return this.getUser()
     },
@@ -203,19 +204,34 @@ export default {
       $(element).modal('show')
     },
     onFileSelected (event) {
-      const file = event.target.files[0]
-      this.profile = URL.createObjectURL(file)
+      this.imageFile = event.target.files[0]
+      this.onUpload()
+      this.profile = URL.createObjectURL(event.target.files[0])
     },
     onUpload () {
-      firebase.storage().ref().child(`images/profile/${this.$store.state.uid}`)
-        .put(this.profile)
-        .then(() => {
-          console.log('uploaded complete')
-        })
-        .on('state_changed', snapshot => {
-          let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-          console.log('Upload is' + progress + '% done')
-        })
+      let uploadTask = firebase.storage().ref()
+        .child('images/profile/' + this.$store.state.uid + '/' + this.imageFile.name)
+        .put(this.imageFile)
+      uploadTask.on('state_changed', (snapshot) => {
+        let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        console.log('Upload is' + progress + '% done')
+      }, () => {}, () => {
+        uploadTask.snapshot.ref.getDownloadURL()
+          .then((downloadUrl) => {
+            firebase.firestore().collection('managers').doc(this.$store.state.uid)
+              .set({
+                profile: downloadUrl
+              }, { merge: true })
+            this.setProfile(downloadUrl)
+          })
+      })
+    },
+    getProfilePic () {
+      if ('profile' in this.$store.state.user) {
+        return this.$store.state.user.profile
+      } else {
+        return null
+      }
     }
   }
 }

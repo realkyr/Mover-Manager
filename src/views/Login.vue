@@ -78,9 +78,12 @@ export default {
             }
           })
           .catch(error => {
+            console.log(error.code)
             let errorCode = error.code
             if (errorCode === 'auth/wrong-password') {
               this.errorMsg = 'กรอกอีเมล-รหัสผ่านให้ถูกต้อง'
+            } else if (errorCode === 'auth/user-not-found' || errorCode === 'auth/invalid-email') {
+              this.errorMsg = 'อีเมลไม่ถูกต้อง'
             }
           })
       } else {

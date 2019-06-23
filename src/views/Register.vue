@@ -52,7 +52,7 @@
       </div>
     </div>
     <div class="btn-group">
-      <button type="button" id="regiter" class="btn thai" @click="register">สมัครสมาชิก</button>
+      <button type="button" id="registerBtn" class="btn thai" @click="register">สมัครสมาชิก</button>
       <button type="button" id="back" class="btn thai" @click="cancel">ยกเลิก</button>
     </div>
   </div>
@@ -265,21 +265,6 @@ i {
   align-items: center;
 }
 
-#register {
-  background: linear-gradient(
-    180deg,
-    rgba(33, 149, 186, 1) 0%,
-    rgba(27, 127, 158, 1) 100%
-  ) !important;
-  border-radius: 18px;
-  width: 100%;
-  margin: 10px 0 10px 0;
-}
-
-#register:hover {
-  box-shadow: none;
-}
-
 .btn-group {
   display: flex;
   justify-content: center;
@@ -297,6 +282,10 @@ i {
     rgba(33, 149, 186, 1) 0%,
     rgba(27, 127, 158, 1) 100%
   ) !important;
+}
+
+#registerBtn {
+  width: 100%;
 }
 
 @media screen and (max-width: 1280px) {

@@ -8,7 +8,6 @@ export default new Vuex.Store({
   state: {
     uid: undefined,
     user: undefined,
-    info: undefined,
     address: {
       name: ''
     }
@@ -16,9 +15,6 @@ export default new Vuex.Store({
   mutations: {
     SET_USER (state, payload) {
       state.user = payload
-    },
-    SET_INFO (state, payload) {
-      state.info = payload
     },
     CLEAR_USER (state) {
       state.user = undefined
@@ -43,6 +39,9 @@ export default new Vuex.Store({
     },
     SET_UID (state, payload) {
       state.uid = payload
+    },
+    SET_PROFILE (state, payload) {
+      state.user['profile'] = payload
     }
   },
   actions: {
@@ -63,6 +62,9 @@ export default new Vuex.Store({
     },
     setUid: ({ commit }, uid) => {
       commit('SET_UID', uid)
+    },
+    setProfile: ({ commit }, image) => {
+      commit('SET_PROFILE', image)
     }
   },
   getters: {
