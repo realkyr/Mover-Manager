@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Searchbar/>
+    <Searchbar ref="searchProfile"/>
     <Sidebar/>
     <div class="inside-container thai">
       <span>บัญชีผู้ใช้</span>
@@ -14,8 +14,9 @@
           <div v-else class="profile">
             <img :src="profile">
           </div>
-          <input type="file" ref="file" style="display: none">
+          <input type="file" ref="file" style="display: none" @change="onFileSelected">
           <button class="btn mover-btn thai" @click="$refs.file.click()">เปลี่ยนรูปโปรไฟล์</button>
+          <button v-show="profile" class="btn mover-btn thai mt-1" @click="onUpload">ยืนยัน</button>
           <button
             type="button"
             id="qrBtn"
@@ -40,14 +41,14 @@
               </span>
             </div>
             <div class="col d-flex flex-column" style="width: 188.5px;">
-              <InputInfo :placeholder="`อีเมล`" :type="`text`" ref="email" v-if="isEdit1"/>
-              <span v-else class="mb-4">{{ email }}</span>
-              <InputInfo :placeholder="`ชื่อ`" :type="`text`" ref="fname" v-if="isEdit2"/>
-              <span v-else class="mb-4">{{ fname }}</span>
-              <InputInfo :placeholder="`นามสกุล`" :type="`text`" ref="lname" v-if="isEdit3"/>
-              <span v-else class="mb-4">{{ lname }}</span>
-              <InputInfo :placeholder="`เบอร์โทร`" :type="`tel`" ref="phone" v-if="isEdit4"/>
-              <span v-else class="mb-4">{{ phone }}</span>
+              <InputInfo :placeholder="`อีเมล`" :type="`email`" :initialValue="email" ref="email" v-if="isEdit1"/>
+              <span v-else class="mb-3">{{ email }}</span>
+              <InputInfo :placeholder="`ชื่อ`" :type="`text`" :initialValue="fname" ref="fname" v-if="isEdit2"/>
+              <span v-else class="mb-3">{{ fname }}</span>
+              <InputInfo :placeholder="`นามสกุล`" :type="`text`" :initialValue="lname" ref="lname" v-if="isEdit3"/>
+              <span v-else class="mb-3">{{ lname }}</span>
+              <InputInfo :placeholder="`เบอร์โทร`" :type="`tel`" :initialValue="phone" ref="phone" v-if="isEdit4"/>
+              <span v-else class="mb-3">{{ phone }}</span>
             </div>
             <div class="col d-flex flex-column p-0">
               <span class="mb-3" @click="editToggle1">
@@ -69,18 +70,24 @@
             </div>
           </div>
           <div v-if="isEdit" class="btn-group">
-            <button type="button" class="btn mover-btn thai w-100">บันทึก</button>
+            <button type="button" class="btn mover-btn thai w-100" @click="editProfile">บันทึก</button>
           </div>
         </div>
         <div class="col pr-4">
           <Map/>
           <div class="school-name thai d-flex justify-content-start align-items-center ml-3 shadow">
-            <div class="ml-4">
+            <div class="ml-4 d-flex justify-content-start align-items-center">
               <i style="color:red;font-size:18pt;" class="fas fa-map-marker-alt"></i>
-              <span class="font-weight-light">โรงเรียนหอวัง</span>
+              <InputInfo :placeholder="`นามสกุล`" :type="`text`" :initialValue="lname" ref="schoolName" v-if="isEdit5"/>
+              <span v-else class="font-weight-light">โรงเรียนหอวัง</span>
+              <span @click="editToggle5">
+                <i v-if="!isEdit5" class="fas fa-edit text-primary"></i>
+                <i v-else class="fas fa-times-circle text-danger"></i>
+              </span>
             </div>
           </div>
         </div>
+        <!-- qr modal -->
         <QrModal ref="modal"/>
       </div>
     </div>
@@ -89,12 +96,14 @@
 
 <script>
 /* eslint-disable no-undef */
+import firebase from 'firebase/app'
+import 'firebase/firestore'
 import Searchbar from '../../components/Dashboard/Searchbar'
 import Sidebar from '../../components/Dashboard/Sidebar'
 import Map from '../../components/Profile/Map2'
 import InputInfo from '../../components/Profile/InputInfo'
 import QrModal from '../../components/Profile/QrModal'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 export default {
   components: {
     Searchbar,
@@ -112,38 +121,101 @@ export default {
       fname: this.getUserInfo().fname,
       lname: this.getUserInfo().lname,
       phone: this.getUserInfo().phone,
-      profile: '',
+      profile: null,
       isEdit: false,
       isEdit1: false,
       isEdit2: false,
       isEdit3: false,
-      isEdit4: false
+      isEdit4: false,
+      isEdit5: false
     }
   },
   methods: {
     ...mapGetters(['getUser']),
+    ...mapActions(['setUser']),
     getUserInfo () {
       return this.getUser()
     },
     editToggle1 () {
-      this.isEdit = !this.isEdit
+      // this.isEdit = !this.isEdit
       this.isEdit1 = !this.isEdit1
+      this.checkEdit()
     },
     editToggle2 () {
-      this.isEdit = !this.isEdit
       this.isEdit2 = !this.isEdit2
+      this.checkEdit()
     },
     editToggle3 () {
-      this.isEdit = !this.isEdit
       this.isEdit3 = !this.isEdit3
+      this.checkEdit()
     },
     editToggle4 () {
-      this.isEdit = !this.isEdit
       this.isEdit4 = !this.isEdit4
+      this.checkEdit()
+    },
+    editToggle5 () {
+      this.isEdit5 = !this.isEdit5
+      this.checkEdit()
+    },
+    checkEdit () {
+      if (this.isEdit1 || this.isEdit2 || this.isEdit3 || this.isEdit4) {
+        this.isEdit = true
+      } else if (!this.isEdit1 && !this.isEdit2 && !this.isEdit3 && !this.isEdit4) {
+        this.isEdit = false
+      }
+    },
+    editProfile () {
+      this.checkValue()
+      firebase.firestore().collection('managers').doc(this.$store.state.uid)
+        .update({
+          'email': this.email,
+          'fname': this.fname,
+          'lname': this.lname,
+          'phone': this.phone
+        })
+      firebase.firestore().collection('managers').doc(this.$store.state.uid).get()
+        .then(data => {
+          this.setUser(data.data())
+        })
+      this.$refs.searchProfile.displayName = `${this.fname} ${this.lname}`
+      this.isEdit = false
+      this.isEdit1 = false
+      this.isEdit2 = false
+      this.isEdit3 = false
+      this.isEdit4 = false
+    },
+    checkValue () {
+      if (this.isEdit1) {
+        this.email = this.$refs.email.info
+      }
+      if (this.isEdit2) {
+        this.fname = this.$refs.fname.info
+      }
+      if (this.isEdit3) {
+        this.lname = this.$refs.lname.info
+      }
+      if (this.isEdit4) {
+        this.phone = this.$refs.phone.info
+      }
     },
     showModal () {
       let element = this.$refs.modal.$el
       $(element).modal('show')
+    },
+    onFileSelected (event) {
+      const file = event.target.files[0]
+      this.profile = URL.createObjectURL(file)
+    },
+    onUpload () {
+      firebase.storage().ref().child(`images/profile/${this.$store.state.uid}`)
+        .put(this.profile)
+        .then(() => {
+          console.log('uploaded complete')
+        })
+        .on('state_changed', snapshot => {
+          let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+          console.log('Upload is' + progress + '% done')
+        })
     }
   }
 }
@@ -225,7 +297,7 @@ input[type="password"]:focus + i {
   bottom: 50px;
 }
 .col {
-  padding-right: 5px;
+  padding: 0px 10px 0px 10px;
 }
 .col-4 {
   max-width: 28.333333%;
@@ -248,7 +320,7 @@ i {
   position: initial;
   left: 16pt;
   top: 12px;
-  padding: 0px 5px 0px 5px;
+  padding: 0px 8px 0px 8px;
   color: #aaa;
   transition: 0.3s;
   font-size: 10pt;
@@ -272,17 +344,6 @@ i {
     rgba(33, 149, 186, 1) 0%,
     rgba(27, 127, 158, 1) 100%
   );
-}
-
-#back {
-  color: black !important;
-  background: white !important;
-  border-radius: 18px;
-  width: 100%;
-}
-
-#back:hover {
-  background: #d3d3d3 !important;
 }
 
 #qrBtn {

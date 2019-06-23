@@ -1,6 +1,12 @@
 <template>
-  <div class="mb-3">
-    <input v-model="info" class="input-info thai" :type="type" :placeholder="placeholder">
+  <div class="mb-2">
+    <input
+      v-model="info"
+      class="input-info thai"
+      :type="type"
+      :placeholder="placeholder"
+    >
+    <small v-show="err" style="color:red;" class="alert-text thai">{{ err }}</small>
   </div>
 </template>
 
@@ -14,11 +20,29 @@ export default {
     type: {
       type: String,
       default: ''
+    },
+    initialValue: {
+      type: String,
+      default: ''
     }
   },
   data () {
     return {
-      info: ''
+      info: this.initialValue,
+      infoType: this.type,
+      err: ''
+    }
+  },
+  methods: {
+    checkValidate () {
+      if (this.infoType === 'email' && !this.info.includes('@')) {
+        this.err = 'โปรดกรอกอีเมลให้ถูกต้อง'
+        return false
+      } else if (this.infoType === 'phone' && this.info.length < 10) {
+        this.err = 'โปรดใส่เบอร์ให้ถูกต้อง'
+      } else {
+        return true
+      }
     }
   }
 }
@@ -39,15 +63,6 @@ export default {
   transition: 0.3s;
   font-size: 10pt;
   -webkit-appearance: none;
-}
-i {
-  position: absolute;
-  left: 16pt;
-  top: 9px;
-  /* padding: 9px 8px; */
-  color: #aaa;
-  transition: 0.3s;
-  font-size: 10pt;
 }
 input:focus {
   border-color: #2094b9;

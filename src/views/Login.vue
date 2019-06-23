@@ -54,7 +54,7 @@ export default {
     firebase.auth().signOut()
   },
   methods: {
-    ...mapActions(['setUser']),
+    ...mapActions(['setUser', 'setUid']),
     login () {
       if (this.email !== '' && this.password !== '') {
         this.errorMsg = ''
@@ -63,6 +63,7 @@ export default {
           .signInWithEmailAndPassword(this.email, this.password)
           .then(user => {
             if (user.user.emailVerified) {
+              this.setUid(user.user.uid)
               firebase
                 .firestore()
                 .collection('managers')

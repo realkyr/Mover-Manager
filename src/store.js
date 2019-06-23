@@ -6,6 +6,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    uid: undefined,
     user: undefined,
     info: undefined,
     address: {
@@ -39,6 +40,9 @@ export default new Vuex.Store({
           geometry: payload.results[0].geometry
         }
       }
+    },
+    SET_UID (state, payload) {
+      state.uid = payload
     }
   },
   actions: {
@@ -56,6 +60,9 @@ export default new Vuex.Store({
     },
     clearUser: ({ commit }, user) => {
       commit('CLEAR_USER')
+    },
+    setUid: ({ commit }, uid) => {
+      commit('SET_UID', uid)
     }
   },
   getters: {

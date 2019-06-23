@@ -199,6 +199,16 @@ export default {
 .vl {
   border-left: 1px solid #d3d3d3;
 }
+#back {
+  color: black !important;
+  background: white !important;
+  border-radius: 18px;
+  width: 100%;
+}
+
+#back:hover {
+  background: #d3d3d3 !important;
+}
 </style>
 
 <style scoped>
@@ -268,17 +278,6 @@ i {
 
 #register:hover {
   box-shadow: none;
-}
-
-#back {
-  color: black !important;
-  background: white !important;
-  border-radius: 18px;
-  width: 100%;
-}
-
-#back:hover {
-  background: #d3d3d3 !important;
 }
 
 .btn-group {
