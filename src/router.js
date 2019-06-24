@@ -17,9 +17,8 @@ import DriverProfile from '@/views/Driver/DriverProfile'
 import CreateDriver from '@/views/Driver/CreateDriver'
 import UpdateDriver from '@/views/Driver/UpdateDriver'
 import EditProfile from '@/views/Profile/EditProfile'
-import Profile from '@/views/Profile/Profile'
 import CreateBus from '@/views/Bus/CreateBus'
-import Profile2 from '@/views/Profile/Profile2'
+import Profile from '@/views/Profile/Profile'
 
 // import firebase from 'firebase'
 import 'firebase/auth'
@@ -51,14 +50,9 @@ let router = new Router({
       component: EditProfile
     },
     {
-      path: '/profile2',
-      name: 'profile2',
-      component: Profile
-    },
-    {
       path: '/profile',
       name: 'profile',
-      component: Profile2
+      component: Profile
     },
     {
       path: '/dashboard',
