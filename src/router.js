@@ -16,7 +16,6 @@ import UpdateStudent from '@/views/Student/UpdateStudent'
 import DriverProfile from '@/views/Driver/DriverProfile'
 import CreateDriver from '@/views/Driver/CreateDriver'
 import UpdateDriver from '@/views/Driver/UpdateDriver'
-import EditProfile from '@/views/Profile/EditProfile'
 import CreateBus from '@/views/Bus/CreateBus'
 import Profile from '@/views/Profile/Profile'
 
@@ -45,12 +44,7 @@ let router = new Router({
       component: Register
     },
     {
-      path: '/profile/edit',
-      name: 'edit-profile',
-      component: EditProfile
-    },
-    {
-      path: '/profile',
+      path: '/dashboard/profile',
       name: 'profile',
       component: Profile
     },

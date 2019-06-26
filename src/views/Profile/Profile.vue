@@ -15,7 +15,7 @@
             <img class="rounded-circle" :src="profile">
           </div>
           <input type="file" ref="file" style="display: none" @change="onFileSelected">
-          <button class="btn mover-btn thai" @click="$refs.file.click()">เปลี่ยนรูปโปรไฟล์</button>
+          <button id="picBtn" class="btn mover-btn thai" @click="$refs.file.click()">เปลี่ยนรูปโปรไฟล์</button>
           <button
             type="button"
             id="qrBtn"
@@ -344,5 +344,9 @@ i {
   display: block;
   margin: 10px auto;
   padding: 5px;
+}
+
+#picBtn {
+  margin: 10px 0 0 0;
 }
 </style>

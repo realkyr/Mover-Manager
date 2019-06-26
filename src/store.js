@@ -18,6 +18,7 @@ export default new Vuex.Store({
     },
     CLEAR_USER (state) {
       state.user = undefined
+      state.uid = undefined
     },
     SET_ADDRESS (state, payload) {
       if ('name' in payload) {

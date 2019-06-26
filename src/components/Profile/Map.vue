@@ -14,7 +14,7 @@
             type="text"
             placeholder="โปรดระบุชื่อโรงเรียน"
           >
-          <span v-if="!isEdit" class="font-weight-light ml-3 mr-3">{{  }}</span>
+          <span v-if="!isEdit" class="font-weight-light ml-3 mr-3">{{ this.$store.state.user.school.name }}</span>
           <span @click="editToggle">
             <i v-if="!isEdit" class="fas fa-edit text-primary"></i>
             <i v-else class="fas fa-times-circle text-danger"></i>
@@ -38,9 +38,7 @@ export default {
   data () {
     return {
       initial_position: this.$store.state.user.school.latlng,
-      isEdit: false,
-      schoolName: this.$store.state.user.school.name,
-      initSchool: this.$store.state.user.school.name
+      isEdit: false
     }
   },
   mounted () {
@@ -147,8 +145,5 @@ export default {
   width: 100%;
   height: calc(100vh - 120pt);
   border-radius: 10px;
-}
-.pac-container {
-  border-radius: 20px !important;
 }
 </style>

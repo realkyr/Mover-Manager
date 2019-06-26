@@ -19,11 +19,25 @@
       ">
         <div class="avatar">
           <span class="dname">{{ displayName }}</span>
-          <router-link :to="{ name: 'profile' }" >
-            <button class="btn fa-lg p-1">
-              <i class="fas fa-user">
-            </i></button>
-          </router-link>
+          <button
+            id="dropdownMenu"
+            class="btn fa-lg p-1"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            <i class="fas fa-user"></i>
+          </button>
+          <!-- dropdown profile menu -->
+          <div class="dropdown-menu" aria-labelledby="dropdownMenu">
+            <router-link to="/dashboard/profile" >
+              <button class="dropdown-item text-decoration-none" type="button">My Profile</button>
+            </router-link>
+            <div class="dropdown-divider"></div>
+            <router-link to="/login" >
+              <button class="dropdown-item" type="button" @click="logout">Log out</button>
+            </router-link>
+          </div>
         </div>
       </div>
     </div>
@@ -44,11 +58,12 @@ export default {
     ...mapGetters([
       'getUser'
     ]),
+    ...mapActions(['clearUser']),
     getDisplayName () {
       return `${this.getUser().fname} ${this.getUser().lname}`
     },
-    toProfile () {
-      this.$router.replace('profile')
+    logout () {
+      this.clearUser()
     }
   }
 }
@@ -149,6 +164,18 @@ input:focus {
 .search-input.inputIconBg input[type="text"]:focus + i {
   color: #fff;
   background-color: #2094b9;
+}
+
+.dropdown-item {
+  font-size: 10pt;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
 }
 
 @media screen and (max-width: 576px) {
