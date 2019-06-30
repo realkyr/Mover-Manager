@@ -21,10 +21,9 @@
           <span class="dname">{{ displayName }}</span>
           <button
             id="dropdownMenu"
-            class="btn fa-lg p-1"
             data-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false"
+            class="btn fa-lg p-1"
+            @click="dropToggle"
           >
             <i class="fas fa-user"></i>
           </button>
@@ -51,7 +50,12 @@ import { mapGetters, mapActions } from 'vuex'
 export default {
   data () {
     return {
-      displayName: this.getDisplayName()
+      isDrop: false
+    }
+  },
+  computed: {
+    displayName () {
+      return this.getDisplayName()
     }
   },
   methods: {
@@ -60,10 +64,15 @@ export default {
     ]),
     ...mapActions(['clearUser']),
     getDisplayName () {
-      return `${this.getUser().fname} ${this.getUser().lname}`
+      if (this.$store.state.user !== undefined) {
+        return `${this.getUser().fname} ${this.getUser().lname}`
+      }
     },
     logout () {
       this.clearUser()
+    },
+    dropToggle () {
+      this.isDrop = !this.isDrop
     }
   }
 }
@@ -168,6 +177,11 @@ input:focus {
 
 .dropdown-item {
   font-size: 10pt;
+}
+
+.dropdown-menu {
+  border-radius: 10px;
+  transform: translate(0%, 38%) !important;
 }
 
 a {

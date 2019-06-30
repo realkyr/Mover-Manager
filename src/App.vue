@@ -1,12 +1,44 @@
 <template>
   <div id="app">
-    <router-view />
+    <router-view v-if="isShow"/>
+    <Loading v-else/>
   </div>
 </template>
 
 <script>
+import firebase from 'firebase/app'
+import 'firebase/auth'
+import 'firebase/firestore'
+import { mapActions } from 'vuex'
+import Loading from './components/Dashboard/Loading'
 export default {
-  name: 'App'
+  name: 'App',
+  components: {
+    Loading
+  },
+  mounted () {
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        firebase.firestore().collection('managers').doc(user.uid).get()
+          .then(data => {
+            this.setUser(data.data())
+            this.isShow = true
+          })
+        this.setUid(user.uid)
+      } else {
+        this.isShow = true
+        this.$router.replace('login')
+      }
+    })
+  },
+  methods: {
+    ...mapActions(['setUid', 'setUser'])
+  },
+  data () {
+    return {
+      isShow: false
+    }
+  }
 }
 </script>
 

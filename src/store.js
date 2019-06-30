@@ -10,7 +10,8 @@ export default new Vuex.Store({
     user: undefined,
     address: {
       name: ''
-    }
+    },
+    studentNames: []
   },
   mutations: {
     SET_USER (state, payload) {
@@ -43,6 +44,9 @@ export default new Vuex.Store({
     },
     SET_PROFILE (state, payload) {
       state.user['profile'] = payload
+    },
+    SET_STUDENTNAMES (state, payload) {
+      state.studentNames.push(payload)
     }
   },
   actions: {
@@ -66,6 +70,9 @@ export default new Vuex.Store({
     },
     setProfile: ({ commit }, image) => {
       commit('SET_PROFILE', image)
+    },
+    setStudentNames: ({ commit }, name) => {
+      commit('SET_STUDENTNAMES', name)
     }
   },
   getters: {

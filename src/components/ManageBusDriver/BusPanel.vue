@@ -5,8 +5,12 @@
         <h3 class="thai">รถโรงเรียน</h3>
       </div>
       <div class="col-auto">
-        <router-link to="bus/create" tag="button" class="btn mover-btn thai">
-          &#43; เพิ่ม
+        <router-link
+          to="bus/create"
+          tag="button"
+          class="btn mover-btn thai"
+        >
+          <i style="color: white;" class="fas fa-plus mr-1"></i>เพิ่ม
         </router-link>
       </div>
     </div>
@@ -60,6 +64,11 @@ export default {
           studentGroup: 1
         }
       }
+    }
+  },
+  methods: {
+    addToggle () {
+      this.isAdd = !this.isAdd
     }
   }
 }

@@ -7,6 +7,7 @@ import Overview from '@/views/Overview'
 import ManageBus from '@/views/ManageBus'
 import ManageDriver from '@/views/ManageDriver'
 import ManageStudent from '@/views/ManageStudent'
+import ManageStudentGroup from '@/views/Student/StudentGroups'
 import ManageFamily from '@/views/ManageFamily'
 import ManageFamilyRequests from '@/views/Family/RequestsPage'
 import CreateStudentGroup from '@/views/StudentGroup/CreateStudentGroup'
@@ -72,6 +73,11 @@ let router = new Router({
       path: '/dashboard/student',
       name: 'student-managing-console',
       component: ManageStudent
+    },
+    {
+      path: '/dashboard/student/group',
+      name: 'student-group-console',
+      component: ManageStudentGroup
     },
     {
       path: '/dashboard/student/create',

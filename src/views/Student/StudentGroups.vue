@@ -10,7 +10,7 @@
         EXAMPLE: create bus, put driver into bus, Checklist
        -->
       <Navtab />
-      <CreateStudentPanel />
+      <StudentGroupPanel />
     </div>
   </div>
 </template>
@@ -19,14 +19,14 @@
 import Searchbar from '../../components/Dashboard/Searchbar'
 import Sidebar from '../../components/Dashboard/Sidebar'
 import Navtab from '../../components/ManageStudent/Navtab'
-import CreateStudentPanel from '../../components/ManageStudent/CreateStudentPanel'
+import StudentGroupPanel from '../../components/ManageStudent/StudentGroupPanel'
 
 export default {
   components: {
     Searchbar,
     Sidebar,
     Navtab,
-    CreateStudentPanel
+    StudentGroupPanel
   }
 }
 </script>
