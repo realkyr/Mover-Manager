@@ -17,19 +17,23 @@ export default {
     Loading
   },
   mounted () {
-    firebase.auth().onAuthStateChanged(user => {
-      if (user) {
-        firebase.firestore().collection('managers').doc(user.uid).get()
-          .then(data => {
-            this.setUser(data.data())
-            this.isShow = true
-          })
-        this.setUid(user.uid)
-      } else {
-        this.isShow = true
-        this.$router.replace('login')
-      }
-    })
+    if (this.$route.path.includes('/dashboard')) {
+      firebase.auth().onAuthStateChanged(user => {
+        if (user) {
+          firebase.firestore().collection('managers').doc(user.uid).get()
+            .then(data => {
+              this.setUser(data.data())
+              this.isShow = true
+            })
+          this.setUid(user.uid)
+        } else {
+          this.isShow = true
+          this.$router.push('login')
+        }
+      })
+    } else {
+      this.isShow = true
+    }
   },
   methods: {
     ...mapActions(['setUid', 'setUser'])
