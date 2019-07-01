@@ -2,32 +2,39 @@
   <form>
     <div class="form-group">
       <label for="stdid">Student ID | เลขประจำตัว</label>
-      <input type="text" class="form-control" id="stdid" placeholder="xxxxxx">
+      <input type="text" class="form-control" id="stdid" placeholder="xxxxxx" v-model="sid">
     </div>
     <div class="form-group">
       <label for="plate">Name | ชื่อนักเรียน</label>
       <div class="row">
         <div class="col-2">
-          <select class="custom-select mr-sm-2" id="student">
-            <option selected>คำนำหน้าชื่อ...</option>
-            <option value="1">เด็กชาย</option>
-            <option value="2">เด็กหญิง</option>
-            <option value="3">นาย</option>
-            <option value="4">นาง</option>
-            <option value="5">นส.</option>
+          <select class="custom-select mr-sm-2" id="student" v-model="prefix">
+            <option value="">คำนำหน้าชื่อ...</option>
+            <option value="เด็กชาย">เด็กชาย</option>
+            <option value="เด็กหญิง">เด็กหญิง</option>
+            <option value="นาย">นาย</option>
+            <option value="นาง">นาง</option>
+            <option value="นส.">นส.</option>
           </select>
         </div>
         <div class="col">
-          <input type="text" class="form-control" id="plate" placeholder="ชื่อ">
+          <input type="text" class="form-control" id="plate" placeholder="ชื่อ" v-model="fname">
         </div>
         <div class="col">
-          <input type="text" class="form-control" id="plate" placeholder="นามสกุล">
+          <input type="text" class="form-control" id="plate" placeholder="นามสกุล" v-model="lname">
         </div>
       </div>
     </div>
     <div class="form-group">
       <label for="plate">Phone | เบอร์โทรศัพท์</label>
-      <input type="text" class="form-control" id="stdid" placeholder="08xxxxxxxx  09xxxxxxxx">
+      <input
+        id="stdid"
+        class="form-control"
+        type="text"
+        placeholder="08xxxxxxxx  09xxxxxxxx"
+        maxlength="10"
+        v-model="phone"
+      >
     </div>
     <div class="btn-group pt-5">
       <button type="button" id="add-btn" class="btn mover-btn thai" @click="addStudent">บันทึกข้อมูล</button>
@@ -36,17 +43,29 @@
 </template>
 
 <script>
-// import firebase from 'firebase/app'
-// import 'firebase/firestore'
+import firebase from 'firebase/app'
+import 'firebase/firestore'
 export default {
   data () {
     return {
-
+      sid: '',
+      prefix: '',
+      fname: '',
+      lname: '',
+      phone: ''
     }
   },
   methods: {
     addStudent () {
-
+      firebase.firestore().collection('managers').doc(this.$store.state.uid)
+        .collection('students').add({
+          fname: this.fname,
+          lname: this.lname,
+          prefix: this.prefix,
+          stu_no: this.sid,
+          phone: this.phone,
+          position: this.$store.state.user.school.latlng
+        })
     }
   }
 }

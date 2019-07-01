@@ -50,12 +50,8 @@ import { mapGetters, mapActions } from 'vuex'
 export default {
   data () {
     return {
-      isDrop: false
-    }
-  },
-  computed: {
-    displayName () {
-      return this.getDisplayName()
+      isDrop: false,
+      displayName: this.getDisplayName()
     }
   },
   methods: {

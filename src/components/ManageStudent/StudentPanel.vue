@@ -29,8 +29,8 @@
                 >
               </div>
               <div class="col-auto">
-                <h6 class="thai">{{ i.fname }} {{ i.lname }}</h6>
-                <small v-if="Boolean(i.tel)">Tel {{ i.tel }}</small>
+                <h6 class="thai">{{ i.prefix }}{{ i.fname }} {{ i.lname }}</h6>
+                <small v-if="Boolean(i.phone)">Tel {{ i.phone }}</small>
               </div>
             </div>
             <button class="btn mover-btn">ดูข้อมูล</button>
@@ -49,10 +49,20 @@ export default {
   },
   mounted () {
     firebase.firestore().collection('managers').doc(this.$store.state.uid)
-      .collection('students').orderBy('fname').get()
-      .then(snapshot => {
-        snapshot.forEach(data => {
-          this.student.push(data.data())
+      .collection('students').orderBy('fname').onSnapshot(snapshot => {
+        snapshot.docChanges().forEach(dataChange => {
+          console.log(dataChange.type)
+          if (dataChange.type === 'added') {
+            this.student.push(dataChange.doc.data())
+            this.$router.replace({ path: '/dashboard/student' })
+          } else if (dataChange.type === 'removed') {
+            const index = this.student.findIndex(item => item.stu_no === dataChange.doc.data().stu_no)
+            console.log(index)
+            this.student.splice(index, 1)
+          } else {
+            const index = this.student.findIndex(item => item.stu_no === dataChange.doc.data().stu_no)
+            this.student[index] = dataChange.doc.data()
+          }
         })
       })
   },
