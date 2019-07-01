@@ -112,6 +112,7 @@ export default {
       phone: this.getUserInfo().phone,
       schoolName: this.getUserInfo().school.name,
       profile: this.getProfilePic(),
+      tmpProfile: null,
       imageFile: null,
       isEdit: false,
       isEdit1: false,
@@ -206,19 +207,29 @@ export default {
         let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
         console.log('Upload is' + progress + '% done')
       }, () => {}, () => {
-        uploadTask.snapshot.ref.getDownloadURL()
-          .then((downloadUrl) => {
-            firebase.firestore().collection('managers').doc(this.$store.state.uid)
-              .set({
-                profile: downloadUrl
-              }, { merge: true })
-            this.setProfile(downloadUrl)
-          })
+        let path = uploadTask.snapshot.ref.fullPath
+        firebase.firestore().collection('managers').doc(this.$store.state.uid)
+          .set({
+            profile: path
+          }, { merge: true })
+        this.setProfile(path)
+        // uploadTask.snapshot.ref.getDownloadURL()
+        //   .then((downloadUrl) => {
+        //     firebase.firestore().collection('managers').doc(this.$store.state.uid)
+        //       .set({
+        //         profile: downloadUrl
+        //       }, { merge: true })
+        //     this.setProfile(downloadUrl)
+        //   })
       })
     },
     getProfilePic () {
       if ('profile' in this.$store.state.user) {
-        return this.$store.state.user.profile
+        firebase.storage().ref().child(this.$store.state.user.profile).getDownloadURL()
+          .then(url => {
+            this.profile = url
+          })
+        return this.tmpProfile
       } else {
         return null
       }
