@@ -15,20 +15,21 @@
       </div>
     </div>
     <div class="bus-listview">
-      <div class="row">
-        <div class="col-auto" :key="bus" v-for="bus in Object.keys(buses)">
+      <span v-if="this.buses.length === 0">{{ errMsg }}</span>
+      <div v-else class="row">
+        <div class="col-auto" :key="bus.cid" v-for="bus in buses">
           <BusCard
-            :bus="bus"
-            :busID="buses[bus].busID"
-            :plate="buses[bus].plate"
-            :driverName="buses[bus].driverName"
-            :studentGroup="buses[bus].studentGroup"
+            :bus="bus.cid"
+            :busID="bus.busID"
+            :plate="bus.plate"
+            :driver="bus.driver"
+            :studentGroup="bus.studentGroup"
           />
           <DeleteModal
-            :plate="buses[bus].plate"
-            :busID="buses[bus].busID"
-            :id="bus"
-            :uid="bus"
+            :plate="bus.plate"
+            :busID="bus.busID"
+            :id="bus.busID"
+            :uid="bus.cid"
           />
         </div>
       </div>
@@ -39,37 +40,47 @@
 <script>
 import DeleteModal from './DeleteBus'
 import BusCard from './BusCard'
-
+import firebase from 'firebase/app'
+import 'firebase/firestore'
 export default {
   components: {
     DeleteModal,
     BusCard
   },
+  mounted () {
+    firebase.firestore().collection('managers').doc(this.$store.state.uid)
+      .collection('cars').get().then(snapshot => {
+        snapshot.forEach(data => {
+          this.buses.push({
+            cid: data.id,
+            busID: data.data().no,
+            plate: data.data().license_plate,
+            driver: data.data().driver,
+            studentGroup: 1
+          })
+        })
+      })
+    console.log(this.buses)
+  },
   data () {
     return {
-      buses: {
-        // all buses information goes here
-        A1: {
-          busID: 'SBUS A1',
-          plate: 'กค-5417',
-          driverName: 'สมชาย ศรีสุข',
-          phoneNum: '0945587588',
-          studentGroup: 1
-        },
-        A2: {
-          busID: 'SBUS A2',
-          plate: '1 มม-112',
-          driverName: 'ธีรภัทร ฟูเทพ',
-          phoneNum: '081xxxxxx',
-          studentGroup: 1
-        }
-      }
+      buses: [],
+      errMsg: 'ไม่พบข้อมูล',
+      tmpDriver: ''
     }
   },
   methods: {
     addToggle () {
       this.isAdd = !this.isAdd
     }
+    // setDriverName (duid, cid) {
+    //   firebase.firestore().collection('managers').doc(this.$store.state.uid)
+    //     .collection('drivers').doc(duid).get().then(data => {
+    //       console.log(this.buses.cid)
+    //       this.buses.cid = '1'
+    //       // console.log(this.buses.cid.driverName)
+    //     })
+    // }
   }
 }
 </script>

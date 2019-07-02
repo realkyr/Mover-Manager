@@ -49,7 +49,7 @@
               <InputInfo :placeholder="`เบอร์โทร`" :type="`tel`" :initialValue="phone" ref="phone" v-if="isEdit4"/>
               <span v-else class="mb-3">{{ phone }}</span>
             </div>
-            <div class="col d-flex flex-column p-0">
+            <div class="col d-flex flex-column p-0 ml-2">
               <span class="mb-3" @click="editToggle1">
                 <i v-if="!isEdit1" class="fas fa-edit text-primary"></i>
                 <i v-else class="fas fa-times-circle text-danger"></i>

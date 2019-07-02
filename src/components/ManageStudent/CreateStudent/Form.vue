@@ -8,7 +8,7 @@
       <label for="plate">Name | ชื่อนักเรียน</label>
       <div class="row">
         <div class="col-2">
-          <select class="custom-select mr-sm-2" id="student" v-model="prefix">
+          <select class="custom-select mr-sm-2" v-model="prefix">
             <option value="">คำนำหน้าชื่อ...</option>
             <option value="เด็กชาย">เด็กชาย</option>
             <option value="เด็กหญิง">เด็กหญิง</option>
@@ -26,9 +26,9 @@
       </div>
     </div>
     <div class="form-group">
-      <label for="plate">Phone | เบอร์โทรศัพท์</label>
+      <label for="phone">Phone | เบอร์โทรศัพท์</label>
       <input
-        id="stdid"
+        id="phone"
         class="form-control"
         type="text"
         placeholder="08xxxxxxxx  09xxxxxxxx"

@@ -2,7 +2,7 @@
   <div class="bus-card rounded mb-3">
     <div>
       <span>
-        {{ busID.slice(0, 7) }} | {{ plate }}
+        {{ busID }} | {{ plate }}
         <button
           v-if="!edit"
           class="btn edit-btn thai ml-3"
@@ -25,17 +25,19 @@
     <div v-if="edit" class="edit-section">
       <div class="form-group">
         คนขับ :
-        <select :value="1" class="custom-select mr-sm-2" id="bus-card-driver">
-          <option selected>เลือกคนขับ...</option>
-          <option value="1">นายธีรภัทร ฟูเทพ</option>
-          <option value="2">นายภูรี กานุสนธิ์</option>
-          <option value="3">นายอิงครัต ทินกรศรีสุภาพ</option>
+        <select :value="1" class="custom-select mr-sm-2" id="bus-card-driver" v-model="driverSelect">
+          <option :value="this.driver">{{ driverName }}</option>
+          <option
+            v-for="option in drivers"
+            :key="option.duid"
+            :value="option.duid">{{ option.data.prefix }}{{ option.data.fname }} {{ option.data.lname }}
+          </option>
         </select>
       </div>
       <div class="form-group">
         กลุ่มนักเรียน :
         <select :value="1" class="custom-select mr-sm-2" id="bus-card-student-group">
-          <option selected>เลือกกลุ่มนักเรียน...</option>
+          <option selected>เลือกกลุ่ม...</option>
           <option value="1">1 เช้า</option>
           <option value="2">1 บ่าย</option>
         </select>
@@ -47,6 +49,8 @@
 </template>
 
 <script>
+import firebase from 'firebase/app'
+import 'firebase/firestore'
 export default {
   props: {
     busID: {
@@ -57,7 +61,7 @@ export default {
       type: String,
       default: ''
     },
-    driverName: {
+    driver: {
       type: String,
       default: ''
     },
@@ -70,13 +74,42 @@ export default {
       default: ''
     }
   },
+  mounted () {
+    firebase.firestore().collection('managers').doc(this.$store.state.uid)
+      .collection('drivers').get().then(snapshot => {
+        snapshot.forEach(data => {
+          if (data.id !== this.driver) {
+            this.drivers.push({
+              duid: data.id,
+              data: data.data()
+            })
+          } else {
+            this.driverSelect = data.id
+            this.driverName = data.data().fname + ' ' + data.data().lname
+          }
+        })
+      })
+    console.log(this.drivers)
+  },
   data () {
     return {
-      edit: false
+      edit: false,
+      driverName: '',
+      driverSelect: '',
+      drivers: []
     }
   },
   methods: {
     editToggle () {
+      firebase.firestore().collection('managers').doc(this.$store.state.uid)
+        .collection('cars').doc(this.bus).update({
+          'driver': this.driverSelect
+        })
+      firebase.firestore().collection('managers').doc(this.$store.state.uid)
+        .collection('drivers').doc(this.driverSelect).get()
+        .then(data => {
+          this.driverName = data.data().fname + ' ' + data.data().lname
+        })
       this.edit = !this.edit
     }
   }

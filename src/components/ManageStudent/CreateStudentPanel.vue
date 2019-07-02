@@ -6,12 +6,12 @@
       </div>
       <div class="col-auto">
         <router-link
-        to="/dashboard/student"
-        tag="button"
-        class="btn mover-btn thai"
-        active-class="active"
-        exact
-      >
+          to="/dashboard/student"
+          tag="button"
+          class="btn mover-btn thai"
+          active-class="active"
+          exact
+        >
           <i style="color: white;" class="fas fa-backward mr-1"></i>ย้อนกลับ
         </router-link>
       </div>

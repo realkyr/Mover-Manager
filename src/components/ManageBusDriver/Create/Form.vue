@@ -15,9 +15,11 @@
       </label>
       <select class="custom-select mr-sm-2" id="driver" v-model="driver">
         <option value="">เลือกคนขับ...</option>
-        <option value="1">นายธีรภัทร ฟูเทพ</option>
-        <option value="2">นายภูรี กานุสนธิ์</option>
-        <option value="3">นายอิงครัต ทินกรศรีสุภาพ</option>
+        <option
+          v-for="option in drivers"
+          :key="option.duid"
+          :value="option.duid">{{ option.data.prefix }}{{ option.data.fname }} {{ option.data.lname }}
+        </option>
       </select>
     </div>
     <div class="form-group">
@@ -41,12 +43,26 @@
 import firebase from 'firebase/app'
 import 'firebase/firestore'
 export default {
+  mounted () {
+    firebase.firestore().collection('managers').doc(this.$store.state.uid)
+      .collection('drivers').get()
+      .then(snapshot => {
+        snapshot.forEach(data => {
+          this.drivers.push({
+            duid: data.id,
+            data: data.data()
+          })
+        })
+        console.log(this.drivers)
+      })
+  },
   data () {
     return {
       busId: '',
       license: '',
       driver: '',
-      groupStudent: ''
+      groupStudent: '',
+      drivers: []
     }
   },
   methods: {
@@ -56,8 +72,13 @@ export default {
           license_plate: this.license,
           no: this.busId,
           driver: this.driver,
-          students: this.students
+          students: [],
+          current_location: {
+            lat: 1,
+            lng: 1
+          }
         })
+      this.$router.replace({ path: '/dashboard/bus' })
     }
   }
 }
