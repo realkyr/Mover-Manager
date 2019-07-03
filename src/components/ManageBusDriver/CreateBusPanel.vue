@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import Form from './Create/Form'
+import Form from './BusCreate/Form'
 
 export default {
   components: {

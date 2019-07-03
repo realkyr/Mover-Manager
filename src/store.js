@@ -1,7 +1,5 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-// import firebase from 'firebase'
-
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -11,7 +9,7 @@ export default new Vuex.Store({
     address: {
       name: ''
     },
-    studentNames: []
+    students: {}
   },
   mutations: {
     SET_USER (state, payload) {
@@ -45,8 +43,8 @@ export default new Vuex.Store({
     SET_PROFILE (state, payload) {
       state.user['profile'] = payload
     },
-    SET_STUDENTNAMES (state, payload) {
-      state.studentNames.push(payload)
+    SET_STUDENTS (state, payload) {
+      state.students = payload
     }
   },
   actions: {
@@ -71,8 +69,8 @@ export default new Vuex.Store({
     setProfile: ({ commit }, image) => {
       commit('SET_PROFILE', image)
     },
-    setStudentNames: ({ commit }, name) => {
-      commit('SET_STUDENTNAMES', name)
+    setStudents: ({ commit }, data) => {
+      commit('SET_STUDENTS', data)
     }
   },
   getters: {

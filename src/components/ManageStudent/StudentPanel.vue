@@ -16,7 +16,7 @@
     </div>
     <div class="bus-listview">
       <div class="row mr-3">
-        <div class="col-12" :key="i.id" v-for="i in student">
+        <div ref="test" class="col-12" :key="student" v-for="student in Object.keys(($store.state.students))">
           <div
             class="row parent-card d-flex justify-content-between align-items-center shadow-sm mt-2 ml-1 p-3 bg-white rounded"
           >
@@ -29,8 +29,8 @@
                 >
               </div>
               <div class="col-auto">
-                <h6 class="thai">{{ i.prefix }}{{ i.fname }} {{ i.lname }}</h6>
-                <small v-if="Boolean(i.phone)">Tel {{ i.phone }}</small>
+                <h6 class="thai">{{ students[student].fname }} {{ students[student].lname }}</h6>
+                <small v-if="Boolean(students[student].phone)">Tel {{ students[student].phone }}</small>
               </div>
             </div>
             <button class="btn mover-btn">ดูข้อมูล</button>
@@ -44,6 +44,7 @@
 <script>
 import firebase from 'firebase/app'
 import 'firebase/firestore'
+import { mapActions } from 'vuex'
 export default {
   components: {
   },
@@ -53,23 +54,24 @@ export default {
         snapshot.docChanges().forEach(dataChange => {
           console.log(dataChange.type)
           if (dataChange.type === 'added') {
-            this.student.push(dataChange.doc.data())
+            this.students[dataChange.doc.id] = dataChange.doc.data()
             this.$router.replace({ path: '/dashboard/student' })
           } else if (dataChange.type === 'removed') {
-            const index = this.student.findIndex(item => item.stu_no === dataChange.doc.data().stu_no)
-            console.log(index)
-            this.student.splice(index, 1)
+
           } else {
-            const index = this.student.findIndex(item => item.stu_no === dataChange.doc.data().stu_no)
-            this.student[index] = dataChange.doc.data()
+
           }
         })
+        this.setStudents(this.students)
       })
   },
   data () {
     return {
-      student: []
+      students: {}
     }
+  },
+  methods: {
+    ...mapActions(['setStudents'])
   }
 }
 </script>
