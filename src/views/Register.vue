@@ -150,8 +150,7 @@ export default {
                     lng: this.$store.state.address.geometry.location.lng
                   },
                   name: this.$store.state.address.name
-                },
-                url: 'something'
+                }
               })
               .then(() => {
                 this.$router.replace('Login')
@@ -163,7 +162,6 @@ export default {
           .catch(error => {
             let errorCode = error.code
             let errorMessage = error.message
-            console.log(errorCode)
             if (errorCode === 'auth/email-already-in-use') {
               this.errEmail = 'อีเมลนี้ถูกใช้ไปแล้ว'
             } else if (errorCode === 'auth/invalid-email') {
@@ -189,7 +187,7 @@ export default {
       }
     },
     cancel () {
-      this.$router.replace('Login')
+      this.$router.go(-1)
     }
   }
 }

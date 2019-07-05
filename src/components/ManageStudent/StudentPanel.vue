@@ -15,7 +15,8 @@
       </div>
     </div>
     <div class="bus-listview">
-      <div class="row mr-3">
+      <span v-if="Object.keys($store.state.students).length === 0">{{ errMsg }}</span>
+      <div v-else class="row mr-3">
         <div ref="test" class="col-12" :key="student" v-for="student in Object.keys(($store.state.students))">
           <div
             class="row parent-card d-flex justify-content-between align-items-center shadow-sm mt-2 ml-1 p-3 bg-white rounded"
@@ -29,8 +30,8 @@
                 >
               </div>
               <div class="col-auto">
-                <h6 class="thai">{{ students[student].fname }} {{ students[student].lname }}</h6>
-                <small v-if="Boolean(students[student].phone)">Tel {{ students[student].phone }}</small>
+                <h6 class="thai">{{ $store.state.students[student].prefix }}{{ $store.state.students[student].fname }} {{ $store.state.students[student].lname }}</h6>
+                <small v-if="Boolean($store.state.students[student].phone)">Tel {{ $store.state.students[student].phone }}</small>
               </div>
             </div>
             <button class="btn mover-btn">ดูข้อมูล</button>
@@ -63,11 +64,14 @@ export default {
           }
         })
         this.setStudents(this.students)
+        this.isPanning = false
       })
   },
   data () {
     return {
-      students: {}
+      students: {},
+      errMsg: 'ไม่พบข้อมูล',
+      isPanning: true
     }
   },
   methods: {

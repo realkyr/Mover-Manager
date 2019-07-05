@@ -9,6 +9,7 @@
 import firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/firestore'
+import 'firebase/storage'
 import { mapActions } from 'vuex'
 import Loading from './components/Dashboard/Loading'
 export default {

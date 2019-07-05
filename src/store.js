@@ -9,7 +9,10 @@ export default new Vuex.Store({
     address: {
       name: ''
     },
-    students: {}
+    students: {},
+    drivers: {},
+    tmpPicDriver: undefined,
+    urlDriver: ''
   },
   mutations: {
     SET_USER (state, payload) {
@@ -18,6 +21,10 @@ export default new Vuex.Store({
     CLEAR_USER (state) {
       state.user = undefined
       state.uid = undefined
+      state.drivers = {}
+      state.students = {}
+      state.address = { name: '' }
+      state.tmpPicDriver = undefined
     },
     SET_ADDRESS (state, payload) {
       if ('name' in payload) {
@@ -45,6 +52,18 @@ export default new Vuex.Store({
     },
     SET_STUDENTS (state, payload) {
       state.students = payload
+    },
+    SET_DRIVERS (state, payload) {
+      state.drivers = payload
+    },
+    SET_PICDRIVER (state, payload) {
+      state.drivers[payload.duid].pic = payload.data
+    },
+    SET_PICSDRIVER (state, payload) {
+      state.tmpPicDriver = payload
+    },
+    SET_URLDRIVER (state, payload) {
+      state.tmpPicDriver[payload.duid] = payload.url
     }
   },
   actions: {
@@ -71,6 +90,18 @@ export default new Vuex.Store({
     },
     setStudents: ({ commit }, data) => {
       commit('SET_STUDENTS', data)
+    },
+    setDrivers: ({ commit }, data) => {
+      commit('SET_DRIVERS', data)
+    },
+    setPicDriver: ({ commit }, image) => {
+      commit('SET_PICDRIVER', image)
+    },
+    setPicsDriver: ({ commit }, data) => {
+      commit('SET_PICSDRIVER', data)
+    },
+    updatePicDriver: ({ commit }, data) => {
+      commit('SET_URLDRIVER', data)
     }
   },
   getters: {

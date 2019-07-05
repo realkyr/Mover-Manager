@@ -42,6 +42,7 @@ import DeleteModal from './DeleteBus'
 import BusCard from './BusCard'
 import firebase from 'firebase/app'
 import 'firebase/firestore'
+import { mapActions } from 'vuex'
 export default {
   components: {
     DeleteModal,
@@ -60,16 +61,48 @@ export default {
           })
         })
       })
+    // firebase
+    //   .firestore()
+    //   .collection('managers')
+    //   .doc(this.$store.state.uid)
+    //   .collection('drivers')
+    //   .orderBy('fname')
+    //   .get()
+    //   .then(snapshot => {
+    //     snapshot.forEach(data => {
+    //       this.drivers[data.id] = data.data()
+    //       if ('pic' in data.data()) {
+    //         firebase.storage().ref().child(this.drivers[data.id].pic)
+    //           .getDownloadURL()
+    //           .then(url => {
+    //             this.pic.push({
+    //               duid: data.id,
+    //               url: url
+    //             })
+    //           })
+    //       } else {
+    //         this.pic.push({
+    //           duid: data.id,
+    //           url: null
+    //         })
+    //       }
+    //     })
+    //     this.setPicsDriver(this.pic)
+    //     this.setDrivers(this.drivers)
+    //   })
     console.log(this.buses)
   },
   data () {
     return {
       buses: [],
       errMsg: 'ไม่พบข้อมูล',
-      tmpDriver: ''
+      tmpDriver: '',
+      pic: [],
+      drivers: {}
     }
   },
   methods: {
+    ...mapActions(['setDrivers', 'setPicsDriver']),
     addToggle () {
       this.isAdd = !this.isAdd
     }

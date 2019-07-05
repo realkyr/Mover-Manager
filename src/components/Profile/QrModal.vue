@@ -15,8 +15,11 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="modal-body">
-          <div class="myQr"></div>
+        <div class="modal-body d-flex justify-content-center">
+          <div v-if="qrImg === null" class="myQr"></div>
+          <div v-else>
+            <img :src="qrImg">
+          </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn" data-dismiss="modal">Close</button>
@@ -25,6 +28,37 @@
     </div>
   </div>
 </template>
+
+<script>
+import firebase from 'firebase/app'
+import 'firebase/firestore'
+import 'firebase/storage'
+export default {
+  props: {
+    qrPath: {
+      type: String,
+      default: ''
+    }
+  },
+  data () {
+    return {
+      qrImg: this.getQr()
+    }
+  },
+  methods: {
+    getQr () {
+      if ('url' in this.$store.state.user) {
+        firebase.storage().ref().child(this.$store.state.user.url).getDownloadURL()
+          .then(url => {
+            this.qrImg = url
+          })
+      } else {
+        return null
+      }
+    }
+  }
+}
+</script>
 
 <style scoped>
 .myQr {
