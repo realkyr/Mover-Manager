@@ -66,18 +66,26 @@ export default {
     }
   },
   methods: {
+    // ...mapActions('setBuses'),
     addBus () {
-      firebase.firestore().collection('managers').doc(this.$store.state.uid)
-        .collection('cars').add({
-          license_plate: this.license,
-          no: this.busId,
-          driver: this.driver,
-          students: [],
-          current_location: {
-            lat: 1,
-            lng: 1
-          }
-        })
+      let managersRef = firebase.firestore().collection('managers').doc(this.$store.state.uid)
+      managersRef.collection('cars').add({
+        license_plate: this.license,
+        no: this.busId,
+        driver: this.driver,
+        student_group: '',
+        current_location: {
+          lat: 1,
+          lng: 1
+        }
+      })
+      // }).then(docRef => {
+      //   let tmpBus = {}
+      //   managersRef.collection('cars').doc(docRef.id).get()
+      //     .then(data => {
+      //       tmpBus[docRef.id]
+      //     })
+      // })
       this.$router.replace({ path: '/dashboard/bus' })
     }
   }

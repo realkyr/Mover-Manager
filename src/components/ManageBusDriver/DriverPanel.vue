@@ -93,27 +93,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['setDrivers', 'setPicsDriver']),
-    getPicDriver () {
-      let duids = Object.keys(this.$store.state.drivers)
-      console.log(duids)
-      console.log(this.pic)
-      duids.forEach(data => {
-        if ('pic' in this.$store.state.drivers[data]) {
-          firebase.storage().ref().child(this.$store.state.drivers[data].pic)
-            .getDownloadURL()
-            .then(url => {
-              this.pic[data] = {
-                url: url
-              }
-            })
-        } else {
-          this.pic[data] = null
-        }
-      })
-      console.log(this.pic)
-      this.setPicsDriver(this.pic)
-    }
+    ...mapActions(['setDrivers', 'setPicsDriver'])
   }
 }
 </script>

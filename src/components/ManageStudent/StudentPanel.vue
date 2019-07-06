@@ -64,14 +64,12 @@ export default {
           }
         })
         this.setStudents(this.students)
-        this.isPanning = false
       })
   },
   data () {
     return {
       students: {},
-      errMsg: 'ไม่พบข้อมูล',
-      isPanning: true
+      errMsg: 'ไม่พบข้อมูล'
     }
   },
   methods: {

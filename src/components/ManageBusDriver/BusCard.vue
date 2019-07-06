@@ -19,31 +19,32 @@
       </span>
     </div>
     <!-- show this if not edit -->
-    <div v-if="!edit">คนขับ : {{ driverName }}</div>
+    <div v-if="!edit">คนขับ :
+      {{ driverName }}
+    </div>
     <div v-if="!edit">กลุ่มนักเรียน : {{ studentGroup }}</div>
     <!-- edit section -->
     <div v-if="edit" class="edit-section">
       <div class="form-group">
         คนขับ :
-        <select :value="1" class="custom-select mr-sm-2" id="bus-card-driver" v-model="driverSelect">
-          <option :value="this.driver">{{ driverName }}</option>
+        <select class="custom-select mr-sm-2" id="bus-card-driver" v-model="driverSelect">
           <option
-            v-for="option in drivers"
-            :key="option.duid"
-            :value="option.duid">{{ option.data.prefix }}{{ option.data.fname }} {{ option.data.lname }}
+            v-for="option in Object.keys($store.state.drivers)"
+            :key="option"
+            :value="option">{{ $store.state.drivers[option].prefix }}{{ $store.state.drivers[option].fname }} {{ $store.state.drivers[option].lname }}
           </option>
         </select>
       </div>
       <div class="form-group">
         กลุ่มนักเรียน :
-        <select :value="1" class="custom-select mr-sm-2" id="bus-card-student-group">
+        <select class="custom-select mr-sm-2" id="bus-card-student-group">
           <option selected>เลือกกลุ่ม...</option>
           <option value="1">1 เช้า</option>
           <option value="2">1 บ่าย</option>
         </select>
       </div>
       <router-link to="/" tag="a" class="thai">แก้ไขโดยละเอียด</router-link>
-      <button style="float: right;" @click="editToggle" class="btn btn-success">บันทึก</button>
+      <button style="float: right;" @click="updateBus" class="btn btn-success">บันทึก</button>
     </div>
   </div>
 </template>
@@ -51,6 +52,7 @@
 <script>
 import firebase from 'firebase/app'
 import 'firebase/firestore'
+import { mapActions } from 'vuex'
 export default {
   props: {
     busID: {
@@ -76,41 +78,39 @@ export default {
   },
   mounted () {
     firebase.firestore().collection('managers').doc(this.$store.state.uid)
-      .collection('drivers').get().then(snapshot => {
-        snapshot.forEach(data => {
-          if (data.id !== this.driver) {
-            this.drivers.push({
-              duid: data.id,
-              data: data.data()
-            })
-          } else {
-            this.driverSelect = data.id
-            this.driverName = data.data().fname + ' ' + data.data().lname
-          }
-        })
+      .collection('drivers').doc(this.driver).get()
+      .then(data => {
+        this.driverName = data.data().prefix + data.data().fname + ' ' + data.data().lname
       })
-    console.log(this.drivers)
   },
   data () {
     return {
       edit: false,
-      driverName: '',
-      driverSelect: '',
-      drivers: []
+      driverSelect: this.driver,
+      driverName: ''
     }
   },
   methods: {
+    ...mapActions(['updateDriverBus']),
     editToggle () {
+      this.edit = !this.edit
+    },
+    updateBus () {
       firebase.firestore().collection('managers').doc(this.$store.state.uid)
         .collection('cars').doc(this.bus).update({
           'driver': this.driverSelect
+        }).then(() => {
+          firebase.firestore().collection('managers').doc(this.$store.state.uid)
+            .collection('drivers').doc(this.driverSelect).get()
+            .then(data => {
+              this.updateDriverBus({
+                bid: this.bus,
+                data: data.data()
+              })
+              this.driverName = data.data().prefix + data.data().fname + ' ' + data.data().lname
+            })
+          this.edit = !this.edit
         })
-      firebase.firestore().collection('managers').doc(this.$store.state.uid)
-        .collection('drivers').doc(this.driverSelect).get()
-        .then(data => {
-          this.driverName = data.data().fname + ' ' + data.data().lname
-        })
-      this.edit = !this.edit
     }
   }
 }

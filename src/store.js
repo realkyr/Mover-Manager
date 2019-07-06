@@ -11,6 +11,7 @@ export default new Vuex.Store({
     },
     students: {},
     drivers: {},
+    buses: {},
     tmpPicDriver: undefined,
     urlDriver: ''
   },
@@ -25,6 +26,7 @@ export default new Vuex.Store({
       state.students = {}
       state.address = { name: '' }
       state.tmpPicDriver = undefined
+      state.buses = {}
     },
     SET_ADDRESS (state, payload) {
       if ('name' in payload) {
@@ -64,6 +66,12 @@ export default new Vuex.Store({
     },
     SET_URLDRIVER (state, payload) {
       state.tmpPicDriver[payload.duid] = payload.url
+    },
+    SET_BUSES (state, payload) {
+      state.buses = payload
+    },
+    UPDATE_BUS (state, payload) {
+      state.buses[payload.bid].driver = payload.data.driver
     }
   },
   actions: {
@@ -102,6 +110,12 @@ export default new Vuex.Store({
     },
     updatePicDriver: ({ commit }, data) => {
       commit('SET_URLDRIVER', data)
+    },
+    setBuses: ({ commit }, data) => {
+      commit('SET_BUSES', data)
+    },
+    updateDriverBus: ({ commit }, data) => {
+      commit('UPDATE_BUS', data)
     }
   },
   getters: {

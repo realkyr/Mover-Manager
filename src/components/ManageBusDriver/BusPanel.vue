@@ -15,21 +15,21 @@
       </div>
     </div>
     <div class="bus-listview">
-      <span v-if="this.buses.length === 0">{{ errMsg }}</span>
+      <span v-if="Object.keys($store.state.buses).length === 0">{{ errMsg }}</span>
       <div v-else class="row">
-        <div class="col-auto" :key="bus.cid" v-for="bus in buses">
+        <div class="col-auto" :key="bus" v-for="bus in Object.keys(buses)">
           <BusCard
-            :bus="bus.cid"
-            :busID="bus.busID"
-            :plate="bus.plate"
-            :driver="bus.driver"
-            :studentGroup="bus.studentGroup"
+            :bus="bus"
+            :busID="buses[bus].no"
+            :plate="buses[bus].license_plate"
+            :driver="buses[bus].driver"
+            :studentGroup="buses[bus].studentGroup"
           />
           <DeleteModal
-            :plate="bus.plate"
-            :busID="bus.busID"
-            :id="bus.busID"
-            :uid="bus.cid"
+            :plate="buses[bus].plate"
+            :busID="buses[bus].no"
+            :id="bus"
+            :uid="buses[bus].no"
           />
         </div>
       </div>
@@ -49,52 +49,23 @@ export default {
     BusCard
   },
   mounted () {
-    firebase.firestore().collection('managers').doc(this.$store.state.uid)
-      .collection('cars').get().then(snapshot => {
-        snapshot.forEach(data => {
-          this.buses.push({
-            cid: data.id,
-            busID: data.data().no,
-            plate: data.data().license_plate,
-            driver: data.data().driver,
-            studentGroup: 1
-          })
-        })
+    let managerRef = firebase.firestore().collection('managers').doc(this.$store.state.uid)
+    managerRef.collection('cars').get().then(snapshot => {
+      snapshot.forEach(data => {
+        this.buses[data.id] = data.data()
       })
-    // firebase
-    //   .firestore()
-    //   .collection('managers')
-    //   .doc(this.$store.state.uid)
-    //   .collection('drivers')
-    //   .orderBy('fname')
-    //   .get()
-    //   .then(snapshot => {
-    //     snapshot.forEach(data => {
-    //       this.drivers[data.id] = data.data()
-    //       if ('pic' in data.data()) {
-    //         firebase.storage().ref().child(this.drivers[data.id].pic)
-    //           .getDownloadURL()
-    //           .then(url => {
-    //             this.pic.push({
-    //               duid: data.id,
-    //               url: url
-    //             })
-    //           })
-    //       } else {
-    //         this.pic.push({
-    //           duid: data.id,
-    //           url: null
-    //         })
-    //       }
-    //     })
-    //     this.setPicsDriver(this.pic)
-    //     this.setDrivers(this.drivers)
-    //   })
-    console.log(this.buses)
+      this.setBuses(this.buses)
+    })
+    managerRef.collection('drivers').get().then(snapshot => {
+      snapshot.forEach(data => {
+        this.drivers[data.id] = data.data()
+      })
+      this.setDrivers(this.drivers)
+    })
   },
   data () {
     return {
-      buses: [],
+      buses: {},
       errMsg: 'ไม่พบข้อมูล',
       tmpDriver: '',
       pic: [],
@@ -102,7 +73,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['setDrivers', 'setPicsDriver']),
+    ...mapActions(['setBuses', 'setDrivers']),
     addToggle () {
       this.isAdd = !this.isAdd
     }

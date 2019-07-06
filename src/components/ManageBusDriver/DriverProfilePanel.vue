@@ -39,10 +39,7 @@
 </template>
 
 <script>
-// import firebase from 'firebase/app'
-// import 'firebase/storage'
 import Form from './DriverUpdate/Form'
-// import { mapActions } from 'vuex'
 export default {
   components: {
     Form
@@ -51,7 +48,6 @@ export default {
     if (Object.keys(this.$store.state.drivers).length === 0) {
       this.$router.go(-1)
     }
-    // this.getPicDriver()
   },
   data () {
     return {
@@ -60,21 +56,6 @@ export default {
     }
   },
   methods: {
-    // ...mapActions(['setUrlDriver'])
-    // getPicDriver () {
-    //   if ('pic' in this.$store.state.drivers[this.$route.params.duid]) {
-    //     firebase.storage().ref().child(this.$store.state.drivers[this.$route.params.duid].pic)
-    //       .getDownloadURL()
-    //       .then(url => {
-    //         // this.pic = url
-    //         this.setUrlDriver(url)
-    //       })
-    //   } else {
-    //     // this.pic = url
-    //     this.setUrlDriver('')
-    //     return null
-    //   }
-    // }
   }
 }
 </script>
