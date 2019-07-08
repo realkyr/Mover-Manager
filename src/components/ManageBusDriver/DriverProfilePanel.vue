@@ -4,14 +4,15 @@
       <div class="row col-auto d-flex align-items-center">
         <div class="col-auto image-section">
           <img
-            v-if="!$store.state.tmpPicDriver[$route.params.duid]"
+            v-if="!pic"
             class="rounded-circle"
             type="image/webp"
             src="../../assets/pics/profile-placeholder.webp"
           >
-          <img v-else
+          <img
+            v-else
             class="rounded-circle"
-            :src="$store.state.tmpPicDriver[$route.params.duid]"
+            :src="pic"
           >
         </div>
         <div class="col-auto">
@@ -34,6 +35,7 @@
     <hr>
     <Form
       :duid="$route.params.duid"
+      @onUploaded="setPic"
     />
   </div>
 </template>
@@ -48,14 +50,18 @@ export default {
     if (Object.keys(this.$store.state.drivers).length === 0) {
       this.$router.go(-1)
     }
+    this.pic = this.$route.params.tmpImg
   },
   data () {
     return {
-      pic: '',
+      pic: null,
       duid: this.$route.params.duid
     }
   },
   methods: {
+    setPic (value) {
+      this.pic = value
+    }
   }
 }
 </script>

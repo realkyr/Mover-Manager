@@ -10,7 +10,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
-          <button type="button" @click="closeModal" class="btn btn-danger">แน่ใจ</button>
+          <button type="button" @click="closeModal" class="btn btn-danger" data-dismiss="modal">แน่ใจ</button>
         </div>
       </div>
     </div>
@@ -18,6 +18,9 @@
 </template>
 
 <script>
+import firebase from 'firebase/app'
+import 'firebase/firestore'
+import { mapActions } from 'vuex'
 export default {
   props: {
     busID: {
@@ -34,11 +37,21 @@ export default {
     }
   },
   methods: {
+    ...mapActions(['setBuses']),
     closeModal () {
       console.log({ uid: this.uid })
-      this.$emit('onDelete', { uid: this })
-      // eslint-disable-next-line no-undef
-      $('#' + this.uid).modal('hide')
+      firebase.firestore().collection('managers').doc(this.$store.state.uid)
+        .collection('cars').doc(this.uid).delete().then(() => {
+          this.$emit('onDelete', this.uid)
+          // firebase.firestore().collection('managers').doc(this.$store.state.uid)
+          //   .collection('cars').get().then(snapshot => {
+          //     let currentBuses = {}
+          //     snapshot.forEach(data => {
+          //       currentBuses[data.id] = data.data()
+          //     })
+          //     this.setBuses(currentBuses)
+          //   })
+        })
     }
   }
 }

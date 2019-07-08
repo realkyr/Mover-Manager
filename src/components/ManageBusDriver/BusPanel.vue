@@ -17,19 +17,20 @@
     <div class="bus-listview">
       <span v-if="Object.keys($store.state.buses).length === 0">{{ errMsg }}</span>
       <div v-else class="row">
-        <div class="col-auto" :key="bus" v-for="bus in Object.keys(buses)">
+        <div class="col-auto" :key="bus" v-for="bus in Object.keys($store.state.buses)">
           <BusCard
             :bus="bus"
-            :busID="buses[bus].no"
-            :plate="buses[bus].license_plate"
-            :driver="buses[bus].driver"
-            :studentGroup="buses[bus].studentGroup"
+            :busID="$store.state.buses[bus].no"
+            :plate="$store.state.buses[bus].license_plate"
+            :driver="$store.state.buses[bus].driver"
+            :studentGroup="$store.state.buses[bus].studentGroup"
           />
           <DeleteModal
-            :plate="buses[bus].plate"
-            :busID="buses[bus].no"
+            :plate="$store.state.buses[bus].plate"
+            :busID="$store.state.buses[bus].no"
             :id="bus"
-            :uid="buses[bus].no"
+            :uid="bus"
+            @onDelete="getCurrentBuses"
           />
         </div>
       </div>
@@ -50,13 +51,13 @@ export default {
   },
   mounted () {
     let managerRef = firebase.firestore().collection('managers').doc(this.$store.state.uid)
-    managerRef.collection('cars').get().then(snapshot => {
+    managerRef.collection('cars').orderBy('no').get().then(snapshot => {
       snapshot.forEach(data => {
         this.buses[data.id] = data.data()
       })
       this.setBuses(this.buses)
     })
-    managerRef.collection('drivers').get().then(snapshot => {
+    managerRef.collection('drivers').orderBy('fname').get().then(snapshot => {
       snapshot.forEach(data => {
         this.drivers[data.id] = data.data()
       })
@@ -68,7 +69,6 @@ export default {
       buses: {},
       errMsg: 'ไม่พบข้อมูล',
       tmpDriver: '',
-      pic: [],
       drivers: {}
     }
   },
@@ -76,15 +76,18 @@ export default {
     ...mapActions(['setBuses', 'setDrivers']),
     addToggle () {
       this.isAdd = !this.isAdd
+    },
+    getCurrentBuses (value) {
+      firebase.firestore().collection('managers').doc(this.$store.state.uid)
+        .collection('cars').orderBy('no').get().then(snapshot => {
+          let currentBuses = {}
+          snapshot.forEach(data => {
+            currentBuses[data.id] = data.data()
+          })
+          this.setBuses(currentBuses)
+          // this.buses = this.$store.state.buses
+        })
     }
-    // setDriverName (duid, cid) {
-    //   firebase.firestore().collection('managers').doc(this.$store.state.uid)
-    //     .collection('drivers').doc(duid).get().then(data => {
-    //       console.log(this.buses.cid)
-    //       this.buses.cid = '1'
-    //       // console.log(this.buses.cid.driverName)
-    //     })
-    // }
   }
 }
 </script>

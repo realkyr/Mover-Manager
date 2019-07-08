@@ -75,11 +75,12 @@ export default {
       lname: this.$store.state.drivers[this.duid].lname,
       uid: this.$store.state.drivers[this.duid].uid,
       tel: this.$store.state.drivers[this.duid].phone,
-      drivers: {}
+      drivers: {},
+      imageUrl: null
     }
   },
   methods: {
-    ...mapActions(['setPicDriver', 'setDrivers', 'updatePicDriver']),
+    ...mapActions(['setPathDriver', 'setDrivers']),
     onFileSelected (event) {
       this.imageFile = event.target.files[0]
       this.onUpload()
@@ -98,16 +99,14 @@ export default {
           .set({
             pic: path
           }, { merge: true })
-        this.setPicDriver({
+        this.setPathDriver({
           duid: this.duid,
           data: path
         })
         firebase.storage().ref().child(path).getDownloadURL()
           .then(url => {
-            this.updatePicDriver({
-              duid: this.duid,
-              url: url
-            })
+            this.imageUrl = url
+            this.$emit('onUploaded', this.imageUrl)
           })
       })
     },

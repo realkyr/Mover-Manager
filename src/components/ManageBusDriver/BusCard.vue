@@ -52,12 +52,10 @@
 <script>
 import firebase from 'firebase/app'
 import 'firebase/firestore'
-import { mapActions } from 'vuex'
 export default {
   props: {
     busID: {
-      type: String,
-      default: ''
+      type: String
     },
     plate: {
       type: String,
@@ -91,7 +89,6 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['updateDriverBus']),
     editToggle () {
       this.edit = !this.edit
     },
@@ -103,10 +100,6 @@ export default {
           firebase.firestore().collection('managers').doc(this.$store.state.uid)
             .collection('drivers').doc(this.driverSelect).get()
             .then(data => {
-              this.updateDriverBus({
-                bid: this.bus,
-                data: data.data()
-              })
               this.driverName = data.data().prefix + data.data().fname + ' ' + data.data().lname
             })
           this.edit = !this.edit

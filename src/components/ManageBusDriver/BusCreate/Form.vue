@@ -78,6 +78,8 @@ export default {
           lat: 1,
           lng: 1
         }
+      }).then(() => {
+        this.$router.replace({ path: '/dashboard/bus' })
       })
       // }).then(docRef => {
       //   let tmpBus = {}
@@ -86,7 +88,6 @@ export default {
       //       tmpBus[docRef.id]
       //     })
       // })
-      this.$router.replace({ path: '/dashboard/bus' })
     }
   }
 }
