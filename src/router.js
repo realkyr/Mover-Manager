@@ -10,10 +10,10 @@ import ManageStudent from '@/views/ManageStudent'
 import ManageStudentGroup from '@/views/Student/StudentGroups'
 import ManageFamily from '@/views/ManageFamily'
 import ManageFamilyRequests from '@/views/Family/RequestsPage'
-import CreateStudentGroup from '@/views/StudentGroup/CreateStudentGroup'
+import CreateStudentGroup from '@/views/Student/CreateStudentGroup'
 import UpdateStudentGroup from '@/views/StudentGroup/UpdateStudentGroup'
 import CreateStudent from '@/views/Student/CreateStudent'
-import UpdateStudent from '@/views/Student/UpdateStudent'
+import StudentProfile from '@/views/Student/StudentProfile'
 import DriverProfile from '@/views/Driver/DriverProfile'
 import CreateBus from '@/views/Bus/CreateBus'
 import Profile from '@/views/Profile/Profile'
@@ -93,7 +93,7 @@ let router = new Router({
       component: ManageFamilyRequests
     },
     {
-      path: '/dashboard/group/create',
+      path: '/dashboard/student/group/create',
       name: 'groups-creating-console',
       component: CreateStudentGroup
     },
@@ -103,9 +103,9 @@ let router = new Router({
       component: UpdateStudentGroup
     },
     {
-      path: '/dashboard/student/update',
-      name: 'students-updating-console',
-      component: UpdateStudent
+      path: '/dashboard/student/profile',
+      name: 'students-profile',
+      component: StudentProfile
     },
     {
       path: '/dashboard/drivers/profile',

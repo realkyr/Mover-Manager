@@ -27,11 +27,11 @@
         <div
           class="custom-control custom-checkbox"
           :key="student"
-          v-for="(student, index) in students"
+          v-for="student in Object.keys(studentNames)"
         >
-          <input type="checkbox" class="custom-control-input" :id="`${index}`">
-          <label class="custom-control-label" :for="`${index}`">
-            {{ index }} {{ student.fname }} {{ student.lname }}
+          <input type="checkbox" class="custom-control-input" :id="`${student}`">
+          <label class="custom-control-label" :for="`${student}`">
+            {{ studentNames[student] }}
           </label>
         </div>
       </div>
@@ -54,10 +54,14 @@ export default {
   data () {
     return {
       isView: false,
-      studentNames: []
+      studentNames: {}
     }
   },
   mounted () {
+    this.students.forEach(data => {
+      this.studentNames[data.sid] = data.name
+    })
+    console.log(this.studentNames)
   },
   methods: {
     viewToggle () {

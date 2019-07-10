@@ -255,23 +255,6 @@ export default {
   font-size: 10pt;
 }
 
-input:focus {
-  border-color: #2094b9;
-  box-shadow: 0 0 8px 0 #2094b9;
-}
-
-input[type="tel"]:focus + i {
-  color: #2094b9;
-}
-
-input[type="text"]:focus + i {
-  color: #2094b9;
-}
-
-input[type="password"]:focus + i {
-  color: #2094b9;
-}
-
 .my-output-control {
   margin: 1rem 0 0 0;
   display: flex;
@@ -295,6 +278,22 @@ input[type="password"]:focus + i {
 </style>
 
 <style scoped>
+input:focus {
+  border-color: #2094b9;
+  box-shadow: 0 0 8px 0 #2094b9;
+}
+
+input[type="tel"]:focus + i {
+  color: #2094b9;
+}
+
+input[type="text"]:focus + i {
+  color: #2094b9;
+}
+
+input[type="password"]:focus + i {
+  color: #2094b9;
+}
 .content {
   padding: 20px 10px 20px 10px;
   background: white;

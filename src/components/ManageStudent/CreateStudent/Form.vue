@@ -14,7 +14,7 @@
             <option value="เด็กหญิง">เด็กหญิง</option>
             <option value="นาย">นาย</option>
             <option value="นาง">นาง</option>
-            <option value="นส.">นส.</option>
+            <option value="นส.">นางสาว</option>
           </select>
         </div>
         <div class="col">
@@ -31,7 +31,7 @@
         id="phone"
         class="form-control"
         type="text"
-        placeholder="08xxxxxxxx  09xxxxxxxx"
+        placeholder="08xxxxxxxx"
         maxlength="10"
         v-model="phone"
       >
@@ -64,7 +64,11 @@ export default {
           prefix: this.prefix,
           stu_no: this.sid,
           phone: this.phone,
-          position: this.$store.state.user.school.latlng
+          position: this.$store.state.user.school.latlng,
+          group: null
+        })
+        .then(() => {
+          this.$router.replace({ path: '/dashboard/student' })
         })
     }
   }

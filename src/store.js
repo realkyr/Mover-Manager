@@ -52,10 +52,13 @@ export default new Vuex.Store({
     SET_STUDENTS (state, payload) {
       state.students = payload
     },
+    SET_PATH_STUDENT (state, payload) {
+      state.students[payload.sid].pic = payload.data
+    },
     SET_DRIVERS (state, payload) {
       state.drivers = payload
     },
-    SET_PATHDRIVER (state, payload) {
+    SET_PATH_DRIVER (state, payload) {
       state.drivers[payload.duid].pic = payload.data
     },
     SET_BUSES (state, payload) {
@@ -90,11 +93,14 @@ export default new Vuex.Store({
     setStudents: ({ commit }, data) => {
       commit('SET_STUDENTS', data)
     },
+    setPathStudent: ({ commit }, data) => {
+      commit('SET_PATH_STUDENT', data)
+    },
     setDrivers: ({ commit }, data) => {
       commit('SET_DRIVERS', data)
     },
     setPathDriver: ({ commit }, image) => {
-      commit('SET_PATHDRIVER', image)
+      commit('SET_PATH_DRIVER', image)
     },
     setTmpUrlDriver: ({ commit }, data) => {
       commit('SET_TMPPIC_DRIVER', data)

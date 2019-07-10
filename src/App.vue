@@ -29,7 +29,7 @@ export default {
           this.setUid(user.uid)
         } else {
           this.isShow = true
-          this.$router.push('login')
+          this.$router.replace({ path: '/login' })
         }
       })
     } else {

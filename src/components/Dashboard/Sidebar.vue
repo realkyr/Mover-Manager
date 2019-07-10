@@ -36,11 +36,6 @@ export default {
 </script>
 
 <style>
-li {
-  list-style-type: none;
-  margin-top: 20pt;
-}
-
 .sidebar {
   width: 50pt;
   height: calc(100vh - 50pt);
@@ -78,5 +73,12 @@ li {
 }
 .navbtn.active {
   background-color: rgba(155, 155, 155, 0.2);
+}
+</style>
+
+<style scoped>
+li {
+  list-style-type: none;
+  margin-top: 20pt;
 }
 </style>

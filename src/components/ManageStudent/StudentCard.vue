@@ -14,21 +14,21 @@
       </div>
       <div class="col-auto">
         <h6 class="thai">
-          {{ driverInfo.prefix }}
-          {{ driverInfo.fname }} {{ driverInfo.lname }}
+          {{ studentInfo.prefix }}
+          {{ studentInfo.fname }} {{ studentInfo.lname }}
         </h6>
-        <small v-if="Boolean(driverInfo.uid)">
-          {{ driverInfo.uid }}
+        <small v-if="Boolean(studentInfo.uid)">
+          {{ studentInfo.uid }}
           <br />
         </small>
         <small>
           <i class="fas fa-mobile-alt mr-2" />
-          {{ driverInfo.phone }}
+          {{ studentInfo.phone }}
         </small>
       </div>
     </div>
     <router-link
-      :to="{name: 'drivers-profile', params: {duid: driver, tmpImg: pic}}"
+      :to="{name: 'students-profile', params: {sid: student, tmpImg: pic}}"
       tag="button"
       class="btn mover-btn"
     >แก้ไขข้อมูล</router-link>
@@ -41,19 +41,19 @@ import 'firebase/firestore'
 import 'firebase/storage'
 export default {
   props: {
-    driver: {
+    student: {
       type: String
     },
-    driverInfo: {
+    studentInfo: {
       type: Object
     }
   },
   mounted () {
-    if ('pic' in this.driverInfo) {
+    if ('pic' in this.studentInfo) {
       firebase
         .storage()
         .ref()
-        .child(this.driverInfo.pic)
+        .child(this.studentInfo.pic)
         .getDownloadURL()
         .then(url => {
           this.pic = url

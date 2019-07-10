@@ -41,7 +41,6 @@ export default {
   },
   data () {
     return {
-      drivers: this.$store.state.drivers,
       errMsg: 'ไม่พบข้อมูล'
     }
   },

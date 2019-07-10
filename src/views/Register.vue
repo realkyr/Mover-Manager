@@ -12,9 +12,17 @@
             <i class="fas fa-envelope" aria-hidden="true"></i>
           </div>
           <small v-show="errEmail" style="color:red;" class="alert-text thai">{{ errEmail }}</small>
-          <div class="register-input-control">
-            <input v-model="fname" class="input-info thai" type="text" placeholder="ชื่อ">
-            <i class="fas fa-user-circle" aria-hidden="true"></i>
+          <div class="fname d-flex flex-row justify-content-center align-items-center">
+            <select class="custom-select col-3 pr-4" v-model="prefix">
+              <option value="">คำนำหน้าชื่อ</option>
+              <option value="นาย">นาย</option>
+              <option value="นาง">นาง</option>
+              <option value="นางสาว">นางสาว</option>
+            </select>
+            <div class="register-input-control col pr-0">
+              <input v-model="fname" class="input-info thai" type="text" placeholder="ชื่อ">
+              <i id="fname" class="fas fa-user-circle" aria-hidden="true"></i>
+            </div>
           </div>
           <small v-show="errName" style="color:red;" class="alert-text thai">{{ errName }}</small>
           <div class="register-input-control">
@@ -87,7 +95,8 @@ export default {
       conPassword: '',
       fname: '',
       lname: '',
-      phone: ''
+      phone: '',
+      prefix: ''
     }
   },
   methods: {
@@ -143,6 +152,7 @@ export default {
                 email: this.email,
                 fname: this.fname,
                 lname: this.lname,
+                prefix: this.prefix,
                 phone: this.phone,
                 school: {
                   latlng: {
@@ -221,7 +231,7 @@ export default {
   top: 50%;
   transform: translate(-50%, -50%);
   display: block;
-  width: 65%;
+  width: 70%;
   box-shadow: 0 4px 25px 0 rgba(0, 0, 0, 0.1);
 }
 
@@ -249,6 +259,10 @@ i {
   color: #aaa;
   transition: 0.3s;
   font-size: 10pt;
+}
+
+#fname {
+  left: 18px;
 }
 
 .input-control {
@@ -280,6 +294,15 @@ i {
     rgba(33, 149, 186, 1) 0%,
     rgba(27, 127, 158, 1) 100%
   ) !important;
+}
+
+.custom-select {
+  width: 100%;
+  border-radius: 18px;
+  border: 1pt solid rgb(234, 234, 234);
+  font-size: 10pt;
+  padding: 8px;
+  outline: none;
 }
 
 #registerBtn {
