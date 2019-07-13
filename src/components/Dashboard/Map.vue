@@ -13,38 +13,50 @@
 
 <script>
 /* eslint-disable no-undef */
+import firebase from 'firebase/app'
+import 'firebase/firestore'
 import PopupContent from './Popup.vue'
 import CreateClassPopUp from './Popup.js'
-import { setInterval } from 'timers'
-
+import { setTimeout } from 'timers'
 export default {
   components: {
     PopupContent
   },
   props: {
     buses: {
-      type: Object,
-      default () {
-        return {}
-      }
+      type: Object
     }
   },
   mounted () {
-    this.initMap()
-    this.generateMarker()
-    this.generatePopup()
-    this.$nextTick(() => {
-      this.getUserLocation()
-    }
-    )
+    setTimeout(() => {
+      this.initMap()
+      this.generateMarker()
+      this.generatePopup()
+      this.$nextTick(() => {
+        this.getUserLocation()
+      })
+    }, 1000)
     // example of editing data in popup
-    setInterval(() => {
-      let lat = this.buses['A1']['marker'].getPosition().lat()
-      let lng = this.buses['A1']['marker'].getPosition().lng()
-      let myLatLng = new google.maps.LatLng(lat, lng + 0.001)
-      this.buses['A1']['marker'].setPosition(myLatLng)
-      this.buses['A1'].popup.position = myLatLng
-    }, 3000)
+    // setInterval(() => {
+    // Object.keys(this.buses).forEach(bus => {
+    // let lat = this.buses[bus]['marker'].getPosition().lat()
+    // let lng = this.buses[bus]['marker'].getPosition().lng()
+    // let myLatLng = new google.maps.LatLng(lat, lng + 0.001)
+    firebase.firestore().collection('managers').doc(this.$store.state.uid)
+      .collection('cars').onSnapshot(snapshot => {
+        snapshot.docChanges().forEach(change => {
+          if (change.type === 'modified') {
+            console.log(change.doc.data())
+            let lat = change.doc.data().current_location.lat
+            let lng = change.doc.data().current_location.lng
+            let myLatlng = new google.maps.LatLng(lat, lng)
+            this.buses[change.doc.id]['marker'].setPosition(myLatlng)
+            this.buses[change.doc.id].popup.position = myLatlng
+          }
+        })
+      })
+    // })
+    // }, 3000)
   },
   data () {
     return {
@@ -60,7 +72,9 @@ export default {
       let popup = document.querySelector('#popup-' + id)
       if (popup.style.display === 'block') {
         popup.style.display = 'none'
-      } else popup.style.display = 'block'
+      } else {
+        popup.style.display = 'block'
+      }
     },
     initMap () {
       // init the map in initial_position
@@ -84,7 +98,7 @@ export default {
       // something like this.buses.['busid'].marker.setPosition()
       for (let i of Object.keys(this.buses)) {
         this.buses[i].marker = new google.maps.Marker({
-          position: this.buses[i].position,
+          position: this.buses[i].current_location,
           map: this.map,
           icon: require('../../assets/pics/marker.svg'),
           title: 'myMarker'
@@ -92,6 +106,8 @@ export default {
 
         this.buses[i].marker.addListener('click', e => {
           this.togglePopup(i)
+          this.map.setZoom(14)
+          this.map.setCenter(this.buses[i].marker.getPosition())
         })
       }
     },
@@ -99,7 +115,7 @@ export default {
       // create popup
       let Pop = CreateClassPopUp()
       for (let i of Object.keys(this.buses)) {
-        let position = this.buses[i].position
+        let position = this.buses[i].current_location
         let temp = new Pop(
           new google.maps.LatLng(position.lat, position.lng),
           document.getElementById(i),
@@ -108,6 +124,13 @@ export default {
         temp.setMap(this.map)
         this.buses[i].popup = temp
       }
+    },
+    generateBounds () {
+      const bounds = new google.maps.LatLngBounds()
+      for (let m of Object.keys(this.buses)) {
+        bounds.extend(this.buses[m].marker.getPosition())
+      }
+      this.map.fitBounds(bounds)
     },
     getUserLocation () {
       if (navigator.geolocation) {

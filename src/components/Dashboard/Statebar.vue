@@ -4,7 +4,7 @@
       <li>
         <div class="row pl-3 pr-3 d-flex justify-content-center align-items-center">
           <div id="schoolbus-icon">
-            <schoolbus class="svg" width="19" height="19" />
+            <schoolbus class="svg" width="19" height="19" @click.native="onTotal"/>
           </div>
           <span class="label-state">รถทั้งหมด</span>
           <span id="allbus-number">{{allBus}}</span>
@@ -55,6 +55,11 @@ export default {
     road: {
       type: Number,
       default: 0
+    }
+  },
+  methods: {
+    onTotal () {
+      this.$emit('onFitBounds', true)
     }
   }
 }

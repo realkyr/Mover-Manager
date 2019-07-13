@@ -1,79 +1,105 @@
 <template>
-  <div class="box">
-    <div class="logo-container">
-      <img id="logo" src="../assets/logo/logo.png">
-    </div>
-    <hr>
-    <div class="row">
-      <div class="col-12 col-sm-12 col-md-6 col-lg-6 input-group">
-        <div class="input-control">
-          <div class="register-input-control">
-            <input v-model="email" class="input-info thai" type="text" placeholder="E-Mail">
-            <i class="fas fa-envelope" aria-hidden="true"></i>
-          </div>
-          <small v-show="errEmail" style="color:red;" class="alert-text thai">{{ errEmail }}</small>
-          <div class="fname d-flex flex-row justify-content-center align-items-center">
-            <select class="custom-select col-3 pr-4" v-model="prefix">
-              <option value="">คำนำหน้าชื่อ</option>
-              <option value="นาย">นาย</option>
-              <option value="นาง">นาง</option>
-              <option value="นางสาว">นางสาว</option>
-            </select>
-            <div class="register-input-control col pr-0">
-              <input v-model="fname" class="input-info thai" type="text" placeholder="ชื่อ">
-              <i id="fname" class="fas fa-user-circle" aria-hidden="true"></i>
+  <div>
+    <div class="box">
+      <div class="logo-container">
+        <img id="logo" src="../assets/logo/logo.png" />
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 input-group">
+          <div class="input-control">
+            <div class="register-input-control">
+              <input v-model="email" class="input-info thai" type="text" placeholder="E-Mail" />
+              <i class="fas fa-envelope" aria-hidden="true"></i>
+            </div>
+            <small v-show="errEmail" style="color:red;" class="alert-text thai">{{ errEmail }}</small>
+            <div class="fname d-flex flex-row justify-content-center align-items-center">
+              <select class="custom-select thai col-3 pr-4" v-model="prefix">
+                <option value>คำนำหน้าชื่อ</option>
+                <option value="นาย">นาย</option>
+                <option value="นาง">นาง</option>
+                <option value="นางสาว">นางสาว</option>
+              </select>
+              <div class="register-input-control col pr-0">
+                <input v-model="fname" class="input-info thai" type="text" placeholder="ชื่อ" />
+                <i id="fname" class="fas fa-user-circle" aria-hidden="true"></i>
+              </div>
+            </div>
+            <small v-show="errName" style="color:red;" class="alert-text thai">{{ errName }}</small>
+            <div class="register-input-control">
+              <input v-model="lname" class="input-info thai" type="text" placeholder="นามสกุล" />
+              <i class="fas fa-user-circle" aria-hidden="true"></i>
+            </div>
+            <small v-show="errName" style="color:red;" class="alert-text thai">{{ errName }}</small>
+            <div class="register-input-control">
+              <input
+                v-model="phone"
+                class="input-info thai"
+                type="tel"
+                placeholder="เบอร์โทรศัพท์"
+                maxlength="10"
+              />
+              <i class="fas fa-mobile-alt" aria-hidden="true"></i>
+            </div>
+            <small v-show="errPhone" style="color:red;" class="alert-text thai">{{ errPhone }}</small>
+            <div class="register-input-control">
+              <input
+                v-model="password"
+                class="input-info thai"
+                type="password"
+                placeholder="รหัสผ่าน"
+              />
+              <i class="fas fa-lock" aria-hidden="true"></i>
+            </div>
+            <small v-show="errPass" style="color:red;" class="alert-text thai">{{ errPass }}</small>
+            <div class="register-input-control">
+              <input
+                v-model="conPassword"
+                class="input-info thai"
+                type="password"
+                placeholder="ยืนยันรหัสผ่าน"
+              />
+              <i class="fas fa-lock" aria-hidden="true"></i>
+            </div>
+            <small v-show="errConPass" style="color:red;" class="alert-text thai">{{ errConPass }}</small>
+            <div class="custom-control custom-checkbox mt-3">
+              <input id="terms" type="checkbox" class="custom-control-input" v-model="isAccept" @change="setAccept"/>
+              <label style="font-size:12pt;" class="thai custom-control-label" :class="{ 'text-danger':isNotCheck }" for="terms">
+                ฉันยอมรับข้อตกลงการใช้งาน
+                <a
+                  @click="showModal"
+                  href="javascript:void(0)"
+                >Terms&Conditions</a>
+              </label>
             </div>
           </div>
-          <small v-show="errName" style="color:red;" class="alert-text thai">{{ errName }}</small>
-          <div class="register-input-control">
-            <input v-model="lname" class="input-info thai" type="text" placeholder="นามสกุล">
-            <i class="fas fa-user-circle" aria-hidden="true"></i>
-          </div>
-          <small v-show="errName" style="color:red;" class="alert-text thai">{{ errName }}</small>
-          <div class="register-input-control">
-            <input
-              v-model="phone"
-              class="input-info thai"
-              type="tel"
-              placeholder="เบอร์โทรศัพท์"
-              maxlength="10"
-            >
-            <i class="fas fa-mobile-alt" aria-hidden="true"></i>
-          </div>
-          <small v-show="errPhone" style="color:red;" class="alert-text thai">{{ errPhone }}</small>
-          <div class="register-input-control">
-            <input v-model="password" class="input-info thai" type="password" placeholder="รหัสผ่าน">
-            <i class="fas fa-lock" aria-hidden="true"></i>
-          </div>
-          <small v-show="errPass" style="color:red;" class="alert-text thai">{{ errPass }}</small>
-          <div class="register-input-control">
-            <input v-model="conPassword" class="input-info thai" type="password" placeholder="ยืนยันรหัสผ่าน">
-            <i class="fas fa-lock" aria-hidden="true"></i>
-          </div>
-          <small v-show="errConPass" style="color:red;" class="alert-text thai">{{ errConPass }}</small>
+        </div>
+        <div class="vl"></div>
+        <div class="col input-school">
+          <small v-show="errAddress" style="color:red;" class="alert-text thai">{{ errAddress }}</small>
+          <Map />
         </div>
       </div>
-      <div class="vl"></div>
-      <div class="col input-school">
-        <small v-show="errAddress" style="color:red;" class="alert-text thai">{{ errAddress }}</small>
-        <Map/>
+      <div class="btn-group">
+        <button type="button" id="registerBtn" class="btn thai" @click="register">สมัครสมาชิก</button>
+        <button type="button" id="back" class="btn thai" @click="cancel">ยกเลิก</button>
       </div>
     </div>
-    <div class="btn-group">
-      <button type="button" id="registerBtn" class="btn thai" @click="register">สมัครสมาชิก</button>
-      <button type="button" id="back" class="btn thai" @click="cancel">ยกเลิก</button>
-    </div>
+    <TermsModal ref="modal"/>
   </div>
 </template>
 
 <script>
+/* eslint-disable no-undef */
 import firebase from 'firebase/app'
 import 'firebase/firestore'
+import TermsModal from '../components/Register/Terms'
 
 import Map from '../components/Register/Map'
 export default {
   components: {
-    Map
+    Map,
+    TermsModal
   },
   name: 'Register',
   metaInfo: {
@@ -96,7 +122,9 @@ export default {
       fname: '',
       lname: '',
       phone: '',
-      prefix: ''
+      prefix: '',
+      isAccept: false,
+      isNotCheck: false
     }
   },
   methods: {
@@ -136,6 +164,11 @@ export default {
         this.errAddress = 'โปรดกรอกชื่อโรงเรียน'
       } else {
         this.errAddress = ''
+      }
+      if (this.isAccept === false) {
+        this.isNotCheck = true
+      } else {
+        this.isNotCheck = false
       }
       if (this.validate()) {
         firebase
@@ -182,6 +215,9 @@ export default {
           })
       }
     },
+    setAccept () {
+      this.isNotCheck = false
+    },
     validate () {
       if (
         this.errEmail === '' &&
@@ -189,7 +225,8 @@ export default {
         this.errConPass === '' &&
         this.errName === '' &&
         this.errPhone === '' &&
-        this.errAddress === ''
+        this.errAddress === '' &&
+        this.isAccept === true
       ) {
         return true
       } else {
@@ -198,6 +235,10 @@ export default {
     },
     cancel () {
       this.$router.go(-1)
+    },
+    showModal () {
+      let element = this.$refs.modal.$el
+      $(element).modal('show')
     }
   }
 }
@@ -249,6 +290,23 @@ export default {
 
 .register-input-control {
   position: relative;
+}
+
+input:focus {
+  border-color: #2094b9;
+  box-shadow: 0 0 8px 0 #2094b9;
+}
+
+input[type="tel"]:focus + i {
+  color: #2094b9;
+}
+
+input[type="text"]:focus + i {
+  color: #2094b9;
+}
+
+input[type="password"]:focus + i {
+  color: #2094b9;
 }
 
 i {

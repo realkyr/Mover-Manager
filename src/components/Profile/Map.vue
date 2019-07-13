@@ -2,7 +2,7 @@
   <div>
     <div class="map">
       <div id="myMap" class="shadow" ref="myMap"></div>
-      <div class="school-name d-flex shadow">
+      <div id="pac-card" ref="input-control" class="school-name thai d-flex shadow">
         <div class="d-flex justify-content-start align-items-center ml-4">
           <i style="color:red;font-size:18pt;" class="fas fa-map-marker-alt"></i>
           <input
@@ -60,6 +60,8 @@ export default {
         draggable: true
       })
       const input = this.$refs['input-school']
+      const control = this.$refs['input-control']
+      map.controls[google.maps.ControlPosition.TOP_LEFT].push(control)
       const autocomplete = new google.maps.places.Autocomplete(input)
       autocomplete.bindTo('bounds', map)
       autocomplete.setFields(['address_components', 'geometry', 'icon', 'name'])
@@ -113,7 +115,12 @@ export default {
 }
 .school-name {
   font-size: 13pt;
-  display: flex;
+  margin: 10px 10px 0 10px;
+  background: white;
+  border-radius: 20px;
+  height: 70px;
+  padding: 10px;
+  /* display: flex;
   justify-content: flex-start;
   align-items: center;
   border-radius: 20px;
@@ -122,7 +129,7 @@ export default {
   position: fixed;
   background: white;
   bottom: 34rem;
-  left: 34rem;
+  left: 34rem; */
 }
 .map {
   display: flex;

@@ -1,23 +1,23 @@
 <template>
   <div class="popup">
     <div class="businfo">
-      {{businfo.busID}} | <span class="thai plate">{{businfo.plate}}</span>
+      {{businfo.no}} | <span class="thai plate">{{businfo.license_plate}}</span>
     </div>
     <div class="driverinfo">
       <div class="thai label">
         <driver width="10" height="10" class="labelicon"/>
         คนขับรถ
       </div>
-      <span class="thai info">{{ businfo.driverName }}</span>
+      <span class="thai info">{{ driverName }}</span>
       <div class="thai label">
         <telephone width="9" height="9" class="labelicon"/>
         เบอร์โทรศัพท์
       </div>
-      <span class="thai info">{{ businfo.phoneNum }}</span>
+      <span class="thai info">{{ driverTel }}</span>
     </div>
     <div class="studentleft">
-      <span id="remain">{{businfo.remainingStudent}}</span>
-      <span id="max">/{{businfo.maximumStudent}}</span><br />
+      <span id="remain">3</span>
+      <span id="max">/50</span><br />
       <span class="thai label">นักเรียนที่เหลือ</span>
     </div>
   </div>
@@ -26,7 +26,8 @@
 <script>
 import telephone from './icons/telephone.vue'
 import driver from './icons/driver.vue'
-
+import firebase from 'firebase/app'
+import 'firebase/firestore'
 export default {
   components: {
     telephone,
@@ -34,6 +35,20 @@ export default {
   },
   props: {
     businfo: Object
+  },
+  mounted () {
+    firebase.firestore().collection('managers').doc(this.$store.state.uid)
+      .collection('drivers').doc(this.businfo.driver).get()
+      .then(data => {
+        this.driverName = data.data().prefix + data.data().fname + ' ' + data.data().lname
+        this.driverTel = data.data().phone
+      })
+  },
+  data () {
+    return {
+      driverName: '',
+      driverTel: ''
+    }
   }
 }
 </script>

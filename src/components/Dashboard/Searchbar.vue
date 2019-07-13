@@ -33,9 +33,7 @@
               <button class="dropdown-item text-decoration-none" type="button">My Profile</button>
             </router-link>
             <div class="dropdown-divider"></div>
-            <router-link to="/login" >
-              <button class="dropdown-item" type="button" @click="logout">Log out</button>
-            </router-link>
+            <button class="dropdown-item" type="button" @click="logout">Log out</button>
           </div>
         </div>
       </div>
@@ -65,7 +63,14 @@ export default {
       }
     },
     logout () {
-      this.clearUser()
+      if (this.$route.path === '/dashboard') {
+        this.clearUser()
+        this.$router.push('login')
+        location.reload()
+      } else {
+        this.clearUser()
+        this.$router.push('login')
+      }
     },
     dropToggle () {
       this.isDrop = !this.isDrop

@@ -1,5 +1,6 @@
 <template>
   <form>
+    <small v-show="errMsg" style="color:red;" class="alert-text thai">{{ errMsg }}</small>
     <div class="form-group">
       <label for="name">Group Name | ชื่อกลุ่ม</label>
       <input type="text" class="form-control" id="name" placeholder="กลุ่มแรก" v-model="name" />
@@ -58,24 +59,29 @@ export default {
       name: '',
       section: '',
       value: [],
-      options: []
+      options: [],
+      errMsg: ''
     }
   },
   methods: {
     addGroup () {
-      firebase
-        .firestore()
-        .collection('managers')
-        .doc(this.$store.state.uid)
-        .collection('student-groups')
-        .add({
-          name: this.name,
-          section: this.section,
-          students: this.value
-        })
-        .then(() => {
-          this.$router.replace({ path: '/dashboard/student/group' })
-        })
+      if (this.name !== '' && this.section !== '' && this.value.length !== 0) {
+        firebase
+          .firestore()
+          .collection('managers')
+          .doc(this.$store.state.uid)
+          .collection('student-groups')
+          .add({
+            name: this.name,
+            section: this.section,
+            students: this.value
+          })
+          .then(() => {
+            this.$router.replace({ path: '/dashboard/student/group' })
+          })
+      } else {
+        this.errMsg = 'โปรดกรอกข้อมูลให้ครบถ้วน'
+      }
     }
   }
 }
