@@ -55,6 +55,7 @@ export default {
         })
         this.setStudents(tmpStudents)
       })
+    // ดึงข้อมูลกลุ่มนักเรียนช่วงเช้า
     firebase
       .firestore()
       .collection('managers')
@@ -69,6 +70,7 @@ export default {
         })
         this.studentGroups1 = stdGroups
       })
+    // ดึงข้อมูลกลุ่มนักเรียนช่วงบ่าย
     firebase
       .firestore()
       .collection('managers')

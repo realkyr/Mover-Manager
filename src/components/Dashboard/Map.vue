@@ -106,7 +106,7 @@ export default {
 
         this.buses[i].marker.addListener('click', e => {
           this.togglePopup(i)
-          this.map.setZoom(14)
+          this.map.setZoom(12)
           this.map.setCenter(this.buses[i].marker.getPosition())
         })
       }

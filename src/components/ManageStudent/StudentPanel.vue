@@ -38,6 +38,7 @@ export default {
     StudentCard
   },
   mounted () {
+    // ดึงข้อมูลนักเรียนทั้งหมดมา โดยเรียงตามชื่อ
     firebase.firestore().collection('managers').doc(this.$store.state.uid)
       .collection('students').orderBy('fname').get()
       .then(snapshot => {

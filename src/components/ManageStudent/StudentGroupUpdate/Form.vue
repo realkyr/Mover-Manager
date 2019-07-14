@@ -48,6 +48,7 @@ export default {
         name: this.$store.state.students[sid].prefix + this.$store.state.students[sid].fname + ' ' + this.$store.state.students[sid].lname
       })
     })
+    // ดึงข้อมูลกลุ่มนักเรียนตาม groupId ที่ส่งเข้ามา
     firebase.firestore().collection('managers').doc(this.$store.state.uid)
       .collection('student-groups').doc(this.$route.params.groupId).get()
       .then(data => {

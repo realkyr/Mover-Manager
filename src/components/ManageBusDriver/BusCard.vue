@@ -22,7 +22,7 @@
     <div v-if="!edit">คนขับ :
       {{ driverName }}
     </div>
-    <div v-if="!edit">กลุ่มนักเรียน : {{ studentGroup }}</div>
+    <div v-if="!edit">กลุ่มนักเรียน : {{ groupName }}</div>
     <!-- edit section -->
     <div v-if="edit" class="edit-section">
       <div class="form-group">
@@ -37,13 +37,16 @@
       </div>
       <div class="form-group">
         กลุ่มนักเรียน :
-        <select class="custom-select mr-sm-2" id="bus-card-student-group">
-          <option selected>เลือกกลุ่ม...</option>
-          <option value="1">1 เช้า</option>
-          <option value="2">1 บ่าย</option>
+        <select class="custom-select mr-sm-2" id="bus-card-student-group" v-model="groupSelect">
+          <option value="">เลือกกลุ่ม...</option>
+          <option
+            v-for="group in Object.keys(studentGroups)"
+            :key="group"
+            :value="group">{{ studentGroups[group].name }}
+          </option>
         </select>
       </div>
-      <router-link to="/" tag="a" class="thai">แก้ไขโดยละเอียด</router-link>
+      <router-link :to="{ name:'check-student-console', params: {groupId: studentGroup} }" tag="a" class="thai">เช็คชื่อนักเรียน</router-link>
       <button style="float: right;" @click="updateBus" class="btn btn-success">บันทึก</button>
     </div>
   </div>
@@ -65,11 +68,14 @@ export default {
       type: String,
       default: ''
     },
-    studentGroup: {
-      type: Number,
-      default: 0
+    studentGroups: {
+      type: Object
     },
     bus: {
+      type: String,
+      default: ''
+    },
+    studentGroup: {
       type: String,
       default: ''
     }
@@ -80,12 +86,21 @@ export default {
       .then(data => {
         this.driverName = data.data().prefix + data.data().fname + ' ' + data.data().lname
       })
+    if (this.studentGroup !== '') {
+      firebase.firestore().collection('managers').doc(this.$store.state.uid)
+        .collection('student-groups').doc(this.studentGroup).get()
+        .then(data => {
+          this.groupName = data.data().name
+        })
+    }
   },
   data () {
     return {
       edit: false,
       driverSelect: this.driver,
-      driverName: ''
+      driverName: '',
+      groupSelect: this.studentGroup,
+      groupName: ''
     }
   },
   methods: {
@@ -95,12 +110,18 @@ export default {
     updateBus () {
       firebase.firestore().collection('managers').doc(this.$store.state.uid)
         .collection('cars').doc(this.bus).update({
-          'driver': this.driverSelect
+          'driver': this.driverSelect,
+          'student_group': this.groupSelect
         }).then(() => {
           firebase.firestore().collection('managers').doc(this.$store.state.uid)
             .collection('drivers').doc(this.driverSelect).get()
             .then(data => {
               this.driverName = data.data().prefix + data.data().fname + ' ' + data.data().lname
+            })
+          firebase.firestore().collection('managers').doc(this.$store.state.uid)
+            .collection('student-groups').doc(this.groupSelect).get()
+            .then(data => {
+              this.groupName = data.data().name
             })
           this.edit = !this.edit
         })

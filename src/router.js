@@ -18,6 +18,7 @@ import DriverProfile from '@/views/Driver/DriverProfile'
 import CreateBus from '@/views/Bus/CreateBus'
 import Profile from '@/views/Profile/Profile'
 import Terms from '@/views/Terms'
+import CheckStudent from '@/views/Bus/CheckStudent'
 
 // import firebase from 'firebase'
 import 'firebase/auth'
@@ -122,6 +123,11 @@ let router = new Router({
       path: '/terms',
       name: 'terms',
       component: Terms
+    },
+    {
+      path: '/dashboard/bus/check',
+      name: 'check-student-console',
+      component: CheckStudent
     }
   ]
 })

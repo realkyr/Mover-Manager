@@ -29,8 +29,11 @@
       </label>
       <select class="custom-select mr-sm-2" id="driver" v-model="groupStudent">
         <option value="">เลือกกลุ่มนักเรียน...</option>
-        <option value="1">1 เช้า</option>
-        <option value="2">1 บ่าย</option>
+        <option
+          v-for="group in Object.keys($route.params)"
+          :key="group"
+          :value="group"
+        >{{ $route.params[group].name }}</option>
       </select>
     </div>
     <div class="btn-group pt-5">
@@ -53,8 +56,8 @@ export default {
             data: data.data()
           })
         })
-        console.log(this.drivers)
       })
+    this.getCurrentPosition()
   },
   data () {
     return {
@@ -62,7 +65,8 @@ export default {
       license: '',
       driver: '',
       groupStudent: '',
-      drivers: []
+      drivers: [],
+      position: null
     }
   },
   methods: {
@@ -73,11 +77,8 @@ export default {
         license_plate: this.license,
         no: this.busId,
         driver: this.driver,
-        student_group: '',
-        current_location: {
-          lat: 1,
-          lng: 1
-        }
+        student_group: this.groupStudent,
+        current_location: this.position
       }).then(() => {
         this.$router.replace({ path: '/dashboard/bus' })
       })
@@ -88,6 +89,26 @@ export default {
       //       tmpBus[docRef.id]
       //     })
       // })
+    },
+    getCurrentPosition () {
+      if (navigator.geolocation) {
+        // get user location and then animate map to the position
+        navigator.geolocation.getCurrentPosition(
+          position => {
+            this.position = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            }
+          },
+          () => {
+            // error handling
+            alert('Geolocation are not currently available')
+          },
+          { timeout: 10000 }
+        )
+      } else {
+        alert('this browser does not support geolocation')
+      }
     }
   }
 }

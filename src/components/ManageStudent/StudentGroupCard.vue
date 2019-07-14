@@ -76,9 +76,7 @@ export default {
         .collection('students').doc(sid).get().then(data => {
           this.studentNames[sid] = data.data().prefix + data.data().fname + ' ' + data.data().lname
         })
-      // this.studentNames[data.sid] = data.name
     })
-    console.log(this.studentNames)
   },
   methods: {
     viewToggle () {

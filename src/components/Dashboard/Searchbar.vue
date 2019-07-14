@@ -63,14 +63,8 @@ export default {
       }
     },
     logout () {
-      if (this.$route.path === '/dashboard') {
-        this.clearUser()
-        this.$router.push('login')
-        location.reload()
-      } else {
-        this.clearUser()
-        this.$router.push('login')
-      }
+      this.clearUser()
+      this.$router.replace({ path: '/login' })
     },
     dropToggle () {
       this.isDrop = !this.isDrop

@@ -2,28 +2,31 @@
   <div style="display: flex; flex-flow: column; height: 100vh;">
     <Searchbar/>
     <Sidebar />
-    <div style="margin-left: 50pt; padding: 20px" class="thai inside-container">
+    <div class="thai inside-container">
       <span>จัดการรถโรงเรียน</span>
       <!--
-        this page mostly about manage children
-        TODO: Implement UI and most function
-        EXAMPLE: Create student profile
+        this page is all about buses
+        TODO: IMPLEMENT THE REST FUNCTION and UI
+        EXAMPLE: create bus, put driver into bus, Checklist
        -->
       <Navtab />
+      <CheckStudentPanel />
     </div>
   </div>
 </template>
 
 <script>
-import Navtab from '../../components/ManageBusDriver/Navtab'
 import Searchbar from '../../components/Dashboard/Searchbar'
 import Sidebar from '../../components/Dashboard/Sidebar'
+import Navtab from '../../components/ManageBusDriver/Navtab'
+import CheckStudentPanel from '../../components/ManageBusDriver/CheckStudentPanel'
 
 export default {
   components: {
-    Navtab,
     Searchbar,
-    Sidebar
+    Sidebar,
+    Navtab,
+    CheckStudentPanel
   }
 }
 </script>
