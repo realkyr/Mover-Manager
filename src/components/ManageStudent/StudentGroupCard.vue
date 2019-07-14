@@ -7,15 +7,21 @@
       </div>
       <div class="col-auto">
         <button
-          v-if="!isView"
           class="btn mover-btn thai"
+          @click="toUpdate"
+        >
+          แก้ไข
+        </button>
+        <button
+          v-if="!isView"
+          class="btn mover-btn thai ml-1"
           @click="viewToggle"
         >
           ดูรายชื่อ
         </button>
         <button
           v-else
-          class="btn mover-btn thai"
+          class="btn mover-btn thai ml-1"
           @click="viewToggle"
         >
           ยกเลิก
@@ -29,10 +35,11 @@
           :key="student"
           v-for="student in Object.keys(studentNames)"
         >
-          <input type="checkbox" class="custom-control-input" :id="`${student}`">
+          {{ studentNames[student] }}
+          <!-- <input type="checkbox" class="custom-control-input" :id="`${student}`">
           <label class="custom-control-label" :for="`${student}`">
             {{ studentNames[student] }}
-          </label>
+          </label> -->
         </div>
       </div>
     </div>
@@ -40,6 +47,8 @@
 </template>
 
 <script>
+import firebase from 'firebase/app'
+import 'firebase/firestore'
 export default {
   props: {
     groupName: {
@@ -49,6 +58,10 @@ export default {
     students: {
       type: Array,
       default: undefined
+    },
+    group: {
+      type: String,
+      default: ''
     }
   },
   data () {
@@ -58,14 +71,21 @@ export default {
     }
   },
   mounted () {
-    this.students.forEach(data => {
-      this.studentNames[data.sid] = data.name
+    this.students.forEach(sid => {
+      firebase.firestore().collection('managers').doc(this.$store.state.uid)
+        .collection('students').doc(sid).get().then(data => {
+          this.studentNames[sid] = data.data().prefix + data.data().fname + ' ' + data.data().lname
+        })
+      // this.studentNames[data.sid] = data.name
     })
     console.log(this.studentNames)
   },
   methods: {
     viewToggle () {
       this.isView = !this.isView
+    },
+    toUpdate () {
+      this.$router.push({ name: 'groups-updating-console', params: { groupId: this.group } })
     }
   }
 }

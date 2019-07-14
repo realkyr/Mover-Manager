@@ -14,12 +14,17 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="modal-body">
+        <div class="modal-body thai">
           <div v-for="i in content" :key="i">
             <p>{{ i }}</p>
           </div>
+          <div class="d-flex justify-content-end">
+            <router-link :to="{ name: 'terms', params: regisInfo }">
+              <span @click="readMore">อ่านเพิ่มเติม</span>
+            </router-link>
+          </div>
         </div>
-        <div class="modal-footer">
+        <div class="modal-footer justify-content-center">
           <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
         </div>
       </div>
@@ -30,6 +35,11 @@
 <script>
 /* eslint-disable no-tabs */
 export default {
+  props: {
+    regisInfo: {
+      type: Object
+    }
+  },
   mounted () {
     this.getContent()
   },
@@ -47,7 +57,16 @@ export default {
         '4.	ผู้ใช้บริการรับทราบและยอมรับข้อตกลงเกี่ยวกับสิทธิ์การใช้งานข้อมูลเพื่อประโยชน์ในการพัฒนาคุณภาพการบริการ'
       ]
       this.content = contents
+    },
+    readMore () {
+      this.$emit('onTerms', true)
     }
   }
 }
 </script>
+
+<style scoped>
+li a {
+  text-decoration: none;
+}
+</style>

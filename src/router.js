@@ -11,12 +11,13 @@ import ManageStudentGroup from '@/views/Student/StudentGroups'
 import ManageFamily from '@/views/ManageFamily'
 import ManageFamilyRequests from '@/views/Family/RequestsPage'
 import CreateStudentGroup from '@/views/Student/CreateStudentGroup'
-import UpdateStudentGroup from '@/views/StudentGroup/UpdateStudentGroup'
+import UpdateStudentGroup from '@/views/Student/UpdateStudentGroup'
 import CreateStudent from '@/views/Student/CreateStudent'
 import StudentProfile from '@/views/Student/StudentProfile'
 import DriverProfile from '@/views/Driver/DriverProfile'
 import CreateBus from '@/views/Bus/CreateBus'
 import Profile from '@/views/Profile/Profile'
+import Terms from '@/views/Terms'
 
 // import firebase from 'firebase'
 import 'firebase/auth'
@@ -98,7 +99,7 @@ let router = new Router({
       component: CreateStudentGroup
     },
     {
-      path: '/dashboard/group/update',
+      path: '/dashboard/student/group/update',
       name: 'groups-updating-console',
       component: UpdateStudentGroup
     },
@@ -116,6 +117,11 @@ let router = new Router({
       path: '/dashboard/drivers',
       name: 'bus-driver-console',
       component: ManageDriver
+    },
+    {
+      path: '/terms',
+      name: 'terms',
+      component: Terms
     }
   ]
 })

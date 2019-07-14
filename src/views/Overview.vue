@@ -55,7 +55,6 @@ export default {
     ...mapActions(['setBuses']),
     mapFitBounds (value) {
       if (value) {
-        console.log('555')
         this.$refs.myMap.generateBounds()
       }
     }

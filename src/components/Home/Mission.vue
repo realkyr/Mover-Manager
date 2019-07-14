@@ -17,10 +17,10 @@
           <div class="card">
             <img src="../../assets/pics/forparent.jpg">
             <h3>For Parent</h3>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Eligendi rem eaque reprehenderit veritatis perspiciatis,
-              repellat consectetur iste accusantium sit ab
+            <p style="font-size:10pt;" class="thai">
+              แอปพลิเคชันส่วนตัวสำหรับผู้ปกครอง เพิ่มความมั่นใจและความปลอดภัยในการใช้บริการรถรับส่ง
+               โดยสามารถเข้าถึงตำแหน่งของรถโรงเรียนที่บุตรหลานของท่านกำลังนั่งอยู่ได้
+               ซึ่งข้อมูลจากแอปฯนี้จะลิ้งค์เข้ากับระบบส่วนกลางของโรงเรียนเพื่อการดูแลที่ทั่วถึงกับนักเรียนทุกคน
             </p>
           </div>
         </div>
@@ -36,10 +36,10 @@
           <div class="card">
             <img src="../../assets/pics/forschool.jpg">
             <h3>For School</h3>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Eligendi rem eaque reprehenderit veritatis perspiciatis,
-              repellat consectetur iste accusantium sit ab
+            <p style="font-size:10pt" class="thai">
+              ระบบมอนิเตอร์ริ่งเพื่อเพิ่มประสิทธิภาพการดูแลและจัดการรถโรงเรียน ช่วยเชื่อมต่อข้อมูลตำแหน่งรวมถึงข้อมูลส่วนบุคคลของผู้ขับขี่
+              และยานพาหนะทั้งหมดที่ใช้รับส่งนักเรียนเข้าด้วยกันให้คุณครูและผู้ปกครองสามารถทราบถึงสถานะของบุตรหลานได้แบบเรียลไทม์
+              และง่ายดายยิ่งขึ้น
             </p>
           </div>
         </div>

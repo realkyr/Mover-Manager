@@ -14,14 +14,22 @@
       <div class="col rounded d-flex flex-column">
         <div class>ช่วงเช้า</div>
         <div :key="group" v-for="group in Object.keys(studentGroups1)">
-          <GroupCard :students="studentGroups1[group].students" :groupName="studentGroups1[group].name" />
+          <GroupCard
+            :students="studentGroups1[group].students"
+            :groupName="studentGroups1[group].name"
+            :group="group"
+          />
         </div>
       </div>
       <div class="vl"></div>
       <div class="col rounded d-flex flex-column">
         ช่วงบ่าย
         <div :key="group" v-for="group in Object.keys(studentGroups2)">
-          <GroupCard :students="studentGroups2[group].students" :groupName="studentGroups2[group].name" />
+          <GroupCard
+            :students="studentGroups2[group].students"
+            :groupName="studentGroups2[group].name"
+            :group="group"
+          />
         </div>
       </div>
     </div>
@@ -32,11 +40,21 @@
 import GroupCard from './StudentGroupCard'
 import firebase from 'firebase/app'
 import 'firebase/firestore'
+import { mapActions } from 'vuex'
 export default {
   components: {
     GroupCard
   },
   mounted () {
+    firebase.firestore().collection('managers').doc(this.$store.state.uid)
+      .collection('students').orderBy('fname').get()
+      .then(snapshot => {
+        let tmpStudents = {}
+        snapshot.forEach(data => {
+          tmpStudents[data.id] = data.data()
+        })
+        this.setStudents(tmpStudents)
+      })
     firebase
       .firestore()
       .collection('managers')
@@ -71,6 +89,9 @@ export default {
       studentGroups1: {},
       studentGroups2: {}
     }
+  },
+  methods: {
+    ...mapActions(['setStudents'])
   }
 }
 </script>

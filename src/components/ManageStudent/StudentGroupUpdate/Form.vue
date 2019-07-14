@@ -28,7 +28,7 @@
       </select>
     </div>
     <div class="btn-group pt-5">
-      <button type="button" id="add-btn" class="btn mover-btn thai" @click="addGroup">บันทึกข้อมูล</button>
+      <button type="button" id="add-btn" class="btn mover-btn thai" @click="updateGroup">บันทึกข้อมูล</button>
     </div>
   </form>
 </template>
@@ -42,16 +42,24 @@ export default {
     Multiselect
   },
   mounted () {
+    Object.keys(this.$store.state.students).forEach(sid => {
+      this.options.push({
+        sid: sid,
+        name: this.$store.state.students[sid].prefix + this.$store.state.students[sid].fname + ' ' + this.$store.state.students[sid].lname
+      })
+    })
     firebase.firestore().collection('managers').doc(this.$store.state.uid)
-      .collection('students').get()
-      .then(snapshot => {
-        snapshot.forEach(data => {
+      .collection('student-groups').doc(this.$route.params.groupId).get()
+      .then(data => {
+        data.data().students.forEach(sid => {
           let tmpOption = {
-            sid: data.id,
-            name: data.data().prefix + data.data().fname + ' ' + data.data().lname
+            sid: sid,
+            name: this.$store.state.students[sid].prefix + this.$store.state.students[sid].fname + ' ' + this.$store.state.students[sid].lname
           }
-          this.options.push(tmpOption)
+          this.value.push(tmpOption)
         })
+        this.name = data.data().name
+        this.section = data.data().section
       })
   },
   data () {
@@ -64,7 +72,7 @@ export default {
     }
   },
   methods: {
-    addGroup () {
+    updateGroup () {
       if (this.name !== '' && this.section !== '' && this.value.length !== 0) {
         let selects = []
         this.value.forEach(data => {
@@ -75,10 +83,11 @@ export default {
           .collection('managers')
           .doc(this.$store.state.uid)
           .collection('student-groups')
-          .add({
-            name: this.name,
-            section: this.section,
-            students: selects
+          .doc(this.$route.params.groupId)
+          .update({
+            'name': this.name,
+            'section': this.section,
+            'students': selects
           })
           .then(() => {
             this.$router.replace({ path: '/dashboard/student/group' })

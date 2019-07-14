@@ -85,7 +85,17 @@
         <button type="button" id="back" class="btn thai" @click="cancel">ยกเลิก</button>
       </div>
     </div>
-    <TermsModal ref="modal"/>
+    <TermsModal
+      ref="modal"
+      @onTerms="closeModal"
+      :regisInfo="{
+        fname: fname,
+        lname: lname,
+        prefix: prefix,
+        email: email,
+        phone: phone
+      }"
+    />
   </div>
 </template>
 
@@ -107,6 +117,13 @@ export default {
   },
   mounted () {
     this.$store.state.address = { name: '' }
+    if ('email' in this.$route.params) {
+      this.email = this.$route.params.email
+      this.fname = this.$route.params.fname
+      this.lname = this.$route.params.lname
+      this.phone = this.$route.params.phone
+      this.prefix = this.$route.params.prefix
+    }
   },
   data () {
     return {
@@ -234,11 +251,17 @@ export default {
       }
     },
     cancel () {
-      this.$router.go(-1)
+      this.$router.replace('login')
     },
     showModal () {
       let element = this.$refs.modal.$el
       $(element).modal('show')
+    },
+    closeModal (value) {
+      if (value) {
+        let element = this.$refs.modal.$el
+        $(element).modal('hide')
+      }
     }
   }
 }
