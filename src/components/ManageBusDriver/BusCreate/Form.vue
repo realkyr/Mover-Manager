@@ -57,7 +57,6 @@ export default {
           })
         })
       })
-    this.getCurrentPosition()
   },
   data () {
     return {
@@ -66,7 +65,7 @@ export default {
       driver: '',
       groupStudent: '',
       drivers: [],
-      position: null
+      position: {}
     }
   },
   methods: {
@@ -82,6 +81,9 @@ export default {
       }).then(() => {
         this.$router.replace({ path: '/dashboard/bus' })
       })
+        .catch(err => {
+          console.log(err)
+        })
       // }).then(docRef => {
       //   let tmpBus = {}
       //   managersRef.collection('cars').doc(docRef.id).get()
@@ -89,26 +91,6 @@ export default {
       //       tmpBus[docRef.id]
       //     })
       // })
-    },
-    getCurrentPosition () {
-      if (navigator.geolocation) {
-        // get user location and then animate map to the position
-        navigator.geolocation.getCurrentPosition(
-          position => {
-            this.position = {
-              lat: position.coords.latitude,
-              lng: position.coords.longitude
-            }
-          },
-          () => {
-            // error handling
-            alert('Geolocation are not currently available')
-          },
-          { timeout: 10000 }
-        )
-      } else {
-        alert('this browser does not support geolocation')
-      }
     }
   }
 }

@@ -64,7 +64,6 @@ export default {
           prefix: this.prefix,
           stu_no: this.sid,
           phone: this.phone,
-          position: this.$store.state.user.school.latlng,
           group: null
         })
         .then(() => {

@@ -17,11 +17,12 @@
     <div class="bus-listview">
       <!-- <span v-if="Object.keys($store.state.students).length === 0">{{ errMsg }}</span> -->
       <div class="row mr-3">
-        <div class="col-12" :key="student" v-for="student in Object.keys((studentNames))">
+        <div class="col-12" :key="student" v-for="student in students">
           <!-- {{studentNames[student]}} -->
           <StudentCheckCard
-            :studentName="studentNames[student]"
-            :studentInfo="students[student]"
+            :student="student"
+            :studentInfo="$store.state.students[student]"
+            :checkStudent="checkList[student]"
           />
         </div>
       </div>
@@ -34,7 +35,6 @@ import firebase from 'firebase/app'
 import 'firebase/firestore'
 import StudentCheckCard from '../ManageBusDriver/StudentCheckCard'
 import { mapActions } from 'vuex'
-import { setTimeout } from 'timers'
 export default {
   components: {
     StudentCheckCard
@@ -44,24 +44,34 @@ export default {
     firebase.firestore().collection('managers').doc(this.$store.state.uid)
       .collection('student-groups').doc(this.$route.params.groupId).get()
       .then(data => {
-        let students = data.data().students
-        students.forEach(sid => {
-          firebase.firestore().collection('managers').doc(this.$store.state.uid)
-            .collection('students').doc(sid).get().then(info => {
-              this.studentNames[sid] = info.data().prefix + info.data().fname + ' ' + info.data().lname
-            })
-          // this.studentNames[sid] = this.$store.state.students[sid].prefix + this.$store.state.students[sid].fname + ' ' + this.$store.state.students[sid].lname
-        })
+        console.log(data.data().students)
+        this.students = data.data().students
       })
-    setTimeout(() => {
-      console.log(this.studentNames)
-    }, 2000)
+    firebase.firestore().collection('managers').doc(this.$store.state.uid)
+      .collection('student-groups').doc(this.$route.params.groupId)
+      .collection('checklist').doc('190715').get()
+      .then(data => {
+        console.log(data.data())
+        this.checkList = data.data()
+      })
+    // firebase.firestore().collection('managers').doc(this.$store.state.uid)
+    //   .collection('student-groups').doc(this.$route.params.groupId).get()
+    //   .then(data => {
+    //     let students = data.data().students
+    //     students.forEach(sid => {
+    //       firebase.firestore().collection('managers').doc(this.$store.state.uid)
+    //         .collection('students').doc(sid).get().then(info => {
+    //           this.studentNames[sid] = info.data().prefix + info.data().fname + ' ' + info.data().lname
+    //         })
+    //       // this.studentNames[sid] = this.$store.state.students[sid].prefix + this.$store.state.students[sid].fname + ' ' + this.$store.state.students[sid].lname
+    //     })
+    //   })
   },
   data () {
     return {
       errMsg: 'ไม่พบข้อมูล',
-      studentNames: {},
-      students: this.$store.state.students
+      students: [],
+      checkList: {}
     }
   },
   methods: {

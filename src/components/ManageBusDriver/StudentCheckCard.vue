@@ -14,7 +14,8 @@
       </div>
       <div class="col-auto">
         <h6 class="thai">
-          {{ studentName }}
+          {{ studentInfo.prefix }}
+          {{ studentInfo.fname }} {{ studentInfo.lname }}
         </h6>
         <small v-if="Boolean(studentInfo.uid)">
           {{ studentInfo.uid }}
@@ -26,11 +27,10 @@
         </small>
       </div>
     </div>
-    <!-- <router-link
-      :to="{name: 'students-profile', params: {sid: student, tmpImg: pic}}"
-      tag="button"
-      class="btn mover-btn"
-    >แก้ไขข้อมูล</router-link> -->
+    <div class="custom-control custom-switch">
+      <input type="checkbox" class="custom-control-input" :id="student" v-model="isCheck" @change="onCheck">
+      <label class="custom-control-label" :for="student">{{ checkState }}</label>
+    </div>
   </div>
 </template>
 
@@ -40,15 +40,17 @@ import 'firebase/firestore'
 import 'firebase/storage'
 export default {
   props: {
-    studentName: {
-      type: String
-    },
     studentInfo: {
       type: Object
+    },
+    checkStudent: {
+      type: Number
+    },
+    student: {
+      type: String
     }
   },
   mounted () {
-    console.log(this.studentName)
     if ('pic' in this.studentInfo) {
       firebase
         .storage()
@@ -61,10 +63,40 @@ export default {
     } else {
       this.pic = null
     }
+    firebase.firestore().collection('managers').doc(this.$store.state.uid)
+      .collection('student-groups').doc(this.$route.params.groupId)
+      .collection('checklist').doc('190715').onSnapshot(doc => {
+        this.isCheck = doc.data()[this.student]
+      })
+    this.isCheck = this.checkStudent
+    if (this.isCheck === 1) {
+      this.checkState = 'ขึ้นรถแล้ว'
+    } else {
+      this.checkState = 'ยังไม่ขึ้น'
+    }
   },
   data () {
     return {
-      pic: null
+      pic: null,
+      isCheck: 0,
+      checkState: ''
+    }
+  },
+  methods: {
+    onCheck () {
+      let tmpCheck = {}
+      if (this.isCheck) {
+        let check = 1
+        tmpCheck[this.student] = check
+        this.checkState = 'ขึ้นรถแล้ว'
+      } else {
+        let check = 0
+        tmpCheck[this.student] = check
+        this.checkState = 'ยังไม่ขึ้น'
+      }
+      firebase.firestore().collection('managers').doc(this.$store.state.uid)
+        .collection('student-groups').doc(this.$route.params.groupId)
+        .collection('checklist').doc('190715').update(tmpCheck)
     }
   }
 }
