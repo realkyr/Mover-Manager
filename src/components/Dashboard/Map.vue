@@ -42,7 +42,7 @@ export default {
     // let lat = this.buses[bus]['marker'].getPosition().lat()
     // let lng = this.buses[bus]['marker'].getPosition().lng()
     // let myLatLng = new google.maps.LatLng(lat, lng + 0.001)
-    firebase.firestore().collection('managers').doc(this.$store.state.uid)
+    this.onSnapshot = firebase.firestore().collection('managers').doc(this.$store.state.uid)
       .collection('cars').onSnapshot(snapshot => {
         snapshot.docChanges().forEach(change => {
           if (change.type === 'modified') {
@@ -153,6 +153,9 @@ export default {
         alert('this browser does not support geolocation')
       }
     }
+  },
+  beforeDestroy () {
+    this.onSnapshot()
   }
 }
 </script>
