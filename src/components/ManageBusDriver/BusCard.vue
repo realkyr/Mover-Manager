@@ -46,7 +46,7 @@
           </option>
         </select>
       </div>
-      <router-link :to="{ name:'check-student-console', params: {groupId: studentGroup} }" tag="a" class="thai">เช็คชื่อนักเรียน</router-link>
+      <router-link :to="{ name:'check-student-console', params: {groupId: finalGroupSelect} }" tag="a" class="thai">เช็คชื่อนักเรียน</router-link>
       <button style="float: right;" @click="updateBus" class="btn btn-success">บันทึก</button>
     </div>
   </div>
@@ -81,26 +81,32 @@ export default {
     }
   },
   mounted () {
-    firebase.firestore().collection('managers').doc(this.$store.state.uid)
-      .collection('drivers').doc(this.driver).get()
+    let managerRef = firebase.firestore().collection('managers').doc(this.$store.state.uid)
+    managerRef.collection('drivers').doc(this.driver).get()
       .then(data => {
         this.driverName = data.data().prefix + data.data().fname + ' ' + data.data().lname
       })
-    if (this.studentGroup !== '') {
-      firebase.firestore().collection('managers').doc(this.$store.state.uid)
-        .collection('student-groups').doc(this.studentGroup).get()
-        .then(data => {
-          this.groupName = data.data().name
-        })
-    }
+    managerRef.collection('cars').doc(this.bus).get()
+      .then(data => {
+        this.groupSelect = data.data().student_group
+        this.finalGroupSelect = data.data().student_group
+      }).then(() => {
+        if (this.groupSelect !== '') {
+          managerRef.collection('student-groups').doc(this.groupSelect).get()
+            .then(data => {
+              this.groupName = data.data().name
+            })
+        }
+      })
   },
   data () {
     return {
       edit: false,
       driverSelect: this.driver,
       driverName: '',
-      groupSelect: this.studentGroup,
-      groupName: ''
+      groupSelect: '',
+      groupName: '',
+      finalGroupSelect: ''
     }
   },
   methods: {
@@ -113,6 +119,7 @@ export default {
           'driver': this.driverSelect,
           'student_group': this.groupSelect
         }).then(() => {
+          this.finalGroupSelect = this.groupSelect
           firebase.firestore().collection('managers').doc(this.$store.state.uid)
             .collection('drivers').doc(this.driverSelect).get()
             .then(data => {

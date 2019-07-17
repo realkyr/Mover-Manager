@@ -20,9 +20,6 @@ import Profile from '@/views/Profile/Profile'
 import Terms from '@/views/Terms'
 import CheckStudent from '@/views/Bus/CheckStudent'
 
-// import firebase from 'firebase'
-import 'firebase/auth'
-
 Vue.use(Router)
 
 let router = new Router({
@@ -60,7 +57,7 @@ let router = new Router({
       component: ManageBus
     },
     {
-      path: '/dashboard/drivers',
+      path: '/dashboard/bus/drivers',
       name: 'driver-managing-console',
       component: ManageDriver
     },

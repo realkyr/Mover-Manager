@@ -12,7 +12,7 @@
         รถโรงเรียน
       </router-link>
       <router-link
-        to="/dashboard/drivers"
+        to="/dashboard/bus/drivers"
         active-class="active"
         tag="div"
         class="nav-tab-button right-nav-tab-button rounded-right"

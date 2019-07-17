@@ -115,7 +115,6 @@
               type="checkbox"
               class="custom-control-input"
               v-model="isAccept"
-              @change="setAccept"
             />
             <label
               style="font-size:12pt;"

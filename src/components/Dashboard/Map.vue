@@ -131,6 +131,7 @@ export default {
         bounds.extend(this.buses[m].marker.getPosition())
       }
       this.map.fitBounds(bounds)
+      this.map.setZoom(12)
     },
     getUserLocation () {
       if (navigator.geolocation) {

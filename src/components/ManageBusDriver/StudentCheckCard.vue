@@ -38,13 +38,11 @@
 import firebase from 'firebase/app'
 import 'firebase/firestore'
 import 'firebase/storage'
+import moment from 'moment'
 export default {
   props: {
     studentInfo: {
       type: Object
-    },
-    checkStudent: {
-      type: Number
     },
     student: {
       type: String
@@ -65,15 +63,14 @@ export default {
     }
     firebase.firestore().collection('managers').doc(this.$store.state.uid)
       .collection('student-groups').doc(this.$route.params.groupId)
-      .collection('checklist').doc('190715').onSnapshot(doc => {
+      .collection('checklist').doc(moment().format('YYMMDD')).onSnapshot(doc => {
         this.isCheck = doc.data()[this.student]
+        if (this.isCheck === 1) {
+          this.checkState = 'ขึ้นรถแล้ว'
+        } else {
+          this.checkState = 'ยังไม่ขึ้น'
+        }
       })
-    this.isCheck = this.checkStudent
-    if (this.isCheck === 1) {
-      this.checkState = 'ขึ้นรถแล้ว'
-    } else {
-      this.checkState = 'ยังไม่ขึ้น'
-    }
   },
   data () {
     return {
@@ -96,7 +93,7 @@ export default {
       }
       firebase.firestore().collection('managers').doc(this.$store.state.uid)
         .collection('student-groups').doc(this.$route.params.groupId)
-        .collection('checklist').doc('190715').update(tmpCheck)
+        .collection('checklist').doc(moment().format('YYMMDD')).update(tmpCheck)
     }
   }
 }
