@@ -17,6 +17,7 @@
         placeholder="เลือกนักเรียน"
         label="name"
         track-by="name"
+        @select="validate"
       ></multiselect>
     </div>
     <div class="form-group">
@@ -30,10 +31,38 @@
     <div class="btn-group pt-5">
       <button type="button" id="add-btn" class="btn mover-btn thai" @click="updateGroup">บันทึกข้อมูล</button>
     </div>
+    <div
+      id="alertModal"
+      class="modal fade"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalCenterTitle"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle"></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body d-flex justify-content-center flex-column align-items-center">
+            <p><span class="text-danger">{{ stdName }}</span> ได้อยู่ในกลุ่ม <span class="text-danger">{{ groupName }}</span></p>
+            <p>แน่ใจว่าจะเพิ่ม <span class="text-danger">{{ stdName }}</span> เข้ากลุ่มนี้ ?</p>
+          </div>
+          <div class="modal-footer d-flex justify-content-center">
+            <button type="button" id="noBtn" class="btn mover-btn" @click="removeOption">ไม่</button>
+            <button type="button" id="yesBtn" class="btn mover-btn" @click="acceptOption">ตกลง</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </form>
 </template>
 
 <script>
+/* eslint-disable no-undef */
 import Multiselect from 'vue-multiselect'
 import firebase from 'firebase/app'
 import 'firebase/firestore'
@@ -69,7 +98,9 @@ export default {
       section: '',
       value: [],
       options: [],
-      errMsg: ''
+      errMsg: '',
+      stdName: '',
+      groupName: ''
     }
   },
   methods: {
@@ -96,6 +127,33 @@ export default {
       } else {
         this.errMsg = 'โปรดกรอกข้อมูลให้ครบถ้วน'
       }
+    },
+    validate (value) {
+      firebase
+        .firestore()
+        .collection('managers')
+        .doc(this.$store.state.uid)
+        .collection('student-groups')
+        .get()
+        .then(snapshot => {
+          snapshot.forEach(data => {
+            if (data.data().students.includes(value.sid) && this.$route.params.groupId !== data.id) {
+              this.stdName = value.name
+              this.groupName = data.data().name
+              $('#alertModal').modal('show')
+            }
+          })
+        })
+    },
+    removeOption () {
+      const index = this.value.findIndex(item => {
+        return item.name === this.stdName
+      })
+      this.value.splice(index, 1)
+      $('#alertModal').modal('hide')
+    },
+    acceptOption () {
+      $('#alertModal').modal('hide')
     }
   }
 }
@@ -146,6 +204,12 @@ export default {
 </style>
 
 <style scoped>
+#yesBtn {
+  background: linear-gradient(180deg, rgba(33, 149, 186, 1) 0%);
+}
+#noBtn {
+  background: gray;
+}
 input:focus {
   border-color: #ffffff;
   box-shadow: 0 0 8px 0 white;

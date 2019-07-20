@@ -34,12 +34,6 @@ import firebase from 'firebase/app'
 import 'firebase/firestore'
 import 'firebase/storage'
 export default {
-  props: {
-    qrPath: {
-      type: String,
-      default: ''
-    }
-  },
   data () {
     return {
       qrImg: this.getQr()

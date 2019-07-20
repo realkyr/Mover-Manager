@@ -57,10 +57,6 @@ export default {
             this.students.forEach(sid => {
               tmpStudents[sid] = 0
             })
-            // console.log(docs.)
-            // if (this.checkDocs(docs)) {
-
-            // }
             docs.forEach(data => {
               if (data.id !== moment().format('YYMMDD')) {
                 managerRef.collection('student-groups').doc(this.$route.params.groupId)

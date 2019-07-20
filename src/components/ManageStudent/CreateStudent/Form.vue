@@ -63,8 +63,7 @@ export default {
           lname: this.lname,
           prefix: this.prefix,
           stu_no: this.sid,
-          phone: this.phone,
-          group: null
+          phone: this.phone
         })
         .then(() => {
           this.$router.replace({ path: '/dashboard/student' })

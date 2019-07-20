@@ -61,15 +61,26 @@ export default {
     } else {
       this.pic = null
     }
-    firebase.firestore().collection('managers').doc(this.$store.state.uid)
+    this.onListener = firebase.firestore().collection('managers').doc(this.$store.state.uid)
       .collection('student-groups').doc(this.$route.params.groupId)
-      .collection('checklist').doc(moment().format('YYMMDD')).onSnapshot(doc => {
-        this.isCheck = doc.data()[this.student]
-        if (this.isCheck === 1) {
-          this.checkState = 'ขึ้นรถแล้ว'
-        } else {
-          this.checkState = 'ยังไม่ขึ้น'
-        }
+      .collection('checklist').onSnapshot(snapshot => {
+        snapshot.docChanges().forEach(change => {
+          if (change.type === 'added') {
+            this.isCheck = change.doc.data()[this.student]
+            if (this.isCheck === 1) {
+              this.checkState = 'ขึ้นรถแล้ว'
+            } else {
+              this.checkState = 'ยังไม่ขึ้น'
+            }
+          } else if (change.type === 'modified') {
+            this.isCheck = change.doc.data()[this.student]
+            if (this.isCheck === 1) {
+              this.checkState = 'ขึ้นรถแล้ว'
+            } else {
+              this.checkState = 'ยังไม่ขึ้น'
+            }
+          }
+        })
       })
   },
   data () {
@@ -95,6 +106,9 @@ export default {
         .collection('student-groups').doc(this.$route.params.groupId)
         .collection('checklist').doc(moment().format('YYMMDD')).update(tmpCheck)
     }
+  },
+  beforeDestroy () {
+    this.onListener()
   }
 }
 </script>

@@ -46,12 +46,19 @@ export default {
       .collection('cars').onSnapshot(snapshot => {
         snapshot.docChanges().forEach(change => {
           if (change.type === 'modified') {
-            console.log(change.doc.data())
+            this.initial_position = {
+              lat: this.buses[change.doc.id]['marker'].getPosition().lat(),
+              lng: this.buses[change.doc.id]['marker'].getPosition().lng()
+            }
+            console.log(this.initial_position)
             let lat = change.doc.data().current_location.lat
             let lng = change.doc.data().current_location.lng
             let myLatlng = new google.maps.LatLng(lat, lng)
+            // this.transition(myLatlng, this.initial_position, change.doc.id)
+            // this.count = 0
             this.buses[change.doc.id]['marker'].setPosition(myLatlng)
             this.buses[change.doc.id].popup.position = myLatlng
+            this.map.setCenter(this.buses[change.doc.id].marker.getPosition())
           }
         })
       })
@@ -63,10 +70,31 @@ export default {
       initial_position: {
         lat: 13.7122618,
         lng: 100.65775
-      }
+      },
+      count: 0
     }
   },
   methods: {
+    transition (moveto, current, id) {
+      let numDelta = 100
+      let delay = 10
+      let deltaLat = (moveto.lat() - current.lat) / numDelta
+      let deltaLng = (moveto.lng() - current.lng) / numDelta
+      this.moveMarker(delay, numDelta, deltaLat, deltaLng, id)
+    },
+    moveMarker (delay, numDelta, deltaLat, deltaLng, id) {
+      console.log(deltaLat)
+      this.initial_position['lat'] += deltaLat
+      this.initial_position['lng'] += deltaLng
+      let latlng = new google.maps.LatLng(this.initial_position.lat, this.initial_position.lng)
+      this.buses[id]['marker'].setPosition(latlng)
+      this.buses[id].popup.position = latlng
+      // this.map.setCenter(this.buses[id].marker.getPosition())
+      if (this.count !== numDelta) {
+        this.count++
+        setTimeout(this.moveMarker(delay, numDelta, deltaLat, deltaLng, id), delay)
+      }
+    },
     togglePopup (id) {
       // this method uses to toggle a pop up when you click at marker
       let popup = document.querySelector('#popup-' + id)
@@ -86,6 +114,13 @@ export default {
         streetViewControl: false,
         mapTypeControl: false
       })
+      // this.map.addListener('click', (e) => {
+      //   firebase.firestore().collection('managers').doc(this.$store.state.uid)
+      //     .collection('cars').doc('mr1Yg0EkPgd5o21xivZV').get()
+      //     .then(data => {
+      //       this.transition(e.latLng, data.data().current_location, data.id)
+      //     })
+      // })
     },
     generateMarker () {
       // generate the marker and store it in to buses object
@@ -106,7 +141,7 @@ export default {
 
         this.buses[i].marker.addListener('click', e => {
           this.togglePopup(i)
-          this.map.setZoom(12)
+          this.map.setZoom(14)
           this.map.setCenter(this.buses[i].marker.getPosition())
         })
       }
@@ -131,7 +166,7 @@ export default {
         bounds.extend(this.buses[m].marker.getPosition())
       }
       this.map.fitBounds(bounds)
-      this.map.setZoom(12)
+      // this.map.setZoom(12)
     },
     getUserLocation () {
       if (navigator.geolocation) {

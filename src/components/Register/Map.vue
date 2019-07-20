@@ -2,7 +2,7 @@
   <div>
     <div class="search">
       <div class="school-input-control">
-        <input id="pac-input" class="thai" ref="pac-input" type="text" placeholder="  โปรดระบุชื่อโรงเรียน" v-model="$store.state.address.name">
+        <input id="pac-input" class="thai" ref="pac-input" type="text" placeholder="  ค้นหาโรงเรียน" v-model="$store.state.address.name">
         <i class="fas fa-school" aria-hidden="true"></i>
       </div>
     </div>

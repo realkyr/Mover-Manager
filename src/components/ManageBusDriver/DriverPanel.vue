@@ -4,6 +4,11 @@
       <div class="col-auto">
         <h3 class="thai">คนขับรถ</h3>
       </div>
+      <div class="col-auto">
+        <button class="btn mover-btn thai" @click="showModal">
+          <i style="color: white;" class="fas fa-plus mr-1"></i>เพิ่มคนขับ
+        </button>
+      </div>
     </div>
     <div class="bus-listview">
       <span v-if="Object.keys($store.state.drivers).length === 0">{{ errMsg }}</span>
@@ -16,6 +21,7 @@
         </div>
       </div>
     </div>
+    <QrModal ref="modal"/>
   </div>
 </template>
 
@@ -24,19 +30,25 @@ import firebase from 'firebase/app'
 import 'firebase/firestore'
 import { mapActions } from 'vuex'
 import DriverCard from './DriverCard'
+import QrModal from '../Profile/QrModal'
 export default {
   components: {
-    DriverCard
+    DriverCard,
+    QrModal
   },
   mounted () {
     firebase.firestore().collection('managers').doc(this.$store.state.uid)
-      .collection('drivers').orderBy('fname').get()
-      .then(snapshot => {
-        let tmpDrivers = {}
-        snapshot.forEach(data => {
-          tmpDrivers[data.id] = data.data()
+      .collection('drivers').orderBy('fname').onSnapshot(snapshot => {
+        snapshot.docChanges().forEach(change => {
+          if (change.type === 'added') {
+            let tmpDrivers = {}
+            snapshot.docs.forEach(data => {
+              tmpDrivers[data.id] = data.data()
+            })
+            this.setDrivers(tmpDrivers)
+            this.closeModal()
+          }
         })
-        this.setDrivers(tmpDrivers)
       })
   },
   data () {
@@ -45,7 +57,17 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['setDrivers'])
+    ...mapActions(['setDrivers']),
+    showModal () {
+      let element = this.$refs.modal.$el
+      // eslint-disable-next-line no-undef
+      $(element).modal('show')
+    },
+    closeModal () {
+      let element = this.$refs.modal.$el
+      // eslint-disable-next-line no-undef
+      $(element).modal('hide')
+    }
   }
 }
 </script>
