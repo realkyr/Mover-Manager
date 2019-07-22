@@ -48,7 +48,6 @@ export default {
   },
   data () {
     return {
-      buses: {}
     }
   },
   methods: {

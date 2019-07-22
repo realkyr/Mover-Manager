@@ -199,7 +199,7 @@ export default {
 <style>
 #map {
   width: calc(100vw - 80pt);
-  height: calc(100vh - 180pt);
+  height: calc(100vh - 160pt);
   position: absolute;
   left: 90px;
   bottom: 15px;

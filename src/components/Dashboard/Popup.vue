@@ -16,8 +16,8 @@
       <span class="thai info">{{ driverTel }}</span>
     </div>
     <div class="studentleft">
-      <span id="remain">3</span>
-      <span id="max">/50</span><br />
+      <span id="remain">{{ remainingStd }}</span>
+      <span id="max">/{{ totalStd }}</span><br />
       <span class="thai label">นักเรียนที่เหลือ</span>
     </div>
   </div>
@@ -37,17 +37,36 @@ export default {
     businfo: Object
   },
   mounted () {
-    firebase.firestore().collection('managers').doc(this.$store.state.uid)
-      .collection('drivers').doc(this.businfo.driver).get()
+    let managerRef = firebase.firestore().collection('managers').doc(this.$store.state.uid)
+    managerRef.collection('drivers').doc(this.businfo.driver).get()
       .then(data => {
         this.driverName = data.data().prefix + data.data().fname + ' ' + data.data().lname
         this.driverTel = data.data().phone
+      })
+    managerRef.collection('student-groups').doc(this.businfo.student_group).get()
+      .then(data => {
+        this.totalStd = data.data().students.length
+        managerRef.collection('student-groups').doc(this.businfo.student_group)
+          .collection('checklist').onSnapshot(snapshot => {
+            this.remainingStd = 0
+            snapshot.docChanges().forEach(change => {
+              if (change.type === 'modified') {
+                Object.values(change.doc.data()).forEach(value => {
+                  if (value === 1) {
+                    this.remainingStd += 1
+                  }
+                })
+              }
+            })
+          })
       })
   },
   data () {
     return {
       driverName: '',
-      driverTel: ''
+      driverTel: '',
+      totalStd: 0,
+      remainingStd: 0
     }
   }
 }
