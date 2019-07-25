@@ -56,6 +56,12 @@ export default {
                     this.remainingStd += 1
                   }
                 })
+              } else if (change.type === 'added') {
+                Object.values(change.doc.data()).forEach(value => {
+                  if (value === 1) {
+                    this.remainingStd += 1
+                  }
+                })
               }
             })
           })
