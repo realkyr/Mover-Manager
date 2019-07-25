@@ -4,11 +4,19 @@
       <div class="ml-3 col-1 mt-3 d-flex justify-content-center">
         <img id="logo" src="../../assets/logo/logo.png">
       </div>
-      <div class="col-8 ml-1 ml-md-4 mt-2 d-flex align-items-center">
+      <div class="col-8 ml-1 ml-md-4 mt-2 mb-2 d-flex align-items-center">
         <div class="search-input">
+          <autocomplete
+            :search="search"
+            placeholder="ค้นหารถ, นักเรียน"
+            aria-label="Search for a country"
+            @submit="onSearch"
+          ></autocomplete>
+        </div>
+        <!-- <div class="search-input">
           <input class="thai" type="text" placeholder="ค้นหารถ, นักเรียน">
           <i class="fas fa-search" aria-hidden="true"></i>
-        </div>
+        </div> -->
       </div>
       <div class="
         col-2 col-sm-2
@@ -43,20 +51,33 @@
 
 <script>
 import 'firebase/auth'
-// eslint-disable-next-line no-unused-vars
 import { mapGetters, mapActions } from 'vuex'
+import Autocomplete from '@trevoreyre/autocomplete-vue'
+import '@trevoreyre/autocomplete-vue/dist/style.css'
+import { setTimeout } from 'timers'
 export default {
+  components: {
+    Autocomplete
+  },
+  mounted () {
+    setTimeout(() => {
+      Object.keys(this.$store.state.buses).forEach(bus => {
+        this.cars.push(this.$store.state.buses[bus].license_plate)
+      })
+    }, 1000)
+  },
   data () {
     return {
       isDrop: false,
-      displayName: this.getDisplayName()
+      displayName: this.getDisplayName(),
+      cars: []
     }
   },
   methods: {
     ...mapGetters([
       'getUser'
     ]),
-    ...mapActions(['clearUser']),
+    ...mapActions(['clearUser', 'setUid']),
     getDisplayName () {
       if (this.$store.state.user !== undefined) {
         return `${this.getUser().fname} ${this.getUser().lname}`
@@ -68,13 +89,25 @@ export default {
     },
     dropToggle () {
       this.isDrop = !this.isDrop
+    },
+    search (input) {
+      if (input.length < 1) { return [] }
+      return this.cars.filter(car => {
+        return car.toLowerCase()
+          .startsWith(input.toLowerCase())
+      })
+    },
+    onSearch (result) {
+      this.$emit('onClick', result)
     }
   }
 }
 </script>
 
 <style scoped>
-
+.autocomplete input {
+  height: 20px !important;
+}
 .dname {
   display: inline-block;
   font-size: 9pt;

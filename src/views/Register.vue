@@ -162,8 +162,8 @@ export default {
       } else {
         this.errPass = ''
       }
-      if (this.email === '') {
-        this.errEmail = 'โปรดกรอกอีเมล'
+      if (this.email === '' && !this.email.includes('@')) {
+        this.errEmail = 'โปรดกรอกอีเมลให้ถูกต้อง'
       } else {
         this.errEmail = ''
       }
@@ -193,7 +193,6 @@ export default {
           .createUserWithEmailAndPassword(this.email, this.password)
           .then(user => {
             user.user.sendEmailVerification()
-            console.log(user.user.uid)
             firebase
               .firestore()
               .collection('managers')

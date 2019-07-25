@@ -1,6 +1,6 @@
 <template>
   <div style="display: flex; flex-flow: column; height: 100vh;">
-    <Searchbar />
+    <Searchbar @onClick="focusBus" />
     <Sidebar />
     <div style="margin-left: 50pt; padding: 20px" class="thai inside-container">
       <span style="color: #7D8797">ภาพรวม</span> > รถทั้งหมด
@@ -8,7 +8,7 @@
         @onFitBounds="mapFitBounds"
         class="mt-3"
         :allBus="Object.keys($store.state.buses).length"
-        :active="1"
+        :active="0"
       />
       <!--
         state bar recieve props as a number
@@ -56,6 +56,9 @@ export default {
       if (value) {
         this.$refs.myMap.generateBounds()
       }
+    },
+    focusBus (data) {
+      this.$refs.myMap.onFocusBus(data)
     }
   }
 }

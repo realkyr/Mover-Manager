@@ -49,6 +49,7 @@ export default {
     }
   },
   mounted () {
+    // check field 'pic' in student
     if ('pic' in this.studentInfo) {
       firebase
         .storage()
@@ -61,6 +62,7 @@ export default {
     } else {
       this.pic = null
     }
+    // get realtime firestore for get info check student
     this.onListener = firebase.firestore().collection('managers').doc(this.$store.state.uid)
       .collection('student-groups').doc(this.$route.params.groupId)
       .collection('checklist').onSnapshot(snapshot => {

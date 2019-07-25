@@ -35,7 +35,7 @@ export default {
       this.$nextTick(() => {
         this.getUserLocation()
       })
-    }, 1000)
+    }, 2000)
     // example of editing data in popup
     // setInterval(() => {
     // Object.keys(this.buses).forEach(bus => {
@@ -50,7 +50,6 @@ export default {
               lat: this.buses[change.doc.id]['marker'].getPosition().lat(),
               lng: this.buses[change.doc.id]['marker'].getPosition().lng()
             }
-            console.log(this.initial_position)
             let lat = change.doc.data().current_location.lat
             let lng = change.doc.data().current_location.lng
             let myLatlng = new google.maps.LatLng(lat, lng)
@@ -71,7 +70,8 @@ export default {
         lat: 13.7122618,
         lng: 100.65775
       },
-      count: 0
+      count: 0,
+      popupOpen: []
     }
   },
   methods: {
@@ -96,12 +96,25 @@ export default {
       }
     },
     togglePopup (id) {
+      if (this.popupOpen.length >= 1) {
+        this.popupOpen.forEach(popId => {
+          if (id !== popId) {
+            let popup = document.querySelector('#popup-' + popId)
+            popup.style.display = 'none'
+            const index = this.popupOpen.indexOf(popId)
+            this.popupOpen.splice(index, 1)
+          }
+        })
+      }
       // this method uses to toggle a pop up when you click at marker
       let popup = document.querySelector('#popup-' + id)
       if (popup.style.display === 'block') {
         popup.style.display = 'none'
+        const index = this.popupOpen.indexOf(id)
+        this.popupOpen.splice(index, 1)
       } else {
         popup.style.display = 'block'
+        this.popupOpen.push(id)
       }
     },
     initMap () {
@@ -141,7 +154,6 @@ export default {
 
         this.buses[i].marker.addListener('click', e => {
           this.togglePopup(i)
-          this.map.setZoom(14)
           this.map.setCenter(this.buses[i].marker.getPosition())
         })
       }
@@ -162,11 +174,19 @@ export default {
     },
     generateBounds () {
       const bounds = new google.maps.LatLngBounds()
-      for (let m of Object.keys(this.buses)) {
-        bounds.extend(this.buses[m].marker.getPosition())
+      let busesId = Object.keys(this.buses)
+      if (busesId.length === 1) {
+        for (let m of busesId) {
+          bounds.extend(this.buses[m].marker.getPosition())
+        }
+        this.map.fitBounds(bounds)
+        this.map.setZoom(12)
+      } else {
+        for (let m of busesId) {
+          bounds.extend(this.buses[m].marker.getPosition())
+        }
+        this.map.fitBounds(bounds)
       }
-      this.map.fitBounds(bounds)
-      // this.map.setZoom(12)
     },
     getUserLocation () {
       if (navigator.geolocation) {
@@ -188,6 +208,15 @@ export default {
       } else {
         alert('this browser does not support geolocation')
       }
+    },
+    onFocusBus (licensePlate) {
+      Object.keys(this.buses).forEach(bus => {
+        if (this.buses[bus].license_plate === licensePlate) {
+          this.togglePopup(bus)
+          this.map.setZoom(14)
+          this.map.setCenter(this.buses[bus].marker.getPosition())
+        }
+      })
     }
   },
   beforeDestroy () {

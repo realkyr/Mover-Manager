@@ -46,7 +46,7 @@ export default {
     managerRef.collection('student-groups').doc(this.businfo.student_group).get()
       .then(data => {
         this.totalStd = data.data().students.length
-        managerRef.collection('student-groups').doc(this.businfo.student_group)
+        this.onChecklist = managerRef.collection('student-groups').doc(this.businfo.student_group)
           .collection('checklist').onSnapshot(snapshot => {
             this.remainingStd = 0
             snapshot.docChanges().forEach(change => {
@@ -68,6 +68,9 @@ export default {
       totalStd: 0,
       remainingStd: 0
     }
+  },
+  beforeDestroy () {
+    this.onChecklist()
   }
 }
 </script>

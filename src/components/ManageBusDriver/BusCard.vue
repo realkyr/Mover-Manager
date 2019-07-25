@@ -55,6 +55,7 @@
 <script>
 import firebase from 'firebase/app'
 import 'firebase/firestore'
+import { mapActions } from 'vuex'
 export default {
   props: {
     busID: {
@@ -110,6 +111,7 @@ export default {
     }
   },
   methods: {
+    ...mapActions(['setBuses']),
     editToggle () {
       this.edit = !this.edit
     },
@@ -120,6 +122,15 @@ export default {
           'student_group': this.groupSelect
         }).then(() => {
           this.finalGroupSelect = this.groupSelect
+          firebase.firestore().collection('managers').doc(this.$store.state.uid)
+            .collection('cars').get()
+            .then(snapshot => {
+              let tmpBuses = {}
+              snapshot.forEach(data => {
+                tmpBuses[data.id] = data.data()
+              })
+              this.setBuses(tmpBuses)
+            })
           firebase.firestore().collection('managers').doc(this.$store.state.uid)
             .collection('drivers').doc(this.driverSelect).get()
             .then(data => {

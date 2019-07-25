@@ -23,10 +23,10 @@ export default {
         if (user) {
           firebase.firestore().collection('managers').doc(user.uid).get()
             .then(data => {
+              this.setUid(user.uid)
               this.setUser(data.data())
               this.isShow = true
             })
-          this.setUid(user.uid)
         } else {
           this.isShow = true
           this.$router.replace({ path: '/login' })
