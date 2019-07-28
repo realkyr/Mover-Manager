@@ -45,6 +45,7 @@ export default {
       managerRef.collection('student-groups').doc(this.$route.params.groupId)
         .collection('checklist').get()
         .then(docs => {
+          // ถ้ายังไม่มี doc ใน checklist สร้างใหม่
           if (docs.size === 0) {
             let tmpStudents = {}
             this.students.forEach(sid => {
@@ -52,6 +53,7 @@ export default {
             })
             managerRef.collection('student-groups').doc(this.$route.params.groupId)
               .collection('checklist').doc(moment().format('YYMMDD')).set(tmpStudents)
+          // ถ้ามีแล้วเช็คว่า doc ตรงวันที่?
           } else {
             let tmpStudents = {}
             this.students.forEach(sid => {
@@ -80,16 +82,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['setStudents']),
-    checkDocs (doc) {
-      doc.forEach(data => {
-        if (data.id !== moment().format('YYMMDD')) {
-          return true
-        } else {
-          console.log('3')
-        }
-      })
-    }
+    ...mapActions(['setStudents'])
   }
 }
 </script>

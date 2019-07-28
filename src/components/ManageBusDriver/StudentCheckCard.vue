@@ -65,25 +65,36 @@ export default {
     // get realtime firestore for get info check student
     this.onListener = firebase.firestore().collection('managers').doc(this.$store.state.uid)
       .collection('student-groups').doc(this.$route.params.groupId)
-      .collection('checklist').onSnapshot(snapshot => {
-        snapshot.docChanges().forEach(change => {
-          if (change.type === 'added') {
-            this.isCheck = change.doc.data()[this.student]
-            if (this.isCheck === 1) {
-              this.checkState = 'ขึ้นรถแล้ว'
-            } else {
-              this.checkState = 'ยังไม่ขึ้น'
-            }
-          } else if (change.type === 'modified') {
-            this.isCheck = change.doc.data()[this.student]
-            if (this.isCheck === 1) {
-              this.checkState = 'ขึ้นรถแล้ว'
-            } else {
-              this.checkState = 'ยังไม่ขึ้น'
-            }
+      .collection('checklist').doc(moment().format('YYMMDD')).onSnapshot(data => {
+        try {
+          this.isCheck = data.data()[this.student]
+          if (this.isCheck === 1) {
+            this.checkState = 'ขึ้นรถแล้ว'
+          } else {
+            this.checkState = 'ยังไม่ขึ้น'
           }
-        })
+        } catch (err) {
+        }
       })
+    // .collection('checklist').onSnapshot(snapshot => {
+    //   snapshot.docChanges().forEach(change => {
+    //     if (change.type === 'added') {
+    //       this.isCheck = change.doc.data()[this.student]
+    //       if (this.isCheck === 1) {
+    //         this.checkState = 'ขึ้นรถแล้ว'
+    //       } else {
+    //         this.checkState = 'ยังไม่ขึ้น'
+    //       }
+    //     } else if (change.type === 'modified') {
+    //       this.isCheck = change.doc.data()[this.student]
+    //       if (this.isCheck === 1) {
+    //         this.checkState = 'ขึ้นรถแล้ว'
+    //       } else {
+    //         this.checkState = 'ยังไม่ขึ้น'
+    //       }
+    //     }
+    //   })
+    // })
   },
   data () {
     return {
