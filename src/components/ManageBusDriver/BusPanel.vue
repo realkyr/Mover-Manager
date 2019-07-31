@@ -109,7 +109,9 @@ export default {
 <style>
 .buspanel {
   background: white;
-  height: calc(100% - 100pt);
+  height: 70vh;
+  display: flex;
+  flex-flow: column;
 }
 
 .mover-btn {
@@ -127,9 +129,7 @@ export default {
 }
 
 .bus-listview {
-  /* background: red; */
-  position: relative;
-  height: calc(100% - 10vh);
+  flex-grow: 1;
   overflow-y: scroll;
   overflow-x: hidden;
 }
