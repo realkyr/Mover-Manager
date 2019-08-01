@@ -109,7 +109,7 @@ export default {
 <style>
 .buspanel {
   background: white;
-  height: 70vh;
+  height: calc(100vh - 30vh);
   display: flex;
   flex-flow: column;
 }

@@ -21,6 +21,7 @@ export default {
     if (this.$route.path.includes('/dashboard')) {
       firebase.auth().onAuthStateChanged(user => {
         if (user) {
+          // ดึงข้อมูล user, uid มาใส่ใน vuex
           firebase.firestore().collection('managers').doc(user.uid).get()
             .then(data => {
               this.setUid(user.uid)
@@ -28,6 +29,7 @@ export default {
               this.isShow = true
             })
         } else {
+          // ไปหน้า login
           this.isShow = true
           this.$router.replace({ path: '/login' })
         }

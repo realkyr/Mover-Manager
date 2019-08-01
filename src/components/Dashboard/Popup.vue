@@ -28,6 +28,7 @@ import telephone from './icons/telephone.vue'
 import driver from './icons/driver.vue'
 import firebase from 'firebase/app'
 import 'firebase/firestore'
+import moment from 'moment'
 export default {
   components: {
     telephone,
@@ -46,24 +47,28 @@ export default {
     managerRef.collection('student-groups').doc(this.businfo.student_group).get()
       .then(data => {
         this.totalStd = data.data().students.length
+        let tmpStd = data.data().students
         this.onChecklist = managerRef.collection('student-groups').doc(this.businfo.student_group)
-          .collection('checklist').onSnapshot(snapshot => {
-            this.remainingStd = 0
-            snapshot.docChanges().forEach(change => {
-              if (change.type === 'modified') {
-                Object.values(change.doc.data()).forEach(value => {
-                  if (value === 1) {
-                    this.remainingStd += 1
-                  }
+          .collection('checklist').doc(moment().format('YYYYMMDD')).onSnapshot(check => {
+            try {
+              this.remainingStd = 0
+              tmpStd.forEach(sid => {
+                if (check.data()[sid] === 1) {
+                  this.remainingStd += 1
+                }
+              })
+            } catch (err) {
+              let tmpCheckStd = {}
+              tmpStd.forEach(sid => {
+                tmpCheckStd[sid] = 0
+              })
+              managerRef.collection('student-groups').doc(this.businfo.student_group)
+                .collection('checklist').doc(moment().format('YYYYMMDD')).set(tmpCheckStd)
+                .then(() => {
+                  managerRef.collection('student-groups').doc(this.businfo.student_group)
+                    .collection('checklist').doc(moment().subtract(1, 'days').format('YYYYMMDD')).delete()
                 })
-              } else if (change.type === 'added') {
-                Object.values(change.doc.data()).forEach(value => {
-                  if (value === 1) {
-                    this.remainingStd += 1
-                  }
-                })
-              }
-            })
+            }
           })
       })
   },

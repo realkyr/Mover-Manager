@@ -52,7 +52,7 @@ export default {
               tmpStudents[sid] = 0
             })
             managerRef.collection('student-groups').doc(this.$route.params.groupId)
-              .collection('checklist').doc(moment().format('YYMMDD')).set(tmpStudents)
+              .collection('checklist').doc(moment().format('YYYYMMDD')).set(tmpStudents)
           // ถ้ามีแล้วเช็คว่า doc ตรงวันที่?
           } else {
             let tmpStudents = {}
@@ -60,12 +60,12 @@ export default {
               tmpStudents[sid] = 0
             })
             docs.forEach(data => {
-              if (data.id !== moment().format('YYMMDD')) {
+              if (data.id !== moment().format('YYYYMMDD')) {
                 managerRef.collection('student-groups').doc(this.$route.params.groupId)
                   .collection('checklist').doc(data.id).delete()
                   .then(() => {
                     managerRef.collection('student-groups').doc(this.$route.params.groupId)
-                      .collection('checklist').doc(moment().format('YYMMDD')).set(tmpStudents)
+                      .collection('checklist').doc(moment().format('YYYYMMDD')).set(tmpStudents)
                   })
               }
             })

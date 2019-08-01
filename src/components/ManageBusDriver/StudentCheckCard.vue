@@ -65,7 +65,7 @@ export default {
     // get realtime firestore for get info check student
     this.onListener = firebase.firestore().collection('managers').doc(this.$store.state.uid)
       .collection('student-groups').doc(this.$route.params.groupId)
-      .collection('checklist').doc(moment().format('YYMMDD')).onSnapshot(data => {
+      .collection('checklist').doc(moment().format('YYYYMMDD')).onSnapshot(data => {
         try {
           this.isCheck = data.data()[this.student]
           if (this.isCheck === 1) {
@@ -117,7 +117,7 @@ export default {
       }
       firebase.firestore().collection('managers').doc(this.$store.state.uid)
         .collection('student-groups').doc(this.$route.params.groupId)
-        .collection('checklist').doc(moment().format('YYMMDD')).update(tmpCheck)
+        .collection('checklist').doc(moment().format('YYYYMMDD')).update(tmpCheck)
     }
   },
   beforeDestroy () {
