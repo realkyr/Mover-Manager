@@ -35,7 +35,7 @@ export default {
       this.$nextTick(() => {
         this.getUserLocation()
       })
-    }, 2000)
+    }, 1500)
     // example of editing data in popup
     // setInterval(() => {
     // Object.keys(this.buses).forEach(bus => {

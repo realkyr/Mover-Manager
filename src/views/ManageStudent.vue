@@ -1,6 +1,6 @@
 <template>
   <div style="display: flex; flex-flow: column; height: 100vh;">
-    <Searchbar/>
+    <Searchbar @onClickStd="focusStd" @sendInput="listenStd"/>
     <Sidebar />
     <div class="thai inside-container">
       <span>จัดการนักเรียน</span>
@@ -10,7 +10,7 @@
         EXAMPLE: Create student profile
        -->
       <Navtab />
-      <StudentPanel />
+      <StudentPanel ref="stdPanel"/>
     </div>
   </div>
 </template>
@@ -27,6 +27,17 @@ export default {
     Sidebar,
     Navtab,
     StudentPanel
+  },
+  methods: {
+    focusStd (data) {
+      this.$refs.stdPanel.onFocusStd(data)
+    },
+    listenStd (data) {
+      this.$refs.stdPanel.onListenStd(data)
+    }
+    // listenIndex (data) {
+    //   this.$refs.stdPanel.onListenIndex(data)
+    // }
   }
 }
 </script>

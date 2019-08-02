@@ -15,9 +15,9 @@
       </div>
     </div>
     <div class="bus-listview">
-      <span v-if="Object.keys($store.state.students).length === 0">{{ errMsg }}</span>
+      <span v-if="filteredStd.length === 0">{{ errMsg }}</span>
       <div v-else class="row mr-3">
-        <div class="col-12" :key="student" v-for="student in Object.keys(($store.state.students))">
+        <div class="col-12" :key="student" v-for="student in filteredStd">
           <StudentCard
             :student="student"
             :studentInfo="$store.state.students[student]"
@@ -51,11 +51,52 @@ export default {
   },
   data () {
     return {
-      errMsg: 'ไม่พบข้อมูล'
+      errMsg: 'ไม่พบข้อมูล',
+      inputStd: '',
+      idx: -1
+    }
+  },
+  computed: {
+    filteredStd () {
+      let filtered = []
+      if (this.inputStd === '' || !this.inputStd.trim().length) {
+        filtered = Object.keys(this.$store.state.students)
+      } else {
+        const entries = Object.entries(this.$store.state.students)
+        for (const [sid, info] of entries) {
+          let name = info.fname + ' ' + info.lname
+          if (name.includes(this.inputStd) && this.inputStd.length >= 1) {
+            filtered.push(sid)
+          }
+        }
+      }
+      return filtered
     }
   },
   methods: {
-    ...mapActions(['setStudents'])
+    ...mapActions(['setStudents']),
+    onFocusStd (name) {
+      console.log(name)
+    },
+    onListenStd (input) {
+      this.inputStd = input
+      // if (input === 'delete' && this.idx === -1) {
+      //   this.inputStd = this.inputStd.slice(0, this.idx)
+      // } else if (input === 'delete' && this.idx !== -1) {
+      //   const position = this.inputStd.length + this.idx
+      //   this.inputStd = this.inputStd.slice(0, position) +
+      //     this.inputStd.slice(position + 1)
+      // } else {
+      //   this.inputStd += input
+      // }
+    }
+    // onListenIndex (valueIdx) {
+    //   if (valueIdx === -1 && this.inputStd.length + this.idx >= 0) {
+    //     this.idx += valueIdx
+    //   } else if (valueIdx === 1 && this.inputStd.length + this.idx !== this.inputStd.length - 1) {
+    //     this.idx += valueIdx
+    //   }
+    // }
   }
 }
 </script>

@@ -5,18 +5,29 @@
         <img id="logo" src="../../assets/logo/logo.png">
       </div>
       <div class="col-8 ml-1 ml-md-4 mt-2 mb-2 d-flex align-items-center">
-        <div class="search-input">
+        <div v-if="!$route.path.includes('student')" class="thai search-input">
           <autocomplete
-            :search="search"
-            placeholder="ค้นหารถ, นักเรียน"
-            aria-label="Search for a country"
-            @submit="onSearch"
+            :search="searchBus"
+            placeholder="ค้นหารถโดยเลขทะเบียน"
+            aria-label="ค้นหารถโดยเลขทะเบียน"
+            @submit="onSearchBus"
           ></autocomplete>
+          <!-- <autocomplete
+            v-else
+            :search="searchStd"
+            placeholder="ค้นหานักเรียน"
+            aria-label="ค้นหานักเรียน"
+            @submit="onSearchStd"
+            @input="onInput"
+            v-on:keyup.left="onIndexLeft"
+            v-on:keyup.right="onIndexRight"
+          >
+          </autocomplete> -->
         </div>
-        <!-- <div class="search-input">
-          <input class="thai" type="text" placeholder="ค้นหารถ, นักเรียน">
-          <i class="fas fa-search" aria-hidden="true"></i>
-        </div> -->
+        <div v-else class="search-input">
+          <input class="thai" type="text" v-model="text" placeholder="ค้นหานักเรียน" @input="onInput">
+          <!-- <i class="fas fa-search" aria-hidden="true"></i> -->
+        </div>
       </div>
       <div class="
         col-2 col-sm-2
@@ -64,13 +75,18 @@ export default {
       Object.keys(this.$store.state.buses).forEach(bus => {
         this.cars.push(this.$store.state.buses[bus].license_plate)
       })
+      Object.keys(this.$store.state.students).forEach(std => {
+        this.students.push(this.$store.state.students[std].fname + ' ' + this.$store.state.students[std].lname)
+      })
     }, 1000)
   },
   data () {
     return {
+      text: '',
       isDrop: false,
       displayName: this.getDisplayName(),
-      cars: []
+      cars: [],
+      students: []
     }
   },
   methods: {
@@ -90,24 +106,32 @@ export default {
     dropToggle () {
       this.isDrop = !this.isDrop
     },
-    search (input) {
+    searchBus (input) {
       if (input.length < 1) { return [] }
       return this.cars.filter(car => {
-        return car.toLowerCase()
-          .startsWith(input.toLowerCase())
+        return car.toLowerCase().includes(input.toLowerCase())
       })
     },
-    onSearch (result) {
+    onSearchBus (result) {
       this.$emit('onClick', result)
+    },
+    searchStd (input) {
+      if (input.length < 1 || input === ' ') { return [] }
+      return this.students.filter(student => {
+        return student.toLowerCase().includes(input.toLowerCase())
+      })
+    },
+    // onSearchStd (result) {
+    //   this.$emit('onClickStd', result)
+    // },
+    onInput (e) {
+      this.$emit('sendInput', this.text)
     }
   }
 }
 </script>
 
 <style scoped>
-.autocomplete input {
-  height: 20px !important;
-}
 .dname {
   display: inline-block;
   font-size: 9pt;
@@ -149,28 +173,37 @@ export default {
 }
 
 input {
-  width: 100%;
   -webkit-appearance: none;
-  overflow-x: hidden;
   border: 1pt solid rgb(234, 234, 234);
-  border-radius: 4px;
-  margin: 8px 0;
-  outline: none;
-  padding: 8px;
+  border-radius: 8px;
+  overflow-x: hidden;
+  width: 100%;
+  padding: 12px 12px 12px 48px;
   box-sizing: border-box;
+  position: relative;
+  font-size: 16px;
+  line-height: 1.5;
+  flex: 1;
+  height: 40px;
+  outline: none;
+  background-color: #eee;
+  background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjNjY2IiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCI+PGNpcmNsZSBjeD0iMTEiIGN5PSIxMSIgcj0iOCIvPjxwYXRoIGQ9Ik0yMSAyMWwtNC00Ii8+PC9zdmc+");
+  background-repeat: no-repeat;
+  background-position: 12px;
   transition: 0.3s;
 }
 
 input:focus {
   border-color: #2094b9;
+  background-color: #fff;
   box-shadow: 0 0 8px 0 #2094b9;
 }
 
-.search-input input[type="text"] {
+/* .search-input input[type="text"] {
   padding-left: 40px;
   font-size: 10pt;
   -webkit-appearance: none;
-}
+} */
 
 .search-input {
   position: relative;
@@ -180,7 +213,7 @@ input:focus {
 .search-input i {
   position: absolute;
   left: 5pt;
-  top: 12px;
+  top: 5px;
   padding: 9px 8px;
   color: #aaa;
   transition: 0.3s;
