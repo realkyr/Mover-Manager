@@ -32,7 +32,6 @@
         </router-link>
       </div>
     </div>
-    <hr>
     <Form
       :sid="$route.params.sid"
       @onUploaded="setPic"

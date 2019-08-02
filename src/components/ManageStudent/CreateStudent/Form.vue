@@ -1,15 +1,23 @@
 <template>
   <form>
+    <small v-show="errMsg" style="color:red;font-size:12pt" class="alert-text thai">{{ errMsg }}</small>
     <div class="form-group">
       <label for="stdid">Student ID | เลขประจำตัว</label>
-      <input type="text" class="form-control" id="stdid" placeholder="xxxxxx" v-model="sid">
+      <input
+        type="text"
+        class="form-control"
+        id="stdid"
+        placeholder="xxxxxx"
+        v-model="sid"
+        @input="clearErr"
+      />
     </div>
     <div class="form-group">
       <label for="plate">Name | ชื่อนักเรียน</label>
       <div class="row">
         <div class="col-2">
-          <select class="custom-select mr-sm-2" v-model="prefix">
-            <option value="">คำนำหน้าชื่อ...</option>
+          <select class="custom-select mr-sm-2" v-model="prefix" @change="clearErr">
+            <option value>คำนำหน้าชื่อ...</option>
             <option value="เด็กชาย">เด็กชาย</option>
             <option value="เด็กหญิง">เด็กหญิง</option>
             <option value="นาย">นาย</option>
@@ -18,10 +26,24 @@
           </select>
         </div>
         <div class="col">
-          <input type="text" class="form-control" id="plate" placeholder="ชื่อ" v-model="fname">
+          <input
+            type="text"
+            class="form-control"
+            id="plate"
+            placeholder="ชื่อ"
+            v-model="fname"
+            @input="clearErr"
+          />
         </div>
         <div class="col">
-          <input type="text" class="form-control" id="plate" placeholder="นามสกุล" v-model="lname">
+          <input
+            type="text"
+            class="form-control"
+            id="plate"
+            placeholder="นามสกุล"
+            v-model="lname"
+            @input="clearErr"
+          />
         </div>
       </div>
     </div>
@@ -34,7 +56,8 @@
         placeholder="08xxxxxxxx"
         maxlength="10"
         v-model="phone"
-      >
+        @input="clearErr"
+      />
     </div>
     <div class="btn-group pt-5">
       <button type="button" id="add-btn" class="btn mover-btn thai" @click="addStudent">บันทึกข้อมูล</button>
@@ -52,22 +75,47 @@ export default {
       prefix: '',
       fname: '',
       lname: '',
-      phone: ''
+      phone: '',
+      errMsg: ''
     }
   },
   methods: {
     addStudent () {
-      firebase.firestore().collection('managers').doc(this.$store.state.uid)
-        .collection('students').add({
-          fname: this.fname,
-          lname: this.lname,
-          prefix: this.prefix,
-          stu_no: this.sid,
-          phone: this.phone
-        })
-        .then(() => {
-          this.$router.replace({ path: '/dashboard/student' })
-        })
+      if (this.validate()) {
+        firebase
+          .firestore()
+          .collection('managers')
+          .doc(this.$store.state.uid)
+          .collection('students')
+          .add({
+            fname: this.fname,
+            lname: this.lname,
+            prefix: this.prefix,
+            stu_no: this.sid,
+            phone: this.phone
+          })
+          .then(() => {
+            this.$router.replace({ path: '/dashboard/student' })
+          })
+      } else {
+        this.errMsg = '** โปรดกรอกข้อมูลให้ครบถ้วน'
+      }
+    },
+    validate () {
+      if (
+        this.fname === '' ||
+        this.lname === '' ||
+        this.prefix === '' ||
+        this.sid === '' ||
+        this.phone === ''
+      ) {
+        return false
+      } else {
+        return true
+      }
+    },
+    clearErr () {
+      this.errMsg = ''
     }
   }
 }
@@ -81,9 +129,6 @@ export default {
 #add-btn {
   width: 10rem;
   height: 2rem;
-  background: linear-gradient(
-    180deg,
-    rgba(33, 149, 186, 1) 0%
-  )
+  background: linear-gradient(180deg, rgba(33, 149, 186, 1) 0%);
 }
 </style>

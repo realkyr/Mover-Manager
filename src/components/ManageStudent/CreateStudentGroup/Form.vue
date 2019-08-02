@@ -1,9 +1,16 @@
 <template>
   <form>
-    <small v-show="errMsg" style="color:red;" class="alert-text thai">{{ errMsg }}</small>
+    <small v-show="errMsg" style="color:red;font-size:12pt" class="alert-text thai">{{ errMsg }}</small>
     <div class="form-group">
       <label for="name">Group Name | ชื่อกลุ่ม</label>
-      <input type="text" class="form-control" id="name" placeholder="กลุ่มแรก" v-model="name" />
+      <input
+        type="text"
+        class="form-control"
+        id="name"
+        placeholder="กลุ่มแรก"
+        v-model="name"
+        @input="clearErr"
+      />
     </div>
     <div class="form-group">
       <label for="plate">Students | นักเรียน</label>
@@ -22,7 +29,7 @@
     </div>
     <div class="form-group">
       <label for="phone">Section | ช่วงเวลา</label>
-      <select class="custom-select mr-sm-2" v-model="section">
+      <select class="custom-select mr-sm-2" v-model="section" @change="clearErr">
         <option value>เลือกช่วงเวลา...</option>
         <option value="เช้า">ช่วงเช้า</option>
         <option value="บ่าย">ช่วงบ่าย</option>
@@ -48,8 +55,14 @@
             </button>
           </div>
           <div class="modal-body d-flex justify-content-center flex-column align-items-center">
-            <p><span class="text-danger">{{ stdName }}</span> ได้อยู่ในกลุ่ม <span class="text-danger">{{ groupName }}</span></p>
-            <p>แน่ใจว่าจะเพิ่ม <span class="text-danger">{{ stdName }}</span> เข้ากลุ่มนี้ ?</p>
+            <p>
+              <span class="text-danger">{{ stdName }}</span> ได้อยู่ในกลุ่ม
+              <span class="text-danger">{{ groupName }}</span>
+            </p>
+            <p>
+              แน่ใจว่าจะเพิ่ม
+              <span class="text-danger">{{ stdName }}</span> เข้ากลุ่มนี้ ?
+            </p>
           </div>
           <div class="modal-footer d-flex justify-content-center">
             <button type="button" id="noBtn" class="btn mover-btn" @click="removeOption">ไม่</button>
@@ -121,7 +134,7 @@ export default {
             this.$router.replace({ path: '/dashboard/student/group' })
           })
       } else {
-        this.errMsg = 'โปรดกรอกข้อมูลให้ครบถ้วน'
+        this.errMsg = '** โปรดกรอกข้อมูลให้ครบถ้วน'
       }
     },
     validate (value) {
@@ -137,6 +150,8 @@ export default {
               this.stdName = value.name
               this.groupName = data.data().name
               $('#alertModal').modal('show')
+            } else {
+              this.errMsg = ''
             }
           })
         })
@@ -147,9 +162,14 @@ export default {
       })
       this.value.splice(index, 1)
       $('#alertModal').modal('hide')
+      this.clearErr()
     },
     acceptOption () {
       $('#alertModal').modal('hide')
+      this.clearErr()
+    },
+    clearErr () {
+      this.errMsg = ''
     }
   }
 }

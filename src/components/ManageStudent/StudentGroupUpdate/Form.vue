@@ -28,11 +28,14 @@
         <option value="บ่าย">ช่วงบ่าย</option>
       </select>
     </div>
-    <div class="btn-group pt-5">
-      <button type="button" id="add-btn" class="btn mover-btn thai" @click="updateGroup">บันทึกข้อมูล</button>
+    <div class="d-flex justify-content-center align-items-center flex-column pt-5">
+      <button type="button" id="add-btn" class="btn mover-btn thai mb-2" @click="updateGroup">บันทึกข้อมูล</button>
+      <button type="button" id="drop-btn" class="btn mover-btn thai" @click="deleteGroup">
+        <i class="far fa-trash-alt"/>  ลบ
+      </button>
     </div>
     <div
-      id="alertModal"
+      id="alertModal1"
       class="modal fade"
       tabindex="-1"
       role="dialog"
@@ -52,8 +55,34 @@
             <p>แน่ใจว่าจะเพิ่ม <span class="text-danger">{{ stdName }}</span> เข้ากลุ่มนี้ ?</p>
           </div>
           <div class="modal-footer d-flex justify-content-center">
-            <button type="button" id="noBtn" class="btn mover-btn" @click="removeOption">ไม่</button>
-            <button type="button" id="yesBtn" class="btn mover-btn" @click="acceptOption">ตกลง</button>
+            <button type="button" id="noBtn" class="btn mover-btn" @click="removeOption1">ไม่</button>
+            <button type="button" id="yesBtn" class="btn mover-btn" @click="acceptOption1">ตกลง</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      id="alertModal2"
+      class="modal fade"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalCenterTitle"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle"></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body d-flex justify-content-center flex-column align-items-center">
+            <p>แน่ใจว่าจะลบกลุ่ม <span class="text-danger">{{ name }}</span>?</p>
+          </div>
+          <div class="modal-footer d-flex justify-content-center">
+            <button type="button" id="noBtn" class="btn mover-btn" @click="removeOption2">ไม่</button>
+            <button type="button" id="yesBtn" class="btn mover-btn" @click="acceptOption2">แน่ใจ</button>
           </div>
         </div>
       </div>
@@ -140,20 +169,43 @@ export default {
             if (data.data().students.includes(value.sid) && this.$route.params.groupId !== data.id) {
               this.stdName = value.name
               this.groupName = data.data().name
-              $('#alertModal').modal('show')
+              $('#alertModal1').modal('show')
             }
           })
         })
     },
-    removeOption () {
+    removeOption1 () {
       const index = this.value.findIndex(item => {
         return item.name === this.stdName
       })
       this.value.splice(index, 1)
-      $('#alertModal').modal('hide')
+      $('#alertModal1').modal('hide')
     },
-    acceptOption () {
-      $('#alertModal').modal('hide')
+    acceptOption1 () {
+      $('#alertModal1').modal('hide')
+    },
+    deleteGroup () {
+      $('#alertModal2').modal('show')
+    },
+    removeOption2 () {
+      $('#alertModal2').modal('hide')
+    },
+    acceptOption2 () {
+      let managerRef = firebase.firestore().collection('managers').doc(this.$store.state.uid)
+      managerRef.collection('student-groups').doc(this.$route.params.groupId).delete()
+        .then(() => {
+          managerRef.collection('cars').where('student_group', '==', this.$route.params.groupId).get()
+            .then(snapshot => {
+              snapshot.docs.forEach(car => {
+                managerRef.collection('cars').doc(car.id).update({
+                  'student_group': ''
+                })
+              })
+            }).then(() => {
+              $('#alertModal2').modal('hide')
+              this.$router.push({ path: '/dashboard/student/group' })
+            })
+        })
     }
   }
 }
@@ -227,5 +279,13 @@ input:focus {
   width: 10rem;
   height: 2rem;
   background: linear-gradient(180deg, rgba(33, 149, 186, 1) 0%);
+}
+#drop-btn {
+  width: 10rem;
+  height: 2rem;
+  background: #d9534f;
+}
+#drop-btn:hover {
+  color: black;
 }
 </style>

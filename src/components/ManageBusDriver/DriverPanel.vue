@@ -37,7 +37,7 @@ export default {
     QrModal
   },
   mounted () {
-    firebase.firestore().collection('managers').doc(this.$store.state.uid)
+    this.onDriver = firebase.firestore().collection('managers').doc(this.$store.state.uid)
       .collection('drivers').orderBy('fname').onSnapshot(snapshot => {
         snapshot.docChanges().forEach(change => {
           if (change.type === 'added') {
@@ -68,6 +68,9 @@ export default {
       // eslint-disable-next-line no-undef
       $(element).modal('hide')
     }
+  },
+  beforeDestroy () {
+    this.onDriver()
   }
 }
 </script>
