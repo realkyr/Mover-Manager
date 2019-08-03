@@ -39,17 +39,17 @@ export default {
   },
   mounted () {
     // ดึงข้อมูลนักเรียนทั้งหมดมา โดยเรียงตามชื่อ
+    let tmpStudents = {}
     this.onStudent = firebase.firestore().collection('managers').doc(this.$store.state.uid)
       .collection('students').orderBy('fname').onSnapshot(snapshot => {
         snapshot.docChanges().forEach(change => {
           if (change.type === 'added') {
-            let tmpStudents = {}
             snapshot.docs.forEach(data => {
               tmpStudents[data.id] = data.data()
             })
-            this.setStudents(tmpStudents)
           }
         })
+        this.setStudents(tmpStudents)
       })
   },
   data () {

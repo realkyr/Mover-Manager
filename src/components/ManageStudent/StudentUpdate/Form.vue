@@ -132,7 +132,8 @@ export default {
         firebase.firestore().collection('managers').doc(this.$store.state.uid)
           .collection('students').doc(this.sid)
           .set({
-            pic: path
+            pic: path,
+            pic_link: ''
           }, { merge: true })
         this.setPathStudent({
           sid: this.sid,

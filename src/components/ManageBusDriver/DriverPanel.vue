@@ -37,18 +37,18 @@ export default {
     QrModal
   },
   mounted () {
+    let tmpDrivers = {}
     this.onDriver = firebase.firestore().collection('managers').doc(this.$store.state.uid)
       .collection('drivers').orderBy('fname').onSnapshot(snapshot => {
         snapshot.docChanges().forEach(change => {
           if (change.type === 'added') {
-            let tmpDrivers = {}
             snapshot.docs.forEach(data => {
               tmpDrivers[data.id] = data.data()
             })
-            this.setDrivers(tmpDrivers)
             this.closeModal()
           }
         })
+        this.setDrivers(tmpDrivers)
       })
   },
   data () {

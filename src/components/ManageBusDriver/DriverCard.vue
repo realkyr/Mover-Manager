@@ -49,18 +49,25 @@ export default {
     }
   },
   mounted () {
-    if ('pic' in this.driverInfo) {
-      firebase
-        .storage()
-        .ref()
-        .child(this.driverInfo.pic)
-        .getDownloadURL()
-        .then(url => {
-          this.pic = url
-        })
-    } else {
-      this.pic = null
-    }
+    let managerRef = firebase.firestore().collection('managers').doc(this.$store.state.uid)
+    managerRef.collection('drivers').doc(this.driver).get()
+      .then(data => {
+        if (data.data().pic_link === '') {
+          if ('pic' in this.driverInfo) {
+            firebase.storage().ref().child(this.driverInfo.pic).getDownloadURL()
+              .then(url => {
+                this.pic = url
+                managerRef.collection('drivers').doc(this.driver).update({
+                  'pic_link': this.pic
+                })
+              })
+          } else {
+            this.pic = null
+          }
+        } else if (data.data().pic_link !== '') {
+          this.pic = data.data().pic_link
+        }
+      })
   },
   data () {
     return {

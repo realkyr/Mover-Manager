@@ -130,7 +130,8 @@ export default {
         firebase.firestore().collection('managers').doc(this.$store.state.uid)
           .collection('drivers').doc(this.duid)
           .set({
-            pic: path
+            pic: path,
+            pic_link: ''
           }, { merge: true })
         this.setPathDriver({
           duid: this.duid,
