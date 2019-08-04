@@ -24,7 +24,7 @@
       </div>
       <div class="col-auto">
         <router-link
-          to="/dashboard/drivers/"
+          to="/dashboard/bus/drivers"
           tag="button"
           class="btn mover-btn thai"
         >

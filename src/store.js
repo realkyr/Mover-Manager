@@ -54,12 +54,14 @@ export default new Vuex.Store({
     },
     SET_PATH_STUDENT (state, payload) {
       state.students[payload.sid].pic = payload.data
+      state.students[payload.sid].pic_link = ''
     },
     SET_DRIVERS (state, payload) {
       state.drivers = payload
     },
     SET_PATH_DRIVER (state, payload) {
       state.drivers[payload.duid].pic = payload.data
+      state.drivers[payload.duid].pic_link = ''
     },
     SET_BUSES (state, payload) {
       state.buses = payload

@@ -107,12 +107,12 @@ let router = new Router({
       component: StudentProfile
     },
     {
-      path: '/dashboard/drivers/profile',
+      path: '/dashboard/bus/drivers/profile',
       name: 'drivers-profile',
       component: DriverProfile
     },
     {
-      path: '/dashboard/drivers',
+      path: '/dashboard/bus/drivers',
       name: 'bus-driver-console',
       component: ManageDriver
     },

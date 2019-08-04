@@ -154,7 +154,7 @@ export default {
             'prefix': this.prefix,
             'uid': this.uid
           }).then(() => {
-            this.$router.push({ path: '/dashboard/drivers' })
+            this.$router.push({ path: '/dashboard/bus/drivers' })
           })
       } else {
         this.errMsg = '** โปรดกรอกข้อมูลให้ครบถ้วน'

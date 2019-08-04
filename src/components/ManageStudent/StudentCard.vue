@@ -50,24 +50,21 @@ export default {
   },
   mounted () {
     let managerRef = firebase.firestore().collection('managers').doc(this.$store.state.uid)
-    managerRef.collection('students').doc(this.student).get()
-      .then(data => {
-        if (data.data().pic_link === '') {
-          if ('pic' in this.studentInfo) {
-            firebase.storage().ref().child(this.studentInfo.pic).getDownloadURL()
-              .then(url => {
-                this.pic = url
-                managerRef.collection('students').doc(this.student).update({
-                  'pic_link': this.pic
-                })
-              })
-          } else {
-            this.pic = null
-          }
-        } else if (data.data().pic_link !== '') {
-          this.pic = data.data().pic_link
-        }
-      })
+    if ('pic' in this.studentInfo) {
+      if (this.studentInfo.pic_link === '') {
+        firebase.storage().ref().child(this.studentInfo.pic).getDownloadURL()
+          .then(url => {
+            this.pic = url
+            managerRef.collection('students').doc(this.student).update({
+              'pic_link': this.pic
+            })
+          })
+      } else {
+        this.pic = this.studentInfo.pic_link
+      }
+    } else {
+      this.pic = null
+    }
   },
   data () {
     return {
