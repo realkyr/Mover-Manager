@@ -95,6 +95,7 @@
 import Multiselect from 'vue-multiselect'
 import firebase from 'firebase/app'
 import 'firebase/firestore'
+import moment from 'moment'
 export default {
   components: {
     Multiselect
@@ -134,24 +135,63 @@ export default {
   },
   methods: {
     updateGroup () {
+      let managerRef = firebase.firestore().collection('managers').doc(this.$store.state.uid)
       if (this.name !== '' && this.section !== '' && this.value.length !== 0) {
         let selects = []
         this.value.forEach(data => {
           selects.push(data.sid)
         })
-        firebase
-          .firestore()
-          .collection('managers')
-          .doc(this.$store.state.uid)
-          .collection('student-groups')
-          .doc(this.$route.params.groupId)
+        managerRef.collection('student-groups').doc(this.$route.params.groupId)
           .update({
             'name': this.name,
             'section': this.section,
             'students': selects
-          })
-          .then(() => {
-            this.$router.replace({ path: '/dashboard/student/group' })
+          }).then(() => {
+            managerRef.collection('student-groups').doc(this.$route.params.groupId)
+              .collection('checklist').doc(moment().format('YYYYMMDD')).get()
+              .then(data => {
+                let tmpCheck = data.data()
+                let tmpCheckKeys = Object.keys(tmpCheck)
+                if (tmpCheckKeys.length < selects.length) {
+                  selects.forEach(sid => {
+                    if (!tmpCheckKeys.includes(sid)) {
+                      tmpCheck[sid] = 0
+                    }
+                  })
+                  managerRef.collection('student-groups').doc(this.$route.params.groupId)
+                    .collection('checklist').doc(moment().format('YYYYMMDD')).set(tmpCheck)
+                    .then(() => {
+                      this.$router.replace({ path: '/dashboard/student/group' })
+                    })
+                } else if (tmpCheckKeys.length > selects.length) {
+                  tmpCheckKeys.forEach(sid => {
+                    if (!selects.includes(sid)) {
+                      delete tmpCheck[sid]
+                    }
+                  })
+                  managerRef.collection('student-groups').doc(this.$route.params.groupId)
+                    .collection('checklist').doc(moment().format('YYYYMMDD')).set(tmpCheck)
+                    .then(() => {
+                      this.$router.replace({ path: '/dashboard/student/group' })
+                    })
+                } else {
+                  tmpCheckKeys.forEach(sid => {
+                    if (!selects.includes(sid)) {
+                      delete tmpCheck[sid]
+                    }
+                  })
+                  selects.forEach(sid => {
+                    if (!tmpCheckKeys.includes(sid)) {
+                      tmpCheck[sid] = 0
+                    }
+                  })
+                  managerRef.collection('student-groups').doc(this.$route.params.groupId)
+                    .collection('checklist').doc(moment().format('YYYYMMDD')).set(tmpCheck)
+                    .then(() => {
+                      this.$router.replace({ path: '/dashboard/student/group' })
+                    })
+                }
+              })
           })
       } else {
         this.errMsg = 'โปรดกรอกข้อมูลให้ครบถ้วน'
