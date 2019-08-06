@@ -14,7 +14,7 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="modal-body thai">
+        <div class="modal-body thai pl-4 pr-4">
           <div v-for="i in content" :key="i">
             <p>{{ i }}</p>
           </div>
