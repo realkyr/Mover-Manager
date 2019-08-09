@@ -1,11 +1,11 @@
 <template>
   <div style="display: flex; flex-flow: column; height: 100vh;">
-    <Searchbar/>
+    <Searchbar @sendInputDriver="listenDriver" />
     <Sidebar />
     <div class="thai inside-container">
       <span>จัดการคนขับ</span>
       <Navtab />
-      <DriverPanel />
+      <DriverPanel ref="driverPanel" />
     </div>
   </div>
 </template>
@@ -22,6 +22,11 @@ export default {
     Sidebar,
     Navtab,
     DriverPanel
+  },
+  methods: {
+    listenDriver (data) {
+      this.$refs.driverPanel.onListenDriver(data)
+    }
   }
 }
 </script>

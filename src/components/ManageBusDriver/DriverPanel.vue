@@ -11,9 +11,9 @@
       </div>
     </div>
     <div class="bus-listview">
-      <span v-if="Object.keys($store.state.drivers).length === 0">{{ errMsg }}</span>
-      <div class="row mr-3">
-        <div class="col-12" :key="driver" v-for="driver in Object.keys($store.state.drivers)">
+      <span v-if="filteredDriver.length === 0">{{ errMsg }}</span>
+      <div v-else class="row mr-3">
+        <div class="col-12" :key="driver" v-for="driver in filteredDriver">
           <DriverCard
             :driver="driver"
             :driverInfo="$store.state.drivers[driver]"
@@ -53,7 +53,25 @@ export default {
   },
   data () {
     return {
-      errMsg: 'ไม่พบข้อมูล'
+      errMsg: 'ไม่พบข้อมูล',
+      inputDriver: ''
+    }
+  },
+  computed: {
+    filteredDriver () {
+      let filtered = []
+      if (this.inputDriver === '' || !this.inputDriver.trim().length) {
+        filtered = Object.keys(this.$store.state.drivers)
+      } else {
+        const entries = Object.entries(this.$store.state.drivers)
+        for (const [duid, info] of entries) {
+          let name = info.fname + ' ' + info.lname
+          if (name.includes(this.inputDriver) && this.inputDriver.length >= 1) {
+            filtered.push(duid)
+          }
+        }
+      }
+      return filtered
     }
   },
   methods: {
@@ -67,6 +85,9 @@ export default {
       let element = this.$refs.modal.$el
       // eslint-disable-next-line no-undef
       $(element).modal('hide')
+    },
+    onListenDriver (input) {
+      this.inputDriver = input
     }
   },
   beforeDestroy () {

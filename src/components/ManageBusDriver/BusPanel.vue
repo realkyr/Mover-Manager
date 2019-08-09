@@ -15,9 +15,9 @@
       </div>
     </div>
     <div class="bus-listview">
-      <span v-if="Object.keys($store.state.buses).length === 0">{{ errMsg }}</span>
+      <span v-if="filteredBus.length === 0">{{ errMsg }}</span>
       <div v-else class="row">
-        <div class="col-auto" :key="bus" v-for="bus in Object.keys($store.state.buses)">
+        <div class="col-auto" :key="bus" v-for="bus in filteredBus">
           <BusCard
             :bus="bus"
             :busID="$store.state.buses[bus].no"
@@ -83,7 +83,24 @@ export default {
       tmpDriver: '',
       drivers: {},
       groups: {},
-      students: {}
+      students: {},
+      inputBus: ''
+    }
+  },
+  computed: {
+    filteredBus () {
+      let filtered = []
+      if (this.inputBus === '' || !this.inputBus.trim().length) {
+        filtered = Object.keys(this.$store.state.buses)
+      } else {
+        const entries = Object.entries(this.$store.state.buses)
+        for (const [bid, info] of entries) {
+          if (info.license_plate.includes(this.inputBus) && this.inputBus.length >= 1) {
+            filtered.push(bid)
+          }
+        }
+      }
+      return filtered
     }
   },
   methods: {
@@ -99,8 +116,10 @@ export default {
             currentBuses[data.id] = data.data()
           })
           this.setBuses(currentBuses)
-          // this.buses = this.$store.state.buses
         })
+    },
+    onListenBus (input) {
+      this.inputBus = input
     }
   }
 }

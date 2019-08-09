@@ -39,18 +39,9 @@ export default {
   methods: {
     ...mapActions(['setBuses']),
     closeModal () {
-      console.log({ uid: this.uid })
       firebase.firestore().collection('managers').doc(this.$store.state.uid)
         .collection('cars').doc(this.uid).delete().then(() => {
           this.$emit('onDelete', this.uid)
-          // firebase.firestore().collection('managers').doc(this.$store.state.uid)
-          //   .collection('cars').get().then(snapshot => {
-          //     let currentBuses = {}
-          //     snapshot.forEach(data => {
-          //       currentBuses[data.id] = data.data()
-          //     })
-          //     this.setBuses(currentBuses)
-          //   })
         })
     }
   }

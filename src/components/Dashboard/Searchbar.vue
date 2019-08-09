@@ -5,28 +5,22 @@
         <img id="logo" src="../../assets/logo/logo.png">
       </div>
       <div class="col-8 ml-1 ml-md-4 mt-2 mb-2 d-flex align-items-center">
-        <div v-if="!$route.path.includes('student')" class="thai search-input">
+        <div v-if="$route.path === '/dashboard'" class="thai search-input">
           <autocomplete
             :search="searchBus"
             placeholder="ค้นหารถโดยเลขทะเบียน"
             aria-label="ค้นหารถโดยเลขทะเบียน"
             @submit="onSearchBus"
           ></autocomplete>
-          <!-- <autocomplete
-            v-else
-            :search="searchStd"
-            placeholder="ค้นหานักเรียน"
-            aria-label="ค้นหานักเรียน"
-            @submit="onSearchStd"
-            @input="onInput"
-            v-on:keyup.left="onIndexLeft"
-            v-on:keyup.right="onIndexRight"
-          >
-          </autocomplete> -->
+        </div>
+        <div v-else-if="$route.path === '/dashboard/bus/drivers'" class="search-input">
+          <input class="thai" type="text" v-model="textDriver" placeholder="ค้นหาคนขับ" @input="onInputDriver">
+        </div>
+        <div v-else-if="$route.path === '/dashboard/bus'" class="search-input">
+          <input class="thai" type="text" v-model="textBus" placeholder="ค้นหารถโดยเลขทะเบียน" @input="onInputBus">
         </div>
         <div v-else class="search-input">
-          <input class="thai" type="text" v-model="text" placeholder="ค้นหานักเรียน" @input="onInput">
-          <!-- <i class="fas fa-search" aria-hidden="true"></i> -->
+          <input class="thai" type="text" v-model="textStd" placeholder="ค้นหานักเรียน" @input="onInputStd">
         </div>
       </div>
       <div class="
@@ -82,7 +76,9 @@ export default {
   },
   data () {
     return {
-      text: '',
+      textStd: '',
+      textDriver: '',
+      textBus: '',
       isDrop: false,
       displayName: this.getDisplayName(),
       cars: [],
@@ -121,11 +117,14 @@ export default {
         return student.toLowerCase().includes(input.toLowerCase())
       })
     },
-    // onSearchStd (result) {
-    //   this.$emit('onClickStd', result)
-    // },
-    onInput (e) {
-      this.$emit('sendInput', this.text)
+    onInputStd (e) {
+      this.$emit('sendInputStd', this.textStd)
+    },
+    onInputDriver (e) {
+      this.$emit('sendInputDriver', this.textDriver)
+    },
+    onInputBus (e) {
+      this.$emit('sendInputBus', this.textBus)
     }
   }
 }

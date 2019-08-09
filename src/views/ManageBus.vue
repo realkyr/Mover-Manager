@@ -1,6 +1,6 @@
 <template>
   <div style="display: flex; flex-flow: column; height: 100vh;">
-    <Searchbar/>
+    <Searchbar @sendInputBus="listenBus" />
     <Sidebar />
     <div class="thai inside-container">
       <span>จัดการรถโรงเรียน</span>
@@ -10,7 +10,7 @@
         EXAMPLE: create bus, put driver into bus, Checklist
        -->
       <Navtab />
-      <BusPanel />
+      <BusPanel ref="busPanel"/>
     </div>
   </div>
 </template>
@@ -27,6 +27,11 @@ export default {
     Sidebar,
     Navtab,
     BusPanel
+  },
+  methods: {
+    listenBus (data) {
+      this.$refs.busPanel.onListenBus(data)
+    }
   }
 }
 </script>
