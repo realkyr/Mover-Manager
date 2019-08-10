@@ -2,15 +2,30 @@
   <div>
     <div class="box">
       <div class="logo-container">
-        <img id="logo" src="../assets/logo/logo.png">
+        <img id="logo" src="../assets/logo/logo.png" />
       </div>
       <form>
         <div class="my-input-control">
-          <input autocomplete="email" v-model="email" class="thai" type="text" placeholder="E-Mail">
+          <input
+            autocomplete="email"
+            v-model="email"
+            class="thai"
+            type="text"
+            placeholder="E-Mail"
+            v-on:keyup.enter="login"
+            @input="clearErr"
+          />
           <i class="fas fa-envelope" aria-hidden="true"></i>
         </div>
         <div class="my-input-control">
-          <input autocomplete="password" v-model="password" type="password" placeholder="Password">
+          <input
+            autocomplete="password"
+            v-model="password"
+            type="password"
+            placeholder="Password"
+            v-on:keyup.enter="login"
+            @input="clearErr"
+          />
           <i class="fas fa-lock" aria-hidden="true"></i>
         </div>
       </form>
@@ -23,9 +38,7 @@
           <router-link to="/register">สมัครสมาชิก</router-link>
         </small>
         <small class="thai">
-          <router-link :to="{name: 'ResetPassword'}" >
-            ลืมรหัสผ่าน?
-          </router-link>
+          <router-link :to="{name: 'ResetPassword'}">ลืมรหัสผ่าน?</router-link>
         </small>
       </div>
     </div>
@@ -54,8 +67,9 @@ export default {
     firebase.auth().signOut()
   },
   methods: {
-    ...mapActions(['setUser', 'setUid']),
+    ...mapActions(['setUser', 'setUid', 'setDrivers', 'setStudents', 'setGroups']),
     login () {
+      let managerRef = firebase.firestore().collection('managers')
       if (this.email !== '' && this.password !== '') {
         this.errorMsg = ''
         firebase
@@ -64,13 +78,36 @@ export default {
           .then(user => {
             if (user.user.emailVerified) {
               this.setUid(user.user.uid)
-              firebase
-                .firestore()
-                .collection('managers')
+              managerRef
                 .doc(user.user.uid)
                 .get()
                 .then(data => {
                   this.setUser(data.data())
+                }).then(() => {
+                  managerRef.doc(user.user.uid).collection('drivers').get()
+                    .then(snapshot => {
+                      let tmpDrivers = {}
+                      snapshot.forEach(driver => {
+                        tmpDrivers[driver.id] = driver.data()
+                      })
+                      this.setDrivers(tmpDrivers)
+                    })
+                  managerRef.doc(user.user.uid).collection('students').get()
+                    .then(snapshot => {
+                      let tmpStudents = {}
+                      snapshot.forEach(student => {
+                        tmpStudents[student.id] = student.data()
+                      })
+                      this.setStudents(tmpStudents)
+                    })
+                  managerRef.doc(user.user.uid).collection('student-groups').get()
+                    .then(snapshot => {
+                      let tmpGroups = {}
+                      snapshot.forEach(group => {
+                        tmpGroups[group.id] = group.data()
+                      })
+                      this.setGroups(tmpGroups)
+                    })
                   this.$router.replace('dashboard')
                 })
             } else {
@@ -82,13 +119,19 @@ export default {
             let errorCode = error.code
             if (errorCode === 'auth/wrong-password') {
               this.errorMsg = 'กรอกอีเมล-รหัสผ่านให้ถูกต้อง'
-            } else if (errorCode === 'auth/user-not-found' || errorCode === 'auth/invalid-email') {
+            } else if (
+              errorCode === 'auth/user-not-found' ||
+              errorCode === 'auth/invalid-email'
+            ) {
               this.errorMsg = 'อีเมลไม่ถูกต้อง'
             }
           })
       } else {
         this.errorMsg = 'โปรดกรอกอีเมล-รหัสผ่าน'
       }
+    },
+    clearErr () {
+      this.errorMsg = ''
     }
   }
 }
@@ -116,7 +159,11 @@ export default {
 }
 
 #login {
-  background: linear-gradient(180deg, rgba(33,149,186,1) 0%, rgba(27,127,158,1) 100%) !important;
+  background: linear-gradient(
+    180deg,
+    rgba(33, 149, 186, 1) 0%,
+    rgba(27, 127, 158, 1) 100%
+  ) !important;
   border-radius: 18px;
   width: 100%;
   margin: 10px 0 10px 0;
@@ -203,8 +250,16 @@ input[type="text"]:focus + i {
   color: #2094b9;
 }
 
+input[type="password"]:focus + i {
+  color: #2094b9;
+}
+
 #login {
-  background: linear-gradient(180deg, rgba(33,149,186,1) 0%, rgba(27,127,158,1) 100%) !important;
+  background: linear-gradient(
+    180deg,
+    rgba(33, 149, 186, 1) 0%,
+    rgba(27, 127, 158, 1) 100%
+  ) !important;
   border-radius: 18px;
   width: 100%;
 }
