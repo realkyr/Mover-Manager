@@ -31,10 +31,10 @@
       <select class="custom-select mr-sm-2" id="driver" v-model="groupStudent" @change="clearErr">
         <option value>เลือกกลุ่มนักเรียน...</option>
         <option
-          v-for="group in Object.keys($route.params)"
+          v-for="group in Object.keys($store.state.stdGroups)"
           :key="group"
           :value="group"
-        >{{ $route.params[group].name }}</option>
+        >{{ $store.state.stdGroups[group].name }}</option>
       </select>
     </div>
     <div class="btn-group pt-5">

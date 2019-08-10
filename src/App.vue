@@ -21,12 +21,48 @@ export default {
     if (this.$route.path.includes('/dashboard')) {
       firebase.auth().onAuthStateChanged(user => {
         if (user) {
+          let managerRef = firebase.firestore().collection('managers').doc(user.uid)
           // ดึงข้อมูล user, uid มาใส่ใน vuex
-          firebase.firestore().collection('managers').doc(user.uid).get()
+          managerRef.get()
             .then(data => {
               this.setUid(user.uid)
               this.setUser(data.data())
-              this.isShow = true
+              // this.isShow = true
+            }).then(() => {
+              managerRef.collection('cars').orderBy('no').get()
+                .then(snapshot => {
+                  let tmpBuses = {}
+                  snapshot.forEach(bus => {
+                    tmpBuses[bus.id] = bus.data()
+                  })
+                  this.setBuses(tmpBuses)
+                })
+              managerRef.collection('drivers').orderBy('fname').get()
+                .then(snapshot => {
+                  let tmpDrivers = {}
+                  snapshot.forEach(driver => {
+                    tmpDrivers[driver.id] = driver.data()
+                  })
+                  this.setDrivers(tmpDrivers)
+                })
+              managerRef.collection('students').orderBy('fname').get()
+                .then(snapshot => {
+                  let tmpStudents = {}
+                  snapshot.forEach(student => {
+                    tmpStudents[student.id] = student.data()
+                  })
+                  this.setStudents(tmpStudents)
+                })
+              managerRef.collection('student-groups').get()
+                .then(snapshot => {
+                  let tmpGroups = {}
+                  snapshot.forEach(group => {
+                    tmpGroups[group.id] = group.data()
+                  })
+                  this.setGroups(tmpGroups)
+                }).then(() => {
+                  this.isShow = true
+                })
             })
         } else {
           // ไปหน้า login
@@ -39,7 +75,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['setUid', 'setUser'])
+    ...mapActions(['setUser', 'setUid', 'setDrivers', 'setStudents', 'setBuses', 'setGroups'])
   },
   data () {
     return {

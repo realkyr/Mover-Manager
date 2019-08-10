@@ -24,7 +24,7 @@
             :plate="$store.state.buses[bus].license_plate"
             :driver="$store.state.buses[bus].driver"
             :studentGroup="$store.state.buses[bus].student_group"
-            :studentGroups="groups"
+            :studentGroups="$store.state.stdGroups"
           />
           <DeleteModal
             :plate="$store.state.buses[bus].plate"
@@ -58,23 +58,23 @@ export default {
       })
       this.setBuses(this.buses)
     })
-    managerRef.collection('drivers').orderBy('fname').get().then(snapshot => {
-      snapshot.forEach(data => {
-        this.drivers[data.id] = data.data()
-      })
-      this.setDrivers(this.drivers)
-    })
-    managerRef.collection('student-groups').get().then(snapshot => {
-      snapshot.forEach(data => {
-        this.groups[data.id] = data.data()
-      })
-    })
-    managerRef.collection('students').orderBy('fname').get().then(snapshot => {
-      snapshot.forEach(data => {
-        this.students[data.id] = data.data()
-      })
-      this.setStudents(this.students)
-    })
+    // managerRef.collection('drivers').orderBy('fname').get().then(snapshot => {
+    //   snapshot.forEach(data => {
+    //     this.drivers[data.id] = data.data()
+    //   })
+    //   this.setDrivers(this.drivers)
+    // })
+    // managerRef.collection('student-groups').get().then(snapshot => {
+    //   snapshot.forEach(data => {
+    //     this.groups[data.id] = data.data()
+    //   })
+    // })
+    // managerRef.collection('students').orderBy('fname').get().then(snapshot => {
+    //   snapshot.forEach(data => {
+    //     this.students[data.id] = data.data()
+    //   })
+    //   this.setStudents(this.students)
+    // })
   },
   data () {
     return {

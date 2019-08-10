@@ -46,15 +46,6 @@ export default {
     GroupCard
   },
   mounted () {
-    firebase.firestore().collection('managers').doc(this.$store.state.uid)
-      .collection('students').orderBy('fname').get()
-      .then(snapshot => {
-        let tmpStudents = {}
-        snapshot.forEach(data => {
-          tmpStudents[data.id] = data.data()
-        })
-        this.setStudents(tmpStudents)
-      })
     // ดึงข้อมูลกลุ่มนักเรียนช่วงเช้า
     firebase
       .firestore()

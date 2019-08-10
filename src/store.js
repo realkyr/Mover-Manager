@@ -11,7 +11,8 @@ export default new Vuex.Store({
     },
     students: {},
     drivers: {},
-    buses: {}
+    buses: {},
+    stdGroups: {}
   },
   mutations: {
     SET_USER (state, payload) {
@@ -68,6 +69,9 @@ export default new Vuex.Store({
     },
     UPDATE_BUS (state, payload) {
       state.buses[payload.bid].driver = payload.data.driver
+    },
+    SET_GROUPS (state, payload) {
+      state.stdGroups = payload
     }
   },
   actions: {
@@ -112,6 +116,9 @@ export default new Vuex.Store({
     },
     updateDriverBus: ({ commit }, data) => {
       commit('UPDATE_BUS', data)
+    },
+    setGroups: ({ commit }, data) => {
+      commit('SET_GROUPS', data)
     }
   },
   getters: {

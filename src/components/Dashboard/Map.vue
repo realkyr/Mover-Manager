@@ -57,7 +57,7 @@ export default {
             // this.count = 0
             this.buses[change.doc.id]['marker'].setPosition(myLatlng)
             this.buses[change.doc.id].popup.position = myLatlng
-            this.map.setCenter(this.buses[change.doc.id].marker.getPosition())
+            // this.map.setCenter(this.buses[change.doc.id].marker.getPosition())
           }
         })
       })

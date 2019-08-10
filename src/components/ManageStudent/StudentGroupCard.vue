@@ -36,10 +36,6 @@
           v-for="student in Object.keys(studentNames)"
         >
           {{ studentNames[student] }}
-          <!-- <input type="checkbox" class="custom-control-input" :id="`${student}`">
-          <label class="custom-control-label" :for="`${student}`">
-            {{ studentNames[student] }}
-          </label> -->
         </div>
       </div>
     </div>

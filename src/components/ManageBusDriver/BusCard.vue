@@ -82,23 +82,28 @@ export default {
     }
   },
   mounted () {
-    let managerRef = firebase.firestore().collection('managers').doc(this.$store.state.uid)
-    managerRef.collection('drivers').doc(this.driver).get()
-      .then(data => {
-        this.driverName = data.data().prefix + data.data().fname + ' ' + data.data().lname
-      })
-    managerRef.collection('cars').doc(this.bus).get()
-      .then(data => {
-        this.groupSelect = data.data().student_group
-        this.finalGroupSelect = data.data().student_group
-      }).then(() => {
-        if (this.groupSelect !== '') {
-          managerRef.collection('student-groups').doc(this.groupSelect).get()
-            .then(data => {
-              this.groupName = data.data().name
-            })
-        }
-      })
+    this.driverName = this.$store.state.drivers[this.driver].prefix +
+      this.$store.state.drivers[this.driver].fname + ' ' + this.$store.state.drivers[this.driver].lname
+    this.groupSelect = this.$store.state.buses[this.bus].student_group
+    this.finalGroupSelect = this.$store.state.buses[this.bus].student_group
+    this.groupName = this.$store.state.stdGroups[this.groupSelect].name
+    // let managerRef = firebase.firestore().collection('managers').doc(this.$store.state.uid)
+    // managerRef.collection('drivers').doc(this.driver).get()
+    //   .then(data => {
+    //     this.driverName = data.data().prefix + data.data().fname + ' ' + data.data().lname
+    //   })
+    // managerRef.collection('cars').doc(this.bus).get()
+    //   .then(data => {
+    //     this.groupSelect = data.data().student_group
+    //     this.finalGroupSelect = data.data().student_group
+    //   }).then(() => {
+    //     if (this.groupSelect !== '') {
+    //       managerRef.collection('student-groups').doc(this.groupSelect).get()
+    //         .then(data => {
+    //           this.groupName = data.data().name
+    //         })
+    //     }
+    //   })
   },
   data () {
     return {
