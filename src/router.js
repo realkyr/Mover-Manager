@@ -18,6 +18,7 @@ import DriverProfile from '@/views/Driver/DriverProfile'
 import CreateBus from '@/views/Bus/CreateBus'
 import Profile from '@/views/Profile/Profile'
 import Terms from '@/views/Terms'
+import TermsApp from '@/views/PrivacyApp'
 import CheckStudent from '@/views/Bus/CheckStudent'
 
 Vue.use(Router)
@@ -120,6 +121,11 @@ let router = new Router({
       path: '/terms',
       name: 'terms',
       component: Terms
+    },
+    {
+      path: '/privacy/app',
+      name: 'terms-app',
+      component: TermsApp
     },
     {
       path: '/dashboard/bus/check',

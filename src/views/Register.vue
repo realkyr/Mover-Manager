@@ -9,7 +9,13 @@
         <div class="col-12 col-sm-12 col-md-6 col-lg-6 input-group">
           <div class="input-control">
             <div class="register-input-control">
-              <input v-model="email" class="input-info thai" type="text" placeholder="E-Mail" />
+              <input
+                v-model="email"
+                class="input-info thai"
+                type="text"
+                placeholder="E-Mail"
+                @input="() => {this.errEmail = ''}"
+              />
               <i class="fas fa-envelope" aria-hidden="true"></i>
             </div>
             <small v-show="errEmail" style="color:red;" class="alert-text thai">{{ errEmail }}</small>
@@ -21,13 +27,25 @@
                 <option value="นางสาว">นางสาว</option>
               </select>
               <div class="register-input-control col pr-0">
-                <input v-model="fname" class="input-info thai" type="text" placeholder="ชื่อ" />
+                <input
+                  v-model="fname"
+                  class="input-info thai"
+                  type="text"
+                  placeholder="ชื่อ"
+                  @input="() => {this.errName = ''}"
+                />
                 <i id="fname" class="fas fa-user-circle" aria-hidden="true"></i>
               </div>
             </div>
             <small v-show="errName" style="color:red;" class="alert-text thai">{{ errName }}</small>
             <div class="register-input-control">
-              <input v-model="lname" class="input-info thai" type="text" placeholder="นามสกุล" />
+              <input
+                v-model="lname"
+                class="input-info thai"
+                type="text"
+                placeholder="นามสกุล"
+                @input="() => {this.errName = ''}"
+              />
               <i class="fas fa-user-circle" aria-hidden="true"></i>
             </div>
             <small v-show="errName" style="color:red;" class="alert-text thai">{{ errName }}</small>
@@ -38,6 +56,7 @@
                 type="tel"
                 placeholder="เบอร์โทรศัพท์"
                 maxlength="10"
+                @input="() => {this.errPhone = ''}"
               />
               <i class="fas fa-mobile-alt" aria-hidden="true"></i>
             </div>
@@ -48,6 +67,7 @@
                 class="input-info thai"
                 type="password"
                 placeholder="รหัสผ่าน"
+                @input="() => {this.errPass = ''}"
               />
               <i class="fas fa-lock" aria-hidden="true"></i>
             </div>
@@ -58,13 +78,25 @@
                 class="input-info thai"
                 type="password"
                 placeholder="ยืนยันรหัสผ่าน"
+                @input="() => {this.errConPass = ''}"
               />
               <i class="fas fa-lock" aria-hidden="true"></i>
             </div>
             <small v-show="errConPass" style="color:red;" class="alert-text thai">{{ errConPass }}</small>
             <div class="custom-control custom-checkbox mt-3">
-              <input id="terms" type="checkbox" class="custom-control-input" v-model="isAccept" @change="setAccept"/>
-              <label style="font-size:12pt;" class="thai custom-control-label" :class="{ 'text-danger':isNotCheck }" for="terms">
+              <input
+                id="terms"
+                type="checkbox"
+                class="custom-control-input"
+                v-model="isAccept"
+                @change="setAccept"
+              />
+              <label
+                style="font-size:12pt;"
+                class="thai custom-control-label"
+                :class="{ 'text-danger':isNotCheck }"
+                for="terms"
+              >
                 ฉันยอมรับข้อตกลงการใช้งาน
                 <a
                   @click="showModal"
@@ -167,8 +199,8 @@ export default {
       } else {
         this.errEmail = ''
       }
-      if (this.phone === '') {
-        this.errPhone = 'โปรดกรอกเบอร์โทรศัพท์'
+      if (this.phone.length !== 10 || !Number.isInteger(+this.phone)) {
+        this.errPhone = 'โปรดกรอกเบอร์โทรศัพท์ให้ถูกต้อง'
       } else {
         this.errPhone = ''
       }
