@@ -84,7 +84,7 @@ export default {
                 .then(data => {
                   this.setUser(data.data())
                 }).then(() => {
-                  managerRef.doc(user.user.uid).collection('drivers').get()
+                  managerRef.doc(user.user.uid).collection('drivers').orderBy('fname').get()
                     .then(snapshot => {
                       let tmpDrivers = {}
                       snapshot.forEach(driver => {
@@ -92,7 +92,7 @@ export default {
                       })
                       this.setDrivers(tmpDrivers)
                     })
-                  managerRef.doc(user.user.uid).collection('students').get()
+                  managerRef.doc(user.user.uid).collection('students').orderBy('fname').get()
                     .then(snapshot => {
                       let tmpStudents = {}
                       snapshot.forEach(student => {

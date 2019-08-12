@@ -10,26 +10,28 @@
         </router-link>
       </div>
     </div>
-    <div class="row pl-3 pr-3">
-      <div class="col rounded d-flex flex-column">
-        <div class>ช่วงเช้า</div>
-        <div :key="group" v-for="group in Object.keys(studentGroups1)">
-          <GroupCard
-            :students="studentGroups1[group].students"
-            :groupName="studentGroups1[group].name"
-            :group="group"
-          />
+    <div class="bus-listview">
+      <div class="row pl-3 pr-3">
+        <div class="col rounded d-flex flex-column">
+          <div class>ช่วงเช้า</div>
+          <div :key="group" v-for="group in Object.keys(studentGroups1)">
+            <GroupCard
+              :students="studentGroups1[group].students"
+              :groupName="studentGroups1[group].name"
+              :group="group"
+            />
+          </div>
         </div>
-      </div>
-      <div class="vl"></div>
-      <div class="col rounded d-flex flex-column">
-        ช่วงบ่าย
-        <div :key="group" v-for="group in Object.keys(studentGroups2)">
-          <GroupCard
-            :students="studentGroups2[group].students"
-            :groupName="studentGroups2[group].name"
-            :group="group"
-          />
+        <div class="vl"></div>
+        <div class="col rounded d-flex flex-column">
+          ช่วงบ่าย
+          <div :key="group" v-for="group in Object.keys(studentGroups2)">
+            <GroupCard
+              :students="studentGroups2[group].students"
+              :groupName="studentGroups2[group].name"
+              :group="group"
+            />
+          </div>
         </div>
       </div>
     </div>

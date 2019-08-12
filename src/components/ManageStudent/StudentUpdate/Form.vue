@@ -185,11 +185,26 @@ export default {
       $('#alertModal').modal('hide')
     },
     acceptOption () {
-      firebase.firestore().collection('managers').doc(this.$store.state.uid)
-        .collection('students').doc(this.sid).delete()
+      let managerRef = firebase.firestore().collection('managers').doc(this.$store.state.uid)
+      managerRef.collection('students').doc(this.sid).delete()
         .then(() => {
-          $('#alertModal').modal('hide')
-          this.$router.push({ path: '/dashboard/student' })
+          managerRef.collection('student-groups').get()
+            .then(snapshot => {
+              let tmpStudents = []
+              snapshot.forEach(group => {
+                tmpStudents = group.data().students
+                if (tmpStudents.includes(this.sid)) {
+                  let index = tmpStudents.indexOf(this.sid)
+                  tmpStudents.splice(index, 1)
+                  managerRef.collection('student-groups').doc(group.id).update({
+                    'students': tmpStudents
+                  }).then(() => {
+                    $('#alertModal').modal('hide')
+                    this.$router.push({ path: '/dashboard/student' })
+                  })
+                }
+              })
+            })
         })
     }
   }
