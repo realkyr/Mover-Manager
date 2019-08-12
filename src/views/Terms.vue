@@ -25,6 +25,18 @@
             การมอบสิทธิ์การใช้งานข้อมูลส่วนบุคคลตามข้อตกลงที่บริษัทกำหนด รวมถึงการขอสงวนสิทธิ์ในหัวข้อบางประการ
           </p>
         </div>
+        <div v-else>
+          <h3 class="font-weight-bold">Terms and conditions</h3>
+          <p class="pl-2 pr-2 pl-sm-5 pr-sm-5">
+            &emsp;&emsp;The following documents/articles are the descriptions of the characteristics of our product
+            for customers or users to be informed and to make a mutual agreement. Due to the accessibility of various
+            features in the platform owned by the company, customers, buyers, and users need to know
+            the characteristics of the product and understand the diverse consents including,
+            allowing to access information, complying with the rules and regulations when registered to
+            the product, accepting the purchase agreement for business services as specified by the company,
+            and granting the right to use personal information depending on the agreement set by the company.
+          </p>
+        </div>
         <div v-if="lang === 'TH'">
           <h5 class="font-weight-bold">รูปแบบของผลิตภัณฑ์และบริการของทางบริษัท</h5>
           <p class="pl-3 pr-3 pl-sm-5 pr-sm-5">
@@ -32,6 +44,15 @@
             และมีความเกี่ยวข้องกับระบบการทำงานของบุคคลากรหรือตัวนักเรียนนักศึกษา ซึ่งมีขอบข่ายงานปฏิบัติหน้าที่อยู่ในสถานศึกษาต่าง ๆ
             จุดประสงค์เพื่อทำเทคโนโลยีทันสมัย มาพัฒนาปรับปรุงระบบการจัดการของสถานศึกษา อันจะนำมาซึ่งประสิทธิภาพการทำงานที่เพิ่มขึ้น
             ทั้งตัวระบบและโดยรวม
+          </p>
+        </div>
+        <div v-else>
+          <h5 class="font-weight-bold">Form of the product and services of the company</h5>
+          <p class="pl-2 pr-2 pl-sm-5 pr-sm-5">
+            &emsp;&emsp;Under MOVER trademark we provide an educational product which related to school personnel or
+            student operation system which has a functional scope in various educational institutions. Our purpose is
+            to develop new technology to improve the operating system in educational institutions which leads to
+            improvement in the system and overall dimension.
           </p>
         </div>
         <div v-if="lang === 'TH'">
@@ -44,6 +65,17 @@
             </li>
           </ul>
         </div>
+        <div v-else>
+          <h5 class="mt-4 font-italic">Business policy and operation</h5>
+          <ul class="pl-2 pr-2 pl-sm-5 pr-sm-5">
+            <li>The company reserves the right to change the terms and conditions of the service without needing to notify users in advance.</li>
+            <li>
+              The company reserves the right to ban or restrict access to services of any user
+              that do not comply with the regulations or violate the agreement that the service
+              provider has set without needing to inform the reason and the time limit of accessing restriction to the user in advance
+            </li>
+          </ul>
+        </div>
         <div v-if="lang === 'TH'">
           <h5 class="mt-4 font-italic">ข้อตกลงการซื้อบริการ จากผู้ใช้บริการ</h5>
           <ul class="pl-3 pr-3 pl-sm-5 pr-sm-5">
@@ -51,6 +83,17 @@
               ผู้ใช้บริการ จำเป็นต้องทำการซื้อหรือแลกเปลี่ยนอันใดก็ตามอันจะนำมาซึ่งการมอบสิทธ์การเข้าถึงบริการของทางบริษัท
               ตามแต่ที่ผู้ใช้บริการและบริษัทจะทำการตกลงและยอมรับซึ่งกันและกัน ทางบริษัทขอสงวนสิทธิ์ในการกำหนดและเปลี่ยนแปลงข้อตกลงทางธุรกิจ
               การซื้อขาย และการแลกเปลี่ยนโดยไม่จำเป็นต้องแจ้งให้ผู้ใช้บริการได้ทราบล่วงหน้า
+            </li>
+          </ul>
+        </div>
+        <div v-else>
+          <h5 class="mt-4 font-italic">Service purchase agreement</h5>
+          <ul class="pl-2 pr-2 pl-sm-5 pr-sm-5">
+            <li>
+              Users need to purchase or exchange to reserves the right to access to the services providing by
+              the company as a user and the company both agree and accept. The company reserves the right to
+              determine and change the business deal, trading and exchanging without having to notify the user
+              in advance.
             </li>
           </ul>
         </div>
@@ -67,6 +110,22 @@
             <li>
               ผู้ใช้บริการรับทราบว่า การกระทำผิดและละเมิดกฎหมายของทางผู้ใช้บริการนั้น ทางบริษัทไม่มีส่วนเกี่ยวข้องกับการกระทำนั้น ๆ ไม่ว่าด้วยเหตุใดก็ตาม
               ผู้ใช้จะต้องรับผิดชอบแต่เพียงผู้เดียว และจะต้องรับผิดชอบต่อความเสียหายอันเกิดกับบริษัทและผลิตภัณฑ์ของบริษัท
+            </li>
+          </ul>
+        </div>
+        <div v-else>
+          <h5
+            class="mt-4 font-italic"
+          >Terms of service and agreements on account owners and users’ demeanor</h5>
+          <ul class="pl-2 pr-2 pl-sm-5 pr-sm-5">
+            <li>Users agree not to enter or bring false information into the system which affects the overall system operation of Mover’s product.</li>
+            <li>Users agree not to enter or bring illegal information which violates both civil and criminal laws into the product’s system.</li>
+            <li>Users agree not to enter or bring any information including sets of photos, videos, or messages which related or conveyed in an obscene way.</li>
+            <li>Users agree not to enter or bring any information which humiliating person or insulting the monarchy.</li>
+            <li>Users agree not to enter or bring any information which humiliating person or insulting the monarchy.</li>
+            <li>
+              Users acknowledged that the company has no connection with the offense and violation of the law done by the user. For whatever reason,
+              users must be solely responsible and will be responsible for the damaged on the company and the products.
             </li>
           </ul>
         </div>
@@ -88,6 +147,25 @@
             </li>
           </ul>
         </div>
+        <div v-else>
+          <h5 class="mt-4 font-italic">Agreement on users’ data accessing rights</h5>
+          <ul class="pl-2 pr-2 pl-sm-5 pr-sm-5">
+            <li>
+              Users grant the company to access any form of data. The company able to access account information,
+              pictures, videos, messages, identifying and tracking locations, or any information that the user
+              has entered or imported into the platform, both intentionally and unintentionally including, directly
+              and indirectly data importation which done by the user.
+            </li>
+            <li>
+              Users grant the company to access any form of data that users have been entered or imported into relevant platforms,
+              related services, or side products which have been connected to share or transfer data and to do various actions together.
+            </li>
+            <li>
+              The company reserves the right to change the agreement on users’ data accessing rights of the service without needing to
+              notify users in advance and considering that the user has been informed and agreed to the agreement when registered to the service.
+            </li>
+          </ul>
+        </div>
         <div v-if="lang === 'TH'">
           <h5 class="mt-4 font-italic">นโยบายด้านการใช้งานข้อมูลของผู้ใช้บริการ</h5>
           <ul class="pl-3 pr-3 pl-sm-5 pr-sm-5">
@@ -102,6 +180,22 @@
             <li>
               ผู้ใช้บริการรับทราบว่า การกระทำผิดและละเมิดกฎหมายของทางผู้ใช้บริการนั้น ทางบริษัทไม่มีส่วนเกี่ยวข้องกับการกระทำนั้น ๆ ไม่ว่าด้วยเหตุใดก็ตาม
               ผู้ใช้จะต้องรับผิดชอบแต่เพียงผู้เดียว และจะต้องรับผิดชอบต่อความเสียหายอันเกิดกับบริษัทและผลิตภัณฑ์ของบริษัท
+            </li>
+          </ul>
+        </div>
+        <div v-else>
+          <h5 class="mt-4 font-italic">Policy on the usage of users’ information</h5>
+          <ul class="pl-2 pr-2 pl-sm-5 pr-sm-5">
+            <li>The company will not disclose any information of the user to the public on both online and offline platforms without prior approval from the user.</li>
+            <li>The company will not disclose users’ information or allow other companies, services, or platforms that are irrelevant to access or transfer users’ data.</li>
+            <li>
+              The purpose of collecting and using users’ information is to improve the quality of the product and to enhance the quality of the user experience.
+            </li>
+            <li>Users agree not to enter or bring any information which humiliating person or insulting the monarchy.</li>
+            <li>Users agree not to enter or bring any information with the purpose of instigating incitement or intention to cause controversy.</li>
+            <li>
+              Users acknowledged that the company has no connection with the offense and violation of the law done by the user. For whatever reason,
+              users must be solely responsible and will be responsible for the damaged on the company and the products.
             </li>
           </ul>
         </div>
@@ -131,14 +225,51 @@
             </li>
           </ul>
         </div>
+        <div v-else>
+          <h5 class="mt-4 font-italic">Agreement on data usage rights</h5>
+          <ul class="pl-2 pr-2 pl-sm-5 pr-sm-5">
+            <li>
+              Users agree to allow the company to use account information, images, video, messages,
+              location-identifying/tracking, or any form of information that the user has entered or
+              imported into the platform, both intentionally and unintentionally, directly and indirectly,
+              to analyze and to improve the quality of the product.
+            </li>
+            <li>
+              Users agree to allow the company to arrange and analyze any information of the user and
+              allow the company to transfer or share information to relevant systems, to develop the products
+              and services of the company.
+            </li>
+            <li>
+              Users who have entered or imported any form of information into the service
+              system of the company agrees to grant the company the right to transfer, copy,
+              arrange, analyze, change, and delete data depending on the policy of the service provider.
+            </li>
+            <li>
+              Users agree to grant the company the right to publish or transfer users' information related
+              to the system of the product to the system of related products.
+            </li>
+            <li>
+              The company reserves the right to change the agreement on data usage rights of the service
+              without needing to notify users in advance and considering that the user has been informed and
+              agreed to the agreement when registered to the service.
+            </li>
+          </ul>
+        </div>
         <div class="d-flex justify-content-center flex-column">
           <div class="custom-control custom-checkbox mt-3">
             <input id="terms" type="checkbox" class="custom-control-input" v-model="isAccept" />
             <label
+              v-if="lang === 'TH'"
               style="font-size:12pt;"
               class="thai custom-control-label"
               for="terms"
             >ฉันยอมรับข้อตกลงการใช้งาน</label>
+            <label
+              v-else
+              style="font-size:12pt;"
+              class="thai custom-control-label"
+              for="terms"
+            >I accept the terms and conditions.</label>
           </div>
           <div class="btn-regis">
             <button
@@ -148,8 +279,14 @@
               :class="{ 'disabled': !isAccept }"
               @click="register"
               :disabled="!isAccept"
-            >สมัครสมาชิก</button>
-            <button type="button" id="back" class="btn thai" @click="cancel">ยกเลิก</button>
+            >
+              <span v-if="lang === 'TH'">สมัครสมาชิก</span>
+              <span v-else>Sign up</span>
+            </button>
+            <button type="button" id="back" class="btn thai" @click="cancel">
+              <span v-if="lang === 'TH'">ยกเลิก</span>
+              <span v-else>cancel</span>
+            </button>
           </div>
         </div>
       </div>
@@ -166,7 +303,7 @@ export default {
   data () {
     return {
       isAccept: false,
-      lang: 'TH'
+      lang: 'EN'
     }
   },
   methods: {
