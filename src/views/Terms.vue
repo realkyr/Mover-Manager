@@ -255,40 +255,6 @@
             </li>
           </ul>
         </div>
-        <div class="d-flex justify-content-center flex-column">
-          <div class="custom-control custom-checkbox mt-3">
-            <input id="terms" type="checkbox" class="custom-control-input" v-model="isAccept" />
-            <label
-              v-if="lang === 'TH'"
-              style="font-size:12pt;"
-              class="thai custom-control-label"
-              for="terms"
-            >ฉันยอมรับข้อตกลงการใช้งาน</label>
-            <label
-              v-else
-              style="font-size:12pt;"
-              class="thai custom-control-label"
-              for="terms"
-            >I accept the terms and conditions.</label>
-          </div>
-          <div class="btn-regis">
-            <button
-              type="button"
-              id="registerBtn"
-              class="btn thai"
-              :class="{ 'disabled': !isAccept }"
-              @click="register"
-              :disabled="!isAccept"
-            >
-              <span v-if="lang === 'TH'">สมัครสมาชิก</span>
-              <span v-else>Sign up</span>
-            </button>
-            <button type="button" id="back" class="btn thai" @click="cancel">
-              <span v-if="lang === 'TH'">ยกเลิก</span>
-              <span v-else>cancel</span>
-            </button>
-          </div>
-        </div>
       </div>
     </div>
   </div>

@@ -18,10 +18,8 @@
           <div v-for="i in content" :key="i">
             <p>{{ i }}</p>
           </div>
-          <div class="d-flex justify-content-end">
-            <router-link :to="{ name: 'terms', params: regisInfo }">
-              <span @click="readMore">อ่านเพิ่มเติม</span>
-            </router-link>
+          <div class="d-flex justify-content-end read-more" @click="readMore">
+            <span class="play-store">อ่านเพิ่มเติม</span>
           </div>
         </div>
         <div class="modal-footer justify-content-center">
@@ -59,7 +57,9 @@ export default {
       this.content = contents
     },
     readMore () {
-      this.$emit('onTerms', true)
+      let route = this.$router.resolve({ name: 'terms' })
+      window.open(route.href, '_blank')
+      // this.$emit('onTerms', true)
     }
   }
 }
@@ -68,5 +68,9 @@ export default {
 <style scoped>
 li a {
   text-decoration: none;
+}
+.read-more:hover {
+  text-decoration: underline;
+  cursor: pointer;
 }
 </style>

@@ -442,6 +442,10 @@ i {
   }
 }
 @media screen and (max-width: 767px) {
+  .box {
+    width: 100%;
+    transform: translate(-50%, -40%);
+  }
   .vl {
     display: none;
   }
@@ -455,16 +459,13 @@ i {
 @media screen and (max-width: 576px) {
   .box {
     width: 100%;
-    transform: translate(-50%, -42%);
+    transform: translate(-50%, -38%);
   }
   .vl {
     display: none;
   }
   .btn-group {
-    flex-direction: row;
-  }
-  #back {
-    margin-left: 15px;
+    flex-direction: column;
   }
   .input-group {
     padding: 0 4rem 0 4rem;
