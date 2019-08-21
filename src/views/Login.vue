@@ -63,9 +63,9 @@ export default {
       errorMsg: null
     }
   },
-  created: function () {
-    firebase.auth().signOut()
-  },
+  // created: function () {
+  //   firebase.auth().signOut()
+  // },
   methods: {
     ...mapActions(['setUser', 'setUid', 'setDrivers', 'setStudents', 'setGroups']),
     login () {

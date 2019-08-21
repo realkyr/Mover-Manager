@@ -55,6 +55,7 @@
 </template>
 
 <script>
+import firebase from 'firebase/app'
 import 'firebase/auth'
 import { mapGetters, mapActions } from 'vuex'
 import Autocomplete from '@trevoreyre/autocomplete-vue'
@@ -96,6 +97,7 @@ export default {
       }
     },
     logout () {
+      firebase.auth().signOut()
       this.clearUser()
       this.$router.replace({ path: '/login' })
     },

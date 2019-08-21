@@ -18,7 +18,8 @@ export default {
     Loading
   },
   mounted () {
-    if (this.$route.path.includes('/dashboard')) {
+    if (this.$route.path.includes('/dashboard') || this.$route.path.includes('/Login')) {
+      console.log('pass')
       firebase.auth().onAuthStateChanged(user => {
         if (user) {
           let managerRef = firebase.firestore().collection('managers').doc(user.uid)
@@ -61,7 +62,12 @@ export default {
                   })
                   this.setGroups(tmpGroups)
                 }).then(() => {
-                  this.isShow = true
+                  if (this.$route.path.includes('/dashboard')) {
+                    this.isShow = true
+                  } else {
+                    this.$router.replace('/dashboard')
+                    this.isShow = true
+                  }
                 })
             })
         } else {
