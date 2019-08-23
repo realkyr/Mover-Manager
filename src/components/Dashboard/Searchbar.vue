@@ -30,7 +30,7 @@
         d-flex justify-content-center justify-content-md-end
         align-items-center
       ">
-        <div class="avatar">
+        <div class="avatar thai">
           <span class="dname">{{ displayName }}</span>
           <button
             id="dropdownMenu"

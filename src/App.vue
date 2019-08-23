@@ -18,8 +18,7 @@ export default {
     Loading
   },
   mounted () {
-    if (this.$route.path.includes('/dashboard') || this.$route.path.includes('/Login')) {
-      console.log('pass')
+    if (this.$route.path.includes('/dashboard')) {
       firebase.auth().onAuthStateChanged(user => {
         if (user) {
           let managerRef = firebase.firestore().collection('managers').doc(user.uid)

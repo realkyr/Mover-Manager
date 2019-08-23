@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="box">
+    <div v-if="isShow" class="box">
       <div class="logo-container">
         <img id="logo" src="../assets/logo/logo.png" />
       </div>
@@ -33,13 +33,13 @@
       <div class="logo-container">
         <button type="button" id="login" class="btn thai text-light" @click="login">เข้าสู่ระบบ</button>
       </div>
-      <div class="mt-3 d-flex justify-content-between">
+      <div class="mt-3 d-flex justify-content-center">
         <small class="thai">
           <router-link to="/register">สมัครสมาชิก</router-link>
         </small>
-        <small class="thai">
+        <!-- <small class="thai">
           <router-link :to="{name: 'ResetPassword'}">ลืมรหัสผ่าน?</router-link>
-        </small>
+        </small> -->
       </div>
     </div>
   </div>
@@ -50,24 +50,70 @@ import { mapActions } from 'vuex'
 import firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/firestore'
-
 export default {
   name: 'Login',
   metaInfo: {
     title: 'Login | Mover'
   },
+  mounted () {
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        let managerRef = firebase.firestore().collection('managers').doc(user.uid)
+        managerRef.get()
+          .then(data => {
+            this.setUid(user.uid)
+            this.setUser(data.data())
+          }).then(() => {
+            managerRef.collection('cars').orderBy('no').get()
+              .then(snapshot => {
+                let tmpBuses = {}
+                snapshot.forEach(bus => {
+                  tmpBuses[bus.id] = bus.data()
+                })
+                this.setBuses(tmpBuses)
+              })
+            managerRef.collection('drivers').orderBy('fname').get()
+              .then(snapshot => {
+                let tmpDrivers = {}
+                snapshot.forEach(driver => {
+                  tmpDrivers[driver.id] = driver.data()
+                })
+                this.setDrivers(tmpDrivers)
+              })
+            managerRef.collection('students').orderBy('fname').get()
+              .then(snapshot => {
+                let tmpStudents = {}
+                snapshot.forEach(student => {
+                  tmpStudents[student.id] = student.data()
+                })
+                this.setStudents(tmpStudents)
+              })
+            managerRef.collection('student-groups').get()
+              .then(snapshot => {
+                let tmpGroups = {}
+                snapshot.forEach(group => {
+                  tmpGroups[group.id] = group.data()
+                })
+                this.setGroups(tmpGroups)
+              }).then(() => {
+                this.$router.replace('/dashboard')
+              })
+          })
+      } else {
+        this.isShow = true
+      }
+    })
+  },
   data () {
     return {
       email: '',
       password: '',
-      errorMsg: null
+      errorMsg: null,
+      isShow: false
     }
   },
-  // created: function () {
-  //   firebase.auth().signOut()
-  // },
   methods: {
-    ...mapActions(['setUser', 'setUid', 'setDrivers', 'setStudents', 'setGroups']),
+    ...mapActions(['setUser', 'setUid', 'setDrivers', 'setStudents', 'setGroups', 'setBuses']),
     login () {
       let managerRef = firebase.firestore().collection('managers')
       if (this.email !== '' && this.password !== '') {
@@ -108,7 +154,7 @@ export default {
                       })
                       this.setGroups(tmpGroups)
                     })
-                  this.$router.replace('dashboard')
+                  this.$router.replace('/dashboard')
                 })
             } else {
               this.errorMsg = 'โปรดยืนยันอีเมล'
