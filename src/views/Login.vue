@@ -58,47 +58,50 @@ export default {
   mounted () {
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
-        let managerRef = firebase.firestore().collection('managers').doc(user.uid)
-        managerRef.get()
-          .then(data => {
-            this.setUid(user.uid)
-            this.setUser(data.data())
-          }).then(() => {
-            managerRef.collection('cars').orderBy('no').get()
-              .then(snapshot => {
-                let tmpBuses = {}
-                snapshot.forEach(bus => {
-                  tmpBuses[bus.id] = bus.data()
+        if (firebase.auth().currentUser.emailVerified) {
+          console.log('555')
+          let managerRef = firebase.firestore().collection('managers').doc(user.uid)
+          managerRef.get()
+            .then(data => {
+              this.setUid(user.uid)
+              this.setUser(data.data())
+            }).then(() => {
+              managerRef.collection('cars').orderBy('no').get()
+                .then(snapshot => {
+                  let tmpBuses = {}
+                  snapshot.forEach(bus => {
+                    tmpBuses[bus.id] = bus.data()
+                  })
+                  this.setBuses(tmpBuses)
                 })
-                this.setBuses(tmpBuses)
-              })
-            managerRef.collection('drivers').orderBy('fname').get()
-              .then(snapshot => {
-                let tmpDrivers = {}
-                snapshot.forEach(driver => {
-                  tmpDrivers[driver.id] = driver.data()
+              managerRef.collection('drivers').orderBy('fname').get()
+                .then(snapshot => {
+                  let tmpDrivers = {}
+                  snapshot.forEach(driver => {
+                    tmpDrivers[driver.id] = driver.data()
+                  })
+                  this.setDrivers(tmpDrivers)
                 })
-                this.setDrivers(tmpDrivers)
-              })
-            managerRef.collection('students').orderBy('fname').get()
-              .then(snapshot => {
-                let tmpStudents = {}
-                snapshot.forEach(student => {
-                  tmpStudents[student.id] = student.data()
+              managerRef.collection('students').orderBy('fname').get()
+                .then(snapshot => {
+                  let tmpStudents = {}
+                  snapshot.forEach(student => {
+                    tmpStudents[student.id] = student.data()
+                  })
+                  this.setStudents(tmpStudents)
                 })
-                this.setStudents(tmpStudents)
-              })
-            managerRef.collection('student-groups').get()
-              .then(snapshot => {
-                let tmpGroups = {}
-                snapshot.forEach(group => {
-                  tmpGroups[group.id] = group.data()
+              managerRef.collection('student-groups').get()
+                .then(snapshot => {
+                  let tmpGroups = {}
+                  snapshot.forEach(group => {
+                    tmpGroups[group.id] = group.data()
+                  })
+                  this.setGroups(tmpGroups)
+                }).then(() => {
+                  this.$router.replace('/dashboard')
                 })
-                this.setGroups(tmpGroups)
-              }).then(() => {
-                this.$router.replace('/dashboard')
-              })
-          })
+            })
+        }
       } else {
         this.isShow = true
       }
@@ -123,6 +126,7 @@ export default {
           .signInWithEmailAndPassword(this.email, this.password)
           .then(user => {
             if (user.user.emailVerified) {
+              console.log('1')
               this.setUid(user.user.uid)
               managerRef
                 .doc(user.user.uid)
@@ -157,6 +161,7 @@ export default {
                   this.$router.replace('/dashboard')
                 })
             } else {
+              console.log('2')
               this.errorMsg = 'โปรดยืนยันอีเมล'
             }
           })
