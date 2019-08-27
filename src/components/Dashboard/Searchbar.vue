@@ -35,7 +35,7 @@
           <button
             id="dropdownMenu"
             data-toggle="dropdown"
-            class="btn fa-lg p-1"
+            class="btn fa-lg p-1 ml-1"
             @click="dropToggle"
           >
             <i class="fas fa-user"></i>

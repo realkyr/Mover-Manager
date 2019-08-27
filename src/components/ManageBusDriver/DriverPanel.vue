@@ -46,9 +46,9 @@ export default {
               tmpDrivers[data.id] = data.data()
             })
             this.closeModal()
+            this.setDrivers(tmpDrivers)
           }
         })
-        this.setDrivers(tmpDrivers)
       })
   },
   data () {

@@ -191,6 +191,8 @@ export default {
                       this.$router.replace({ path: '/dashboard/student/group' })
                     })
                 }
+              }).catch(() => {
+                this.$router.replace({ path: '/dashboard/student/group' })
               })
           })
       } else {

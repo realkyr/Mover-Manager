@@ -42,7 +42,6 @@
 import GroupCard from './StudentGroupCard'
 import firebase from 'firebase/app'
 import 'firebase/firestore'
-import { mapActions } from 'vuex'
 export default {
   components: {
     GroupCard
@@ -84,9 +83,6 @@ export default {
       studentGroups1: {},
       studentGroups2: {}
     }
-  },
-  methods: {
-    ...mapActions(['setStudents'])
   }
 }
 </script>

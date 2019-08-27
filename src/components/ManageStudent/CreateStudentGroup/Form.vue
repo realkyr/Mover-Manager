@@ -115,15 +115,13 @@ export default {
   },
   methods: {
     addGroup () {
+      let managerRef = firebase.firestore().collection('managers').doc(this.$store.state.uid)
       if (this.name !== '' && this.section !== '' && this.value.length !== 0) {
         let selects = []
         this.value.forEach(data => {
           selects.push(data.sid)
         })
-        firebase
-          .firestore()
-          .collection('managers')
-          .doc(this.$store.state.uid)
+        managerRef
           .collection('student-groups')
           .add({
             name: this.name,

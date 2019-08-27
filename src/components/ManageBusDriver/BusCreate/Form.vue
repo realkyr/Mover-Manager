@@ -46,12 +46,11 @@
 <script>
 import firebase from 'firebase/app'
 import 'firebase/firestore'
+import { mapActions } from 'vuex'
 export default {
   mounted () {
-    firebase
-      .firestore()
-      .collection('managers')
-      .doc(this.$store.state.uid)
+    let managerRef = firebase.firestore().collection('managers').doc(this.$store.state.uid)
+    firebase.firestore().collection('managers').doc(this.$store.state.uid)
       .collection('drivers')
       .get()
       .then(snapshot => {
@@ -61,6 +60,16 @@ export default {
             data: data.data()
           })
         })
+      })
+    managerRef
+      .collection('student-groups')
+      .get()
+      .then(snapshot => {
+        let tmpGroups = {}
+        snapshot.forEach(group => {
+          tmpGroups[group.id] = group.data()
+        })
+        this.setGroups(tmpGroups)
       })
   },
   data () {
@@ -75,7 +84,7 @@ export default {
     }
   },
   methods: {
-    // ...mapActions('setBuses'),
+    ...mapActions(['setGroups']),
     addBus () {
       if (this.validate()) {
         let managersRef = firebase

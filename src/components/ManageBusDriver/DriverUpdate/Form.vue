@@ -151,8 +151,7 @@ export default {
             'fname': this.fname,
             'lname': this.lname,
             'phone': this.tel,
-            'prefix': this.prefix,
-            'uid': this.uid
+            'prefix': this.prefix
           }).then(() => {
             this.$router.push({ path: '/dashboard/bus/drivers' })
           })
