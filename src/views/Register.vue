@@ -244,7 +244,7 @@ export default {
                 }
               })
               .then(() => {
-                this.$router.replace('Login')
+                this.$router.replace('/login')
               })
               .catch(error => {
                 console.log(error)

@@ -140,7 +140,6 @@ export default {
 
 .avatar {
   position: absolute;
-  width: 90pt;
   background: white;
   border-radius: 20px;
   padding: 4pt;

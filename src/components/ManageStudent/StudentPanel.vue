@@ -47,6 +47,10 @@ export default {
             snapshot.docs.forEach(data => {
               tmpStudents[data.id] = data.data()
             })
+          } else if (change.type === 'removed') {
+            snapshot.docs.forEach(data => {
+              tmpStudents[data.id] = data.data()
+            })
           }
         })
         this.setStudents(tmpStudents)

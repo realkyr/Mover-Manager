@@ -36,6 +36,14 @@ export default {
     statebar
   },
   mounted () {
+    // this.onBuses = firebase.firestore().collection('managers').doc(this.$store.state.uid)
+    //   .collection('cars').onSnapshot(snapshot => {
+    //     let tmpBuses = {}
+    //     snapshot.forEach(bus => {
+    //       tmpBuses[bus.id] = bus.data()
+    //     })
+    //     this.setBuses(tmpBuses)
+    //   })
     firebase.firestore().collection('managers').doc(this.$store.state.uid)
       .collection('cars').get()
       .then(snapshot => {
@@ -60,6 +68,9 @@ export default {
     focusBus (data) {
       this.$refs.myMap.onFocusBus(data)
     }
+  },
+  beforeDestroy () {
+    // this.onBuses()
   }
 }
 </script>

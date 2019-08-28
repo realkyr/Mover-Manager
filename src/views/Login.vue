@@ -56,10 +56,9 @@ export default {
     title: 'Login | Mover'
   },
   mounted () {
-    firebase.auth().onAuthStateChanged(user => {
+    this.onAuth = firebase.auth().onAuthStateChanged(user => {
       if (user) {
         if (firebase.auth().currentUser.emailVerified) {
-          console.log('555')
           let managerRef = firebase.firestore().collection('managers').doc(user.uid)
           managerRef.get()
             .then(data => {
@@ -101,6 +100,8 @@ export default {
                   this.$router.replace('/dashboard')
                 })
             })
+        } else {
+          this.isShow = true
         }
       } else {
         this.isShow = true
@@ -126,7 +127,6 @@ export default {
           .signInWithEmailAndPassword(this.email, this.password)
           .then(user => {
             if (user.user.emailVerified) {
-              console.log('1')
               this.setUid(user.user.uid)
               managerRef
                 .doc(user.user.uid)
@@ -161,7 +161,6 @@ export default {
                   this.$router.replace('/dashboard')
                 })
             } else {
-              console.log('2')
               this.errorMsg = 'โปรดยืนยันอีเมล'
             }
           })
@@ -184,6 +183,9 @@ export default {
     clearErr () {
       this.errorMsg = ''
     }
+  },
+  beforeDestroy () {
+    this.onAuth()
   }
 }
 </script>

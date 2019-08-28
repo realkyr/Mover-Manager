@@ -202,6 +202,9 @@ export default {
                     $('#alertModal').modal('hide')
                     this.$router.push({ path: '/dashboard/student' })
                   })
+                } else {
+                  $('#alertModal').modal('hide')
+                  this.$router.push({ path: '/dashboard/student' })
                 }
               })
             })
@@ -214,6 +217,9 @@ export default {
 <style scoped>
 .mover-btn {
   background: rgba(27, 127, 158, 1);
+}
+#noBtn {
+  background: gray;
 }
 #add-btn {
   width: 8rem;

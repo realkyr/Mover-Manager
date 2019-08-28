@@ -182,11 +182,20 @@ export default {
       $('#alertModal').modal('hide')
     },
     acceptOption () {
-      firebase.firestore().collection('managers').doc(this.$store.state.uid)
+      let managerRef = firebase.firestore().collection('managers').doc(this.$store.state.uid)
+      managerRef
         .collection('drivers').doc(this.duid).delete()
         .then(() => {
           $('#alertModal').modal('hide')
-          this.$router.push({ path: '/dashboard/drivers' })
+          managerRef.collection('drivers').get()
+            .then(snapshot => {
+              let tmpDrivers = {}
+              snapshot.forEach(data => {
+                tmpDrivers[data.id] = data.data()
+              })
+              this.setDrivers(tmpDrivers)
+              this.$router.replace({ path: '/dashboard/bus/drivers' })
+            })
         })
     }
   }

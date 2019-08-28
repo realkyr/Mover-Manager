@@ -37,16 +37,20 @@ export default {
     QrModal
   },
   mounted () {
-    let tmpDrivers = {}
+    this.inputDriver = ' '
+    this.inputDriver = ''
     this.onDriver = firebase.firestore().collection('managers').doc(this.$store.state.uid)
       .collection('drivers').orderBy('fname').onSnapshot(snapshot => {
         snapshot.docChanges().forEach(change => {
           if (change.type === 'added') {
+            let tmpDrivers = {}
             snapshot.docs.forEach(data => {
               tmpDrivers[data.id] = data.data()
             })
             this.closeModal()
             this.setDrivers(tmpDrivers)
+            this.inputDriver = ' '
+            this.inputDriver = ''
           }
         })
       })
@@ -61,8 +65,10 @@ export default {
     filteredDriver () {
       let filtered = []
       if (this.inputDriver === '' || !this.inputDriver.trim().length) {
+        console.log('1')
         filtered = Object.keys(this.$store.state.drivers)
       } else {
+        console.log('2')
         const entries = Object.entries(this.$store.state.drivers)
         for (const [duid, info] of entries) {
           let name = info.fname + ' ' + info.lname
