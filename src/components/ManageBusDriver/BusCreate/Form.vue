@@ -115,7 +115,6 @@ export default {
         this.license === '' ||
         this.busId === '' ||
         this.driver === '' ||
-        this.groupStudent === '' ||
         this.phone === ''
       ) {
         return false

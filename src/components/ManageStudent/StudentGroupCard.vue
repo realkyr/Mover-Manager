@@ -14,14 +14,14 @@
         </button>
         <button
           v-if="!isView"
-          class="btn mover-btn thai ml-1"
+          class="btn mover-btn view-btn thai ml-1"
           @click="viewToggle"
         >
           ดูรายชื่อ
         </button>
         <button
           v-else
-          class="btn mover-btn thai ml-1"
+          class="btn mover-btn view-btn thai ml-1"
           @click="viewToggle"
         >
           ยกเลิก
@@ -121,5 +121,14 @@ export default {
 
   .edit-section {
     width: 246.86px;
+  }
+</style>
+
+<style scoped>
+  .view-btn {
+    background: rgba(33, 149, 186, 1);
+  }
+  .view-btn:hover {
+    background: rgba(33, 149, 186, 1);
   }
 </style>

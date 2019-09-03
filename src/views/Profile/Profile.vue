@@ -40,8 +40,7 @@
               </span>
             </div>
             <div class="col d-flex flex-column" style="width: 188.5px;">
-              <InputInfo :placeholder="`อีเมล`" :type="`email`" :initialValue="email" ref="email" v-if="isEdit1"/>
-              <span v-else class="mb-3">{{ email }}</span>
+              <span class="mb-3">{{ email }}</span>
               <InputInfo :placeholder="`ชื่อ`" :type="`text`" :initialValue="fname" ref="fname" v-if="isEdit2"/>
               <span v-else class="mb-3">{{ fname }}</span>
               <InputInfo :placeholder="`นามสกุล`" :type="`text`" :initialValue="lname" ref="lname" v-if="isEdit3"/>
@@ -50,9 +49,7 @@
               <span v-else class="mb-3">{{ phone }}</span>
             </div>
             <div class="col d-flex flex-column p-0 ml-2">
-              <span class="mb-3" @click="editToggle1">
-                <i v-if="!isEdit1" class="fas fa-edit text-primary"></i>
-                <i v-else class="fas fa-times-circle text-danger"></i>
+              <span class="mb-3" style="width:30.98px;height:24px;">
               </span>
               <span class="mb-3" @click="editToggle2">
                 <i v-if="!isEdit2" class="fas fa-edit text-primary"></i>
