@@ -65,10 +65,8 @@ export default {
     filteredDriver () {
       let filtered = []
       if (this.inputDriver === '' || !this.inputDriver.trim().length) {
-        console.log('1')
         filtered = Object.keys(this.$store.state.drivers)
       } else {
-        console.log('2')
         const entries = Object.entries(this.$store.state.drivers)
         for (const [duid, info] of entries) {
           let name = info.fname + ' ' + info.lname
