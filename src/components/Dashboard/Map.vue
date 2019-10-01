@@ -39,7 +39,6 @@ export default {
       .collection('cars').onSnapshot(snapshot => {
         snapshot.docChanges().forEach(change => {
           if (change.type === 'added') {
-            console.log('1')
             setTimeout(() => {
               this.generateMarker(change.doc.data())
               this.generatePopup(change.doc.data())
@@ -54,7 +53,6 @@ export default {
               this.buses[change.doc.id]['marker'].setPosition(myLatlng)
               this.buses[change.doc.id].popup.position = myLatlng
             } else {
-              console.log('new')
               setTimeout(() => {
                 this.generateMarker(change.doc.data())
                 this.generatePopup(change.doc.data())
@@ -151,7 +149,6 @@ export default {
       // something like this.buses.['busid'].marker.setPosition()
       for (let i of Object.keys(this.buses)) {
         if (Object.keys(busData.current_location).length !== 0) {
-          console.log('pass')
           this.buses[i].marker = new google.maps.Marker({
             position: busData.current_location,
             map: this.map,
