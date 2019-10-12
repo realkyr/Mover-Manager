@@ -19,7 +19,7 @@
             <p>{{ i }}</p>
           </div>
           <div class="d-flex justify-content-end read-more" @click="readMore">
-            <span class="play-store">อ่านเพิ่มเติม</span>
+            <span class="play-store text-primary">อ่านเพิ่มเติม</span>
           </div>
         </div>
         <div class="modal-footer justify-content-center">
@@ -33,11 +33,6 @@
 <script>
 /* eslint-disable no-tabs */
 export default {
-  props: {
-    regisInfo: {
-      type: Object
-    }
-  },
   mounted () {
     this.getContent()
   },
@@ -70,7 +65,7 @@ li a {
   text-decoration: none;
 }
 .read-more:hover {
-  text-decoration: underline;
+  text-decoration: none;
   cursor: pointer;
 }
 </style>

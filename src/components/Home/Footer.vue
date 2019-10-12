@@ -1,15 +1,11 @@
 <template>
   <div>
     <div class="container-fluid">
-      <div class="footer row d-flex justify-content-around">
+      <div class="footer thai row d-flex justify-content-around">
         <div class="col-4 offset-1">
           <img src="../../assets/logo/logo.png"/>
           <p>
-            Lorem ipsum dolor sit amet consectetur,
-            adipisicing elit. Quaerat nostrum suscipit
-            sit minus, quod eaque voluptates perferendis quia,
-            delectus esse optio incidunt. Assumenda porro temporibus
-            voluptate, aspernatur alias vitaes facilis?
+            เรามุ่งมั่นพัฒนาระบบเทคโนโลยีสารสนเทศ เพื่อความปลอดภัยของลูกคุณ
           </p>
         </div>
         <div class="col-5 offset-1">

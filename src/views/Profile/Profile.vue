@@ -1,7 +1,7 @@
 <template>
   <div>
-    <Searchbar ref="searchProfile"/>
-    <Sidebar/>
+    <Searchbar ref="searchProfile" />
+    <Sidebar />
     <div class="inside-container thai">
       <span>บัญชีผู้ใช้</span>
       <div class="row mt-3 ml-1">
@@ -9,19 +9,18 @@
           class="content col-4 rounded d-flex justify-content-center align-items-center flex-column shadow"
         >
           <div v-if="!profile" class="profile">
-            <img class="rounded-circle" src="../../assets/holder/profileholder.png">
+            <img class="rounded-circle" src="../../assets/holder/profileholder.png" />
           </div>
           <div v-else class="profile">
-            <img class="rounded-circle" :src="profile">
+            <img class="rounded-circle" :src="profile" />
           </div>
-          <input type="file" ref="file" style="display: none" @change="onFileSelected">
-          <button id="picBtn" class="btn mover-btn thai" @click="$refs.file.click()">เปลี่ยนรูปโปรไฟล์</button>
+          <input type="file" ref="file" style="display: none" @change="onFileSelected" />
           <button
-            type="button"
-            id="qrBtn"
+            id="picBtn"
             class="btn mover-btn thai"
-            @click="showModal"
-          >
+            @click="$refs.file.click()"
+          >เปลี่ยนรูปโปรไฟล์</button>
+          <button type="button" id="qrBtn" class="btn mover-btn thai" @click="showModal">
             <i style="position: initial; color: white;" class="fas fa-qrcode"></i>ดูคิวอาร์โค้ด
           </button>
           <div class="d-flex justify-content-center mt-5">
@@ -41,16 +40,33 @@
             </div>
             <div class="col d-flex flex-column" style="width: 188.5px;">
               <span class="mb-3">{{ email }}</span>
-              <InputInfo :placeholder="`ชื่อ`" :type="`text`" :initialValue="fname" ref="fname" v-if="isEdit2"/>
+              <InputInfo
+                :placeholder="`ชื่อ`"
+                :type="`text`"
+                :initialValue="fname"
+                ref="fname"
+                v-if="isEdit2"
+              />
               <span v-else class="mb-3">{{ fname }}</span>
-              <InputInfo :placeholder="`นามสกุล`" :type="`text`" :initialValue="lname" ref="lname" v-if="isEdit3"/>
+              <InputInfo
+                :placeholder="`นามสกุล`"
+                :type="`text`"
+                :initialValue="lname"
+                ref="lname"
+                v-if="isEdit3"
+              />
               <span v-else class="mb-3">{{ lname }}</span>
-              <InputInfo :placeholder="`เบอร์โทร`" :type="`tel`" :initialValue="phone" ref="phone" v-if="isEdit4"/>
+              <InputInfo
+                :placeholder="`เบอร์โทร`"
+                :type="`tel`"
+                :initialValue="phone"
+                ref="phone"
+                v-if="isEdit4"
+              />
               <span v-else class="mb-3">{{ phone }}</span>
             </div>
             <div class="col d-flex flex-column p-0 ml-2">
-              <span class="mb-3" style="width:30.98px;height:24px;">
-              </span>
+              <span class="mb-3" style="width:30.98px;height:24px;"></span>
               <span class="mb-3" @click="editToggle2">
                 <i v-if="!isEdit2" class="fas fa-edit text-primary"></i>
                 <i v-else class="fas fa-times-circle text-danger"></i>
@@ -70,10 +86,11 @@
           </div>
         </div>
         <div class="col pr-4">
-          <Map/>
+          <Map />
         </div>
         <!-- qr modal -->
-        <QrModal ref="modal"/>
+        <QrModal ref="modal" />
+        <AlertModal ref="alert" />
       </div>
     </div>
   </div>
@@ -89,6 +106,7 @@ import Sidebar from '../../components/Dashboard/Sidebar'
 import Map from '../../components/Profile/Map'
 import InputInfo from '../../components/Profile/InputInfo'
 import QrModal from '../../components/Profile/QrModal'
+import AlertModal from '../../components/Profile/AlertModal'
 import { mapGetters, mapActions } from 'vuex'
 export default {
   components: {
@@ -96,7 +114,8 @@ export default {
     Sidebar,
     Map,
     InputInfo,
-    QrModal
+    QrModal,
+    AlertModal
   },
   mounted () {
     this.$store.state.address = { name: '' }
@@ -126,7 +145,6 @@ export default {
       return this.getUser()
     },
     editToggle1 () {
-      // this.isEdit = !this.isEdit
       this.isEdit1 = !this.isEdit1
       this.checkEdit()
     },
@@ -149,20 +167,32 @@ export default {
     checkEdit () {
       if (this.isEdit1 || this.isEdit2 || this.isEdit3 || this.isEdit4) {
         this.isEdit = true
-      } else if (!this.isEdit1 && !this.isEdit2 && !this.isEdit3 && !this.isEdit4) {
+      } else if (
+        !this.isEdit1 &&
+        !this.isEdit2 &&
+        !this.isEdit3 &&
+        !this.isEdit4
+      ) {
         this.isEdit = false
       }
     },
     editProfile () {
       this.checkValue()
-      firebase.firestore().collection('managers').doc(this.$store.state.uid)
+      firebase
+        .firestore()
+        .collection('managers')
+        .doc(this.$store.state.uid)
         .update({
-          'email': this.email,
-          'fname': this.fname,
-          'lname': this.lname,
-          'phone': this.phone
+          email: this.email,
+          fname: this.fname,
+          lname: this.lname,
+          phone: this.phone
         })
-      firebase.firestore().collection('managers').doc(this.$store.state.uid).get()
+      firebase
+        .firestore()
+        .collection('managers')
+        .doc(this.$store.state.uid)
+        .get()
         .then(data => {
           this.setUser(data.data())
         })
@@ -193,36 +223,53 @@ export default {
     },
     onFileSelected (event) {
       this.imageFile = event.target.files[0]
-      this.onUpload()
-      this.profile = URL.createObjectURL(event.target.files[0])
+      if (this.imageFile.type.includes('image/')) {
+        this.onUpload()
+        this.profile = URL.createObjectURL(event.target.files[0])
+      } else {
+        let element = this.$refs.alert.$el
+        $(element).modal('show')
+      }
     },
     onUpload () {
-      let uploadTask = firebase.storage().ref()
-        .child('images/profile/' + this.$store.state.uid + '/' + this.imageFile.name)
+      let uploadTask = firebase
+        .storage()
+        .ref()
+        .child(
+          'images/profile/' + this.$store.state.uid + '/' + this.imageFile.name
+        )
         .put(this.imageFile)
-      uploadTask.on('state_changed', (snapshot) => {
-        let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-        console.log('Upload is' + progress + '% done')
-      }, () => {}, () => {
-        let path = uploadTask.snapshot.ref.fullPath
-        firebase.firestore().collection('managers').doc(this.$store.state.uid)
-          .set({
-            profile: path
-          }, { merge: true })
-        this.setProfile(path)
-        // uploadTask.snapshot.ref.getDownloadURL()
-        //   .then((downloadUrl) => {
-        //     firebase.firestore().collection('managers').doc(this.$store.state.uid)
-        //       .set({
-        //         profile: downloadUrl
-        //       }, { merge: true })
-        //     this.setProfile(downloadUrl)
-        //   })
-      })
+      uploadTask.on(
+        'state_changed',
+        snapshot => {
+          let progress =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+          console.log('Upload is' + progress + '% done')
+        },
+        () => {},
+        () => {
+          let path = uploadTask.snapshot.ref.fullPath
+          firebase
+            .firestore()
+            .collection('managers')
+            .doc(this.$store.state.uid)
+            .set(
+              {
+                profile: path
+              },
+              { merge: true }
+            )
+          this.setProfile(path)
+        }
+      )
     },
     getProfilePic () {
       if ('profile' in this.$store.state.user) {
-        firebase.storage().ref().child(this.$store.state.user.profile).getDownloadURL()
+        firebase
+          .storage()
+          .ref()
+          .child(this.$store.state.user.profile)
+          .getDownloadURL()
           .then(url => {
             this.profile = url
           })

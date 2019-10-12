@@ -99,6 +99,7 @@
               >
                 ฉันยอมรับข้อตกลงการใช้งาน
                 <a
+                  class="text-decoration-none"
                   @click="showModal"
                   href="javascript:void(0)"
                 >Terms&Conditions</a>
@@ -120,13 +121,6 @@
     <TermsModal
       ref="modal"
       @onTerms="closeModal"
-      :regisInfo="{
-        fname: fname,
-        lname: lname,
-        prefix: prefix,
-        email: email,
-        phone: phone
-      }"
     />
   </div>
 </template>
@@ -188,13 +182,14 @@ export default {
       } else {
         this.errPass = ''
       }
-      let withoutSpace = this.password.replace(/ /g, '')
-      if (withoutSpace.length < 8) {
-        this.errPass = 'โปรดกรอกรหัสให้มากกว่า 7 ตัวอักษร'
+      if (/\s/.test(this.password)) {
+        this.errPass = 'ห้ามเว้นวรรค'
+      } else if (this.password.length < 8) {
+        this.errPass = 'โปรดกรอกรหัสผ่านมากหว่า 7 ตัวอักษร'
       } else {
         this.errPass = ''
       }
-      if (this.email === '' && !this.email.includes('@')) {
+      if (this.email === '' || !this.email.includes('@')) {
         this.errEmail = 'โปรดกรอกอีเมลให้ถูกต้อง'
       } else {
         this.errEmail = ''
