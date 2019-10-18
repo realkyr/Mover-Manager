@@ -70,7 +70,6 @@ export default {
           map.setCenter(place.geometry.location)
           map.setZoom(16)
         }
-        console.log(place)
         marker.setPosition(place.geometry.location)
         marker.setVisible(true)
         this.setAddress(place)
@@ -87,8 +86,6 @@ export default {
       const key = 'AIzaSyBZKN6M5vhOed1h6qwr45FtLQWYNAElDd4'
       const api = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latLng}&key=${key}`
       const address = await axios.get(api)
-      console.log(api)
-      console.log(address.data)
       this.setAddress(address.data)
     }
   }

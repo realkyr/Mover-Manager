@@ -3,6 +3,7 @@
     <small v-show="errMsg" style="color:red;font-size:12pt" class="alert-text thai">{{ errMsg }}</small>
     <div class="form-group">
       <label for="stdid">Student ID | เลขประจำตัว</label>
+      <small v-show="errSid" style="color:red;" class="alert-text thai">{{ errSid }}</small>
       <input
         type="text"
         class="form-control"
@@ -14,6 +15,7 @@
     </div>
     <div class="form-group">
       <label for="plate">Name | ชื่อนักเรียน</label>
+      <small v-show="errName" style="color:red;" class="alert-text thai">{{ errName }}</small>
       <div class="row">
         <div class="col-2">
           <select class="custom-select mr-sm-2" v-model="prefix" @change="clearErr">
@@ -49,6 +51,7 @@
     </div>
     <div class="form-group">
       <label for="phone">Phone | เบอร์โทรศัพท์</label>
+      <small v-show="errPhone" style="color:red;" class="alert-text thai">{{ errPhone }}</small>
       <input
         id="phone"
         class="form-control"
@@ -76,16 +79,18 @@ export default {
       fname: '',
       lname: '',
       phone: '',
-      errMsg: ''
+      errMsg: '',
+      errPhone: '',
+      errName: '',
+      errSid: ''
     }
   },
   methods: {
     addStudent () {
-      if (this.validate()) {
-        firebase
-          .firestore()
-          .collection('managers')
-          .doc(this.$store.state.uid)
+      let managerRef = firebase.firestore().collection('managers').doc(this.$store.state.uid)
+      if (this.validate() && this.isNotStd()) {
+        console.log('23')
+        managerRef
           .collection('students')
           .add({
             fname: this.fname,
@@ -97,8 +102,6 @@ export default {
           .then(() => {
             this.$router.replace({ path: '/dashboard/student' })
           })
-      } else {
-        this.errMsg = '** โปรดกรอกข้อมูลให้ครบถ้วน'
       }
     },
     validate () {
@@ -109,13 +112,48 @@ export default {
         this.sid === '' ||
         this.phone === ''
       ) {
+        this.errMsg = '** โปรดกรอกข้อมูลให้ครบถ้วน'
+        console.log('notpass')
         return false
       } else {
+        console.log('pass')
         return true
       }
     },
+    isNotStd () {
+      let stdList = Object.keys(this.$store.state.students)
+      let result = false
+      if (stdList.length === 0) {
+        result = true
+      }
+      stdList.forEach(sid => {
+        let stdData = this.$store.state.students[sid]
+        if (stdData.fname === this.fname && stdData.lname === this.lname) {
+          this.errName = '** ชื่อนักเรียนซ้ำ'
+          console.log('1')
+          result = false
+        }
+        if (stdData.stu_no === this.sid) {
+          this.errSid = '** รหัสประจำตัวนักเรียนซ้ำ'
+          console.log('2')
+          result = false
+        }
+        if (
+          stdData.fname !== this.fname &&
+          stdData.lname !== this.lname &&
+          stdData.stu_no !== this.sid
+        ) {
+          console.log('3')
+          result = true
+        }
+      })
+      return result
+    },
     clearErr () {
       this.errMsg = ''
+      this.errName = ''
+      this.errPhone = ''
+      this.errSid = ''
     }
   }
 }

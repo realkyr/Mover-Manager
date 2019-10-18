@@ -47,7 +47,7 @@
         </select>
       </div>
       <router-link :to="{ name:'check-student-console', params: {groupId: finalGroupSelect} }" tag="a" class="thai">เช็คชื่อนักเรียน</router-link>
-      <button style="float: right;" @click="updateBus" class="btn btn-success">บันทึก</button>
+      <button style="float: right;" @click="updateBus" class="btn mover-btn">บันทึก</button>
     </div>
   </div>
 </template>

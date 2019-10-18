@@ -1,6 +1,6 @@
 <template>
   <div
-    class="row parent-card d-flex justify-content-between align-items-center shadow-sm mt-2 ml-1 p-3 bg-white rounded"
+    class="row parent-card d-flex justify-content-between align-items-center shadow-sm mt-2 ml-1 pt-2 pb-2 pl-3 pr-3 bg-white rounded"
   >
     <div class="row d-flex align-items-center">
       <div class="col-auto image-section">
@@ -27,11 +27,17 @@
         </small>
       </div>
     </div>
-    <router-link
-      :to="{name: 'students-profile', params: {sid: student, tmpImg: pic}}"
-      tag="button"
-      class="btn mover-btn"
-    >แก้ไขข้อมูล</router-link>
+    <div class="d-flex justify-content-center flex-column">
+      <router-link
+        :to="{name: 'students-profile', params: {sid: student, tmpImg: pic}}"
+        tag="button"
+        class="btn mover-btn"
+        >แก้ไขข้อมูล</router-link>
+      <div v-if="qrImg === null" class="myQr mt-1"></div>
+      <div class="myQr mt-1" v-else>
+        <img :src="qrImg">
+      </div>
+    </div>
   </div>
 </template>
 
@@ -49,6 +55,7 @@ export default {
     }
   },
   mounted () {
+    this.getQr(this.$store.state.students[this.student])
     let managerRef = firebase.firestore().collection('managers').doc(this.$store.state.uid)
     if ('pic' in this.studentInfo) {
       if (this.studentInfo.pic_link === '') {
@@ -65,11 +72,32 @@ export default {
     } else {
       this.pic = null
     }
+    this.onGetQr = managerRef.collection('students').onSnapshot(snapshot => {
+      snapshot.docChanges().forEach(change => {
+        if (change.type === 'modified' && this.student === change.doc.id) {
+          this.getQr(change.doc.data())
+        }
+      })
+    })
   },
   data () {
     return {
-      pic: null
+      pic: null,
+      qrImg: null
     }
+  },
+  methods: {
+    getQr (data) {
+      if ('url' in data) {
+        firebase.storage().ref().child(data.url).getDownloadURL()
+          .then(url => {
+            this.qrImg = url
+          })
+      }
+    }
+  },
+  beforeDestroy () {
+    this.onGetQr()
   }
 }
 </script>
@@ -87,5 +115,16 @@ export default {
 
 i {
   width: 10px;
+}
+
+.myQr {
+  width: 136px;
+  height: 136px;
+  background: white;
+}
+
+.myQr img {
+  width: 136px;
+  height: 136px;
 }
 </style>

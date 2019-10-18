@@ -19,6 +19,7 @@
       <div v-else class="row mr-3">
         <div class="col-12" :key="student" v-for="student in filteredStd">
           <StudentCard
+            ref="stdcard"
             :student="student"
             :studentInfo="$store.state.students[student]"
           />
@@ -82,6 +83,9 @@ export default {
   },
   methods: {
     ...mapActions(['setStudents']),
+    onGetQr () {
+      this.$refs.stdcard.getQr()
+    },
     onFocusStd (name) {
       console.log(name)
     },
