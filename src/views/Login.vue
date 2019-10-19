@@ -119,6 +119,7 @@ export default {
   methods: {
     ...mapActions(['setUser', 'setUid', 'setDrivers', 'setStudents', 'setGroups', 'setBuses']),
     login () {
+      this.onAuth()
       let managerRef = firebase.firestore().collection('managers')
       if (this.email !== '' && this.password !== '') {
         this.errorMsg = ''
@@ -134,6 +135,14 @@ export default {
                 .then(data => {
                   this.setUser(data.data())
                 }).then(() => {
+                  managerRef.doc(user.user.uid).collection('cars').get()
+                    .then(snapshot => {
+                      let tmpBuses = {}
+                      snapshot.forEach(bus => {
+                        tmpBuses[bus.id] = bus.data()
+                      })
+                      this.setBuses(tmpBuses)
+                    })
                   managerRef.doc(user.user.uid).collection('drivers').orderBy('fname').get()
                     .then(snapshot => {
                       let tmpDrivers = {}
@@ -157,8 +166,9 @@ export default {
                         tmpGroups[group.id] = group.data()
                       })
                       this.setGroups(tmpGroups)
+                    }).then(() => {
+                      this.$router.replace('/dashboard')
                     })
-                  this.$router.replace('/dashboard')
                 })
             } else {
               this.errorMsg = 'โปรดยืนยันอีเมล'

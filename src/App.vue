@@ -19,7 +19,7 @@ export default {
   },
   mounted () {
     if (this.$route.path.includes('/dashboard')) {
-      firebase.auth().onAuthStateChanged(user => {
+      this.onAuth = firebase.auth().onAuthStateChanged(user => {
         if (user) {
           let managerRef = firebase.firestore().collection('managers').doc(user.uid)
           // ดึงข้อมูล user, uid มาใส่ใน vuex
@@ -27,9 +27,8 @@ export default {
             .then(data => {
               this.setUid(user.uid)
               this.setUser(data.data())
-              // this.isShow = true
             }).then(() => {
-              managerRef.collection('cars').orderBy('no').get()
+              managerRef.collection('cars').get()
                 .then(snapshot => {
                   let tmpBuses = {}
                   snapshot.forEach(bus => {
