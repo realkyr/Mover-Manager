@@ -11,7 +11,7 @@
         <Student class="managebus-logo mr-2" />
         รายชื่อนักเรียน
       </router-link>
-      <router-link
+      <!-- <router-link
         to="/dashboard/student/group"
         active-class="active"
         tag="div"
@@ -20,7 +20,7 @@
       >
         <Student class="managebus-logo mr-2" />
         จัดกลุ่มนักเรียน
-      </router-link>
+      </router-link> -->
     </div>
   </div>
 </template>

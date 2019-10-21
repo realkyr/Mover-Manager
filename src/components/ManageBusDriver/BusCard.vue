@@ -35,7 +35,7 @@
           </option>
         </select>
       </div>
-      <div class="form-group">
+      <!-- <div class="form-group">
         กลุ่มนักเรียน :
         <select class="custom-select mr-sm-2" id="bus-card-student-group" v-model="groupSelect">
           <option value="">เลือกกลุ่ม...</option>
@@ -45,7 +45,7 @@
             :value="group">{{ studentGroups[group].name }}
           </option>
         </select>
-      </div>
+      </div> -->
       <router-link :to="{ name:'check-student-console', params: {groupId: finalGroupSelect} }" tag="a" class="thai">เช็คชื่อนักเรียน</router-link>
       <button style="float: right;" @click="updateBus" class="btn mover-btn">บันทึก</button>
     </div>

@@ -60,9 +60,6 @@ export default {
     focusBus (data) {
       this.$refs.myMap.onFocusBus(data)
     }
-  },
-  beforeDestroy () {
-    // this.onBuses()
   }
 }
 </script>

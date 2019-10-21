@@ -5,7 +5,9 @@
         <div class="col-4 offset-1">
           <img src="../../assets/logo/logo.png"/>
           <p>
-            เรามุ่งมั่นพัฒนาระบบเทคโนโลยีสารสนเทศ เพื่อความปลอดภัยของลูกคุณ
+            Always work closely with the customer to enhance schooling services,
+            for those who need to serve good quality of educational facilities to our most essential treasure.
+             And to stably grow them up with the performance.
           </p>
         </div>
         <div class="col-5 offset-1">
