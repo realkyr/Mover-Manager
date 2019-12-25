@@ -19,10 +19,23 @@
       </span>
     </div>
     <!-- show this if not edit -->
-    <div v-if="!edit">คนขับ :
-      {{ driverName }}
+    <div class="mt-2" v-if="!edit">คนขับ :
+      <span v-if="driverSelect === ''">
+        <button v-if="!showQr" @click="showToggle" class="btn mover-btn thai ml-3">
+          <i class="fas fa-qrcode" /> check in คนขับ
+        </button>
+        <button v-if="showQr" @click="showToggle" class="btn mover-btn thai ml-3">
+          <i class="fas fa-times" /> ซ่อน QR Code
+        </button>
+        <div v-if="showQr">
+          <div v-if="qrImg === null" class="myQr mt-1"></div>
+          <div class="myQr mt-1" v-else>
+            <img :src="qrImg">
+          </div>
+        </div>
+      </span>
+      <span v-else> {{ driverName }} </span>
     </div>
-    <div v-if="!edit">กลุ่มนักเรียน : {{ groupName }}</div>
     <!-- edit section -->
     <div v-if="edit" class="edit-section">
       <div class="form-group">
@@ -35,18 +48,7 @@
           </option>
         </select>
       </div>
-      <!-- <div class="form-group">
-        กลุ่มนักเรียน :
-        <select class="custom-select mr-sm-2" id="bus-card-student-group" v-model="groupSelect">
-          <option value="">เลือกกลุ่ม...</option>
-          <option
-            v-for="group in Object.keys(studentGroups)"
-            :key="group"
-            :value="group">{{ studentGroups[group].name }}
-          </option>
-        </select>
-      </div> -->
-      <router-link :to="{ name:'check-student-console', params: {groupId: finalGroupSelect} }" tag="a" class="thai">เช็คชื่อนักเรียน</router-link>
+      <router-link :to="{ name:'check-student-console', params: {driverId: driver} }" tag="a" class="thai">เช็คชื่อนักเรียน</router-link>
       <button style="float: right;" @click="updateBus" class="btn mover-btn">บันทึก</button>
     </div>
   </div>
@@ -69,50 +71,40 @@ export default {
       type: String,
       default: ''
     },
-    studentGroups: {
-      type: Object
-    },
     bus: {
-      type: String,
-      default: ''
-    },
-    studentGroup: {
       type: String,
       default: ''
     }
   },
   mounted () {
-    this.driverName = this.$store.state.drivers[this.driver].prefix +
+    this.getQr(this.$store.state.buses[this.bus])
+    if (this.driver !== '') {
+      this.driverName = this.$store.state.drivers[this.driver].prefix +
       this.$store.state.drivers[this.driver].fname + ' ' + this.$store.state.drivers[this.driver].lname
-    this.groupSelect = this.$store.state.buses[this.bus].student_group
-    this.finalGroupSelect = this.$store.state.buses[this.bus].student_group
-    this.groupName = this.$store.state.stdGroups[this.groupSelect].name
-    // let managerRef = firebase.firestore().collection('managers').doc(this.$store.state.uid)
-    // managerRef.collection('drivers').doc(this.driver).get()
-    //   .then(data => {
-    //     this.driverName = data.data().prefix + data.data().fname + ' ' + data.data().lname
-    //   })
-    // managerRef.collection('cars').doc(this.bus).get()
-    //   .then(data => {
-    //     this.groupSelect = data.data().student_group
-    //     this.finalGroupSelect = data.data().student_group
-    //   }).then(() => {
-    //     if (this.groupSelect !== '') {
-    //       managerRef.collection('student-groups').doc(this.groupSelect).get()
-    //         .then(data => {
-    //           this.groupName = data.data().name
-    //         })
-    //     }
-    //   })
+    }
+    this.onGetQr = firebase.firestore().collection('managers').doc(this.$store.state.uid)
+      .collection('cars').onSnapshot(snapshot => {
+        snapshot.docChanges().forEach(change => {
+          if (change.type === 'modified' && this.bus === change.doc.id) {
+            this.getQr(change.doc.data())
+            if (change.doc.data().driver !== '') {
+              this.driverSelect = change.doc.data().driver
+              this.updateBus()
+            } else {
+              this.driverSelect = ''
+              this.driverName = ''
+            }
+          }
+        })
+      })
   },
   data () {
     return {
       edit: false,
       driverSelect: this.driver,
       driverName: '',
-      groupSelect: '',
-      groupName: '',
-      finalGroupSelect: ''
+      qrImg: null,
+      showQr: false
     }
   },
   methods: {
@@ -120,13 +112,14 @@ export default {
     editToggle () {
       this.edit = !this.edit
     },
+    showToggle () {
+      this.showQr = !this.showQr
+    },
     updateBus () {
       firebase.firestore().collection('managers').doc(this.$store.state.uid)
         .collection('cars').doc(this.bus).update({
-          'driver': this.driverSelect,
-          'student_group': this.groupSelect
+          'driver': this.driverSelect
         }).then(() => {
-          this.finalGroupSelect = this.groupSelect
           firebase.firestore().collection('managers').doc(this.$store.state.uid)
             .collection('cars').get()
             .then(snapshot => {
@@ -141,14 +134,23 @@ export default {
             .then(data => {
               this.driverName = data.data().prefix + data.data().fname + ' ' + data.data().lname
             })
-          firebase.firestore().collection('managers').doc(this.$store.state.uid)
-            .collection('student-groups').doc(this.groupSelect).get()
-            .then(data => {
-              this.groupName = data.data().name
-            })
-          this.edit = !this.edit
+          this.edit = false
+          this.showQr = false
         })
+    },
+    getQr (data) {
+      if ('url' in data) {
+        firebase.storage().ref().child(data.url).getDownloadURL()
+          .then(url => {
+            this.qrImg = url
+          })
+      } else {
+        console.log('wait for qr')
+      }
     }
+  },
+  beforeDestroy () {
+    this.onGetQr()
   }
 }
 </script>
@@ -189,5 +191,18 @@ export default {
 
   .edit-section {
     width: 246.86px;
+  }
+
+  .myQr {
+    width: 136px;
+    height: 136px;
+    background: white;
+    margin: auto;
+    display: block;
+  }
+
+  .myQr img {
+    width: 136px;
+    height: 136px;
   }
 </style>

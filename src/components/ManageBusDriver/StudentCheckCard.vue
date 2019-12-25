@@ -64,10 +64,9 @@ export default {
     }
     // get realtime firestore for get info check student
     this.onListener = firebase.firestore().collection('managers').doc(this.$store.state.uid)
-      .collection('student-groups').doc(this.$route.params.groupId)
-      .collection('checklist').doc(moment().format('YYYYMMDD')).onSnapshot(data => {
+      .collection('students-checklists').doc(moment().format('YYYYMMDD')).onSnapshot(data => {
         try {
-          this.isCheck = data.data()[this.student]
+          this.isCheck = data.data()[this.student].status
           if (this.isCheck === 1) {
             this.checkState = 'ขึ้นรถแล้ว'
           } else {
@@ -76,25 +75,6 @@ export default {
         } catch (err) {
         }
       })
-    // .collection('checklist').onSnapshot(snapshot => {
-    //   snapshot.docChanges().forEach(change => {
-    //     if (change.type === 'added') {
-    //       this.isCheck = change.doc.data()[this.student]
-    //       if (this.isCheck === 1) {
-    //         this.checkState = 'ขึ้นรถแล้ว'
-    //       } else {
-    //         this.checkState = 'ยังไม่ขึ้น'
-    //       }
-    //     } else if (change.type === 'modified') {
-    //       this.isCheck = change.doc.data()[this.student]
-    //       if (this.isCheck === 1) {
-    //         this.checkState = 'ขึ้นรถแล้ว'
-    //       } else {
-    //         this.checkState = 'ยังไม่ขึ้น'
-    //       }
-    //     }
-    //   })
-    // })
   },
   data () {
     return {
@@ -105,19 +85,24 @@ export default {
   },
   methods: {
     onCheck () {
-      let tmpCheck = {}
-      if (this.isCheck) {
-        let check = 1
-        tmpCheck[this.student] = check
-        this.checkState = 'ขึ้นรถแล้ว'
-      } else {
-        let check = 0
-        tmpCheck[this.student] = check
-        this.checkState = 'ยังไม่ขึ้น'
-      }
       firebase.firestore().collection('managers').doc(this.$store.state.uid)
-        .collection('student-groups').doc(this.$route.params.groupId)
-        .collection('checklist').doc(moment().format('YYYYMMDD')).update(tmpCheck)
+        .collection('students-checklists').doc(moment().format('YYYYMMDD')).get()
+        .then(data => {
+          let tmpCheck = {}
+          let tmpChecklists = data.data()
+          if (this.isCheck) {
+            let check = 1
+            tmpCheck[this.student] = check
+            this.checkState = 'ขึ้นรถแล้ว'
+          } else {
+            let check = 0
+            tmpCheck[this.student] = check
+            this.checkState = 'ยังไม่ขึ้น'
+          }
+          tmpChecklists[this.student].status = tmpCheck[this.student]
+          firebase.firestore().collection('managers').doc(this.$store.state.uid)
+            .collection('students-checklists').doc(moment().format('YYYYMMDD')).update(tmpChecklists)
+        })
     }
   },
   beforeDestroy () {

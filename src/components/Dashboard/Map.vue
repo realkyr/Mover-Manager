@@ -36,7 +36,7 @@ export default {
       this.getUserLocation()
     })
     // example of editing data in popup
-    this.onSnapshot = firebase.firestore().collection('managers').doc(this.$store.state.uid)
+    this.onMap = firebase.firestore().collection('managers').doc(this.$store.state.uid)
       .collection('cars').onSnapshot(snapshot => {
         snapshot.docChanges().forEach(change => {
           if (change.type === 'modified') {
@@ -205,7 +205,7 @@ export default {
     }
   },
   beforeDestroy () {
-    this.onSnapshot()
+    this.onMap()
   }
 }
 </script>

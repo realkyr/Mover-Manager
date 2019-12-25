@@ -38,50 +38,23 @@ export default {
   },
   mounted () {
     let managerRef = firebase.firestore().collection('managers').doc(this.$store.state.uid)
-    managerRef.collection('drivers').doc(this.businfo.driver).get()
-      .then(data => {
-        this.driverName = data.data().prefix + data.data().fname + ' ' + data.data().lname
-        this.driverTel = data.data().phone
-      })
-    try {
-      this.onChecklist = managerRef.collection('students-checklists').doc(moment().format('YYYYMMDD'))
-        .onSnapshot(snapshot => {
-          let checkData = snapshot.data()
-          let sid = Object.keys(checkData)
-          sid.forEach(id => {
-            if (checkData[id].status === 1 && checkData[id].driver.id === this.businfo.driver) {
-              this.remainingStd += 1
-            }
-          })
+    if (this.businfo.driver !== '') {
+      managerRef.collection('drivers').doc(this.businfo.driver).get()
+        .then(data => {
+          this.driverName = data.data().prefix + data.data().fname + ' ' + data.data().lname
+          this.driverTel = data.data().phone
         })
-      // managerRef.collection('student-groups').doc(this.businfo.student_group).get()
-      //   .then(data => {
-      //     this.totalStd = data.data().students.length
-      //     let tmpStd = data.data().students
-      //     this.onChecklist = managerRef.collection('student-groups').doc(this.businfo.student_group)
-      //       .collection('checklist').doc(moment().format('YYYYMMDD')).onSnapshot(check => {
-      //         try {
-      //           this.remainingStd = 0
-      //           tmpStd.forEach(sid => {
-      //             if (check.data()[sid] === 1) {
-      //               this.remainingStd += 1
-      //             }
-      //           })
-      //         } catch (err) {
-      //           let tmpCheckStd = {}
-      //           tmpStd.forEach(sid => {
-      //             tmpCheckStd[sid] = 0
-      //           })
-      //           managerRef.collection('student-groups').doc(this.businfo.student_group)
-      //             .collection('checklist').doc(moment().format('YYYYMMDD')).set(tmpCheckStd)
-      //             .then(() => {
-      //               managerRef.collection('student-groups').doc(this.businfo.student_group)
-      //                 .collection('checklist').doc(moment().subtract(1, 'days').format('YYYYMMDD')).delete()
-      //             })
-      //         }
-      //       })
-      //   })
-    } catch (err) {}
+    }
+    this.onChecklist = firebase.firestore().collection('managers').doc(this.$store.state.uid)
+      .collection('students-checklists').doc(moment().format('YYYYMMDD')).onSnapshot(snapshot => {
+        let checkData = snapshot.data()
+        let sid = Object.keys(checkData)
+        sid.forEach(id => {
+          if (checkData[id].status === 1 && checkData[id].driver.id === this.businfo.driver) {
+            this.remainingStd += 1
+          }
+        })
+      })
   },
   data () {
     return {

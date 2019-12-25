@@ -35,45 +35,16 @@ export default {
     StudentCheckCard
   },
   mounted () {
-    // ดึงข้อมูลนักเรียนทั้งหมดมา อ้างอิงจาก bus
+    // ดึงข้อมูลนักเรียนที่ขึ้นรถทั้งหมดมา อ้างอิงจาก driver ที่ผูกกับ bus
     let managerRef = firebase.firestore().collection('managers').doc(this.$store.state.uid)
-    if ('groupId' in this.$route.params) {
-      managerRef.collection('student-groups').doc(this.$route.params.groupId).get()
-        .then(data => {
-          this.students = data.data().students
-        })
-      managerRef.collection('student-groups').doc(this.$route.params.groupId)
-        .collection('checklist').get()
-        .then(docs => {
-          // ถ้ายังไม่มี doc ใน checklist สร้างใหม่
-          if (docs.size === 0) {
-            let tmpStudents = {}
-            this.students.forEach(sid => {
-              tmpStudents[sid] = 0
-            })
-            managerRef.collection('student-groups').doc(this.$route.params.groupId)
-              .collection('checklist').doc(moment().format('YYYYMMDD')).set(tmpStudents)
-          // ถ้ามีแล้วเช็คว่า doc ตรงวันที่?
-          } else {
-            let tmpStudents = {}
-            this.students.forEach(sid => {
-              tmpStudents[sid] = 0
-            })
-            docs.forEach(data => {
-              if (data.id !== moment().format('YYYYMMDD')) {
-                managerRef.collection('student-groups').doc(this.$route.params.groupId)
-                  .collection('checklist').doc(data.id).delete()
-                  .then(() => {
-                    managerRef.collection('student-groups').doc(this.$route.params.groupId)
-                      .collection('checklist').doc(moment().format('YYYYMMDD')).set(tmpStudents)
-                  })
-              }
-            })
+    managerRef.collection('students-checklists').doc(moment().format('YYYYMMDD')).get()
+      .then(data => {
+        for (let [key, value] of Object.entries(data.data())) {
+          if (value.driver.id === this.$route.params.driverId) {
+            this.students.push(key)
           }
-        })
-    } else {
-      this.$router.replace({ path: '/dashboard/bus' })
-    }
+        }
+      }).catch(() => {})
   },
   data () {
     return {
