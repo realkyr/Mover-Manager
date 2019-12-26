@@ -21,10 +21,10 @@
     <!-- show this if not edit -->
     <div class="mt-2" v-if="!edit">คนขับ :
       <span v-if="driverSelect === ''">
-        <button v-if="!showQr" @click="showToggle" class="btn mover-btn thai ml-3">
+        <button v-if="!showQr" @click="showToggle" class="btn mover-btn thai">
           <i class="fas fa-qrcode" /> check in คนขับ
         </button>
-        <button v-if="showQr" @click="showToggle" class="btn mover-btn thai ml-3">
+        <button v-if="showQr" @click="showToggle" class="btn mover-btn thai">
           <i class="fas fa-times" /> ซ่อน QR Code
         </button>
         <div v-if="showQr">

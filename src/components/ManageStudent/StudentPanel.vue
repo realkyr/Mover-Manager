@@ -91,23 +91,7 @@ export default {
     },
     onListenStd (input) {
       this.inputStd = input
-      // if (input === 'delete' && this.idx === -1) {
-      //   this.inputStd = this.inputStd.slice(0, this.idx)
-      // } else if (input === 'delete' && this.idx !== -1) {
-      //   const position = this.inputStd.length + this.idx
-      //   this.inputStd = this.inputStd.slice(0, position) +
-      //     this.inputStd.slice(position + 1)
-      // } else {
-      //   this.inputStd += input
-      // }
     }
-    // onListenIndex (valueIdx) {
-    //   if (valueIdx === -1 && this.inputStd.length + this.idx >= 0) {
-    //     this.idx += valueIdx
-    //   } else if (valueIdx === 1 && this.inputStd.length + this.idx !== this.inputStd.length - 1) {
-    //     this.idx += valueIdx
-    //   }
-    // }
   },
   beforeDestroy () {
     this.onStudent()

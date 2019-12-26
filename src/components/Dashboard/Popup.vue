@@ -48,12 +48,14 @@ export default {
     this.onChecklist = firebase.firestore().collection('managers').doc(this.$store.state.uid)
       .collection('students-checklists').doc(moment().format('YYYYMMDD')).onSnapshot(snapshot => {
         let checkData = snapshot.data()
-        let sid = Object.keys(checkData)
-        sid.forEach(id => {
-          if (checkData[id].status === 1 && checkData[id].driver.id === this.businfo.driver) {
-            this.remainingStd += 1
-          }
-        })
+        try {
+          let sid = Object.keys(checkData)
+          sid.forEach(id => {
+            if (checkData[id].status === 1 && checkData[id].driver.id === this.businfo.driver) {
+              this.remainingStd += 1
+            }
+          })
+        } catch (err) {}
       })
   },
   data () {

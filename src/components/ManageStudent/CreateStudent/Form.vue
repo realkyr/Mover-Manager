@@ -89,7 +89,6 @@ export default {
     addStudent () {
       let managerRef = firebase.firestore().collection('managers').doc(this.$store.state.uid)
       if (this.validate() && this.isNotStd()) {
-        console.log('23')
         managerRef
           .collection('students')
           .add({
@@ -113,10 +112,8 @@ export default {
         this.phone === ''
       ) {
         this.errMsg = '** โปรดกรอกข้อมูลให้ครบถ้วน'
-        console.log('notpass')
         return false
       } else {
-        console.log('pass')
         return true
       }
     },
@@ -130,12 +127,10 @@ export default {
         let stdData = this.$store.state.students[sid]
         if (stdData.fname === this.fname && stdData.lname === this.lname) {
           this.errName = '** ชื่อนักเรียนซ้ำ'
-          console.log('1')
           result = false
         }
         if (stdData.stu_no === this.sid) {
           this.errSid = '** รหัสประจำตัวนักเรียนซ้ำ'
-          console.log('2')
           result = false
         }
         if (
@@ -143,7 +138,6 @@ export default {
           stdData.lname !== this.lname &&
           stdData.stu_no !== this.sid
         ) {
-          console.log('3')
           result = true
         }
       })
